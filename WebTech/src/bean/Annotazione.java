@@ -3,6 +3,7 @@ package bean;
 import java.sql.Date;
 
 public class Annotazione {
+	private String proprietario;
 	private Date data_creazione;
 	private boolean validita;
 	private String fiducia;
@@ -30,5 +31,11 @@ public class Annotazione {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public String getProprietario() {
+		return proprietario;
+	}
+	public void setProprietario(String proprietario) {
+		this.proprietario = proprietario;
 	}
 }

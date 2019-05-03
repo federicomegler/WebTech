@@ -9,6 +9,7 @@ public class Utente {
 	private String esperienza;
 	private File immagine;
 	private boolean manager;//true se è un manager
+	private boolean valid;
 	
 	public String getNome() {
 		return nome;
@@ -45,5 +46,11 @@ public class Utente {
 	}
 	public void setManager(boolean manager) {
 		this.manager = manager;
+	}
+	public boolean isValid() {
+		return valid;
+	}
+	public void setValid(boolean valid) {
+		this.valid = valid;
 	}
 }
