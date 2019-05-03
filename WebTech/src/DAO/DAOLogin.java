@@ -1,4 +1,5 @@
 package DAO;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,12 +17,10 @@ public class DAOLogin {
 		this.connection = connessione;
 	}
 	
-	public boolean checkLogin(String username, String password) {
-		return checkManager(username, password);
-	}
-	
-	private boolean checkManager(String username, String password) {
+	public Utente checkLogin(String username, String password) {
 		String query = "select * from Manager where (username = ? or mail = ?) and password = ?";
+		Utente utente = new Utente();
+		utente.setValid(false);
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
@@ -29,15 +28,19 @@ public class DAOLogin {
 			pstate.setString(3, password);
 			ris = pstate.executeQuery();
 			if(ris.next()) {
-				Utente manager = new Utente();
-				manager.setNome(ris.getString("username"));
-				manager.setPassword(password);
-				manager.setMail(ris.getString("mail"));
+				utente.setNome(ris.getString("username"));
+				utente.setPassword(password);
+				utente.setMail(ris.getString("mail"));
+				utente.setEsperienza(ris.getString("esperienza"));
+				utente.setImmagine((File)ris.getBlob("immagine"));
+				utente.setManager(ris.getBoolean("manager"));
+				utente.setValid(true);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
+			utente.setValid(false);
+			return utente;
 		}
 		finally {
 			try {
@@ -48,6 +51,6 @@ public class DAOLogin {
 				e.printStackTrace();
 			}
 		}
-		return false;
+		return utente;
 	}
 }

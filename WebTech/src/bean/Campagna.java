@@ -3,7 +3,7 @@ package bean;
 public class Campagna {
 	private int ID_campagna;
 	private String nome;
-	private Utente committente;
+	private String committente;
 	private String stato;
 	public int getID_campagna() {
 		return ID_campagna;
@@ -17,10 +17,10 @@ public class Campagna {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Utente getCommittente() {
+	public String getCommittente() {
 		return committente;
 	}
-	public void setCommittente(Utente committente) {
+	public void setCommittente(String committente) {
 		this.committente = committente;
 	}
 	public String getStato() {
