@@ -4,14 +4,16 @@ import java.io.File;
 import java.sql.Date;
 
 public class Immagine {
-	private Localita provenienza;
+	private String provenienza;
 	private Date data_recupero;
 	private String risoluzione;
 	private File immagine;
-	public Localita getProvenienza() {
+	private int ID_localita;
+	
+	public String getProvenienza() {
 		return provenienza;
 	}
-	public void setProvenienza(Localita provenienza) {
+	public void setProvenienza(String provenienza) {
 		this.provenienza = provenienza;
 	}
 	public Date getData_recupero() {
@@ -31,5 +33,11 @@ public class Immagine {
 	}
 	public void setImmagine(File immagine) {
 		this.immagine = immagine;
+	}
+	public int getID_localita() {
+		return ID_localita;
+	}
+	public void setID_localita(int iD_localita) {
+		ID_localita = iD_localita;
 	}
 }
