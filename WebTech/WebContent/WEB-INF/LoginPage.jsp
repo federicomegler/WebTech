@@ -13,7 +13,7 @@
 		<input type="submit" value="login">
 	</form>
 	
-	Se non hai una account<a href=""> registrati qui.</a>
+	Se non hai una account<a href="Signup"> registrati qui.</a>
 	
 </body>
 </html>

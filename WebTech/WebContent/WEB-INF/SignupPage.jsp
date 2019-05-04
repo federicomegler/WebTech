@@ -12,8 +12,8 @@
 		<input placeholder="Mail" type="text" name="mail" required="required"><br>
 		<input placeholder="Password" type="password" name="password" required="required"><br>
 		<input placeholder="Reinserisci password" type="password" required="required"><br><br>
-		Manager <input type="radio" name="tipo_account" checked="checked"><br>
-		Lavoratore <input type="radio" name="tipo_account"><br>
+		Manager <input type="radio" name="tipo_account" checked="checked" value="manager"><br>
+		Lavoratore <input type="radio" name="tipo_account" value="lavoratore"><br>
 		<input type= "submit" value="Registrati">
 	</form>
 </body>

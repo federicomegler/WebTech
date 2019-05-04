@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
-import DAO.DAOLogin;
+import DAO.DAOUtente;
 import bean.Utente;
 
 /**
@@ -65,7 +65,7 @@ public class CheckLogin extends HttpServlet {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		DAOLogin daologin = new DAOLogin(connection);
+		DAOUtente daologin = new DAOUtente(connection);
 		Utente utente = new Utente();
 		utente = daologin.checkLogin(username, password);
 		if(utente.isValid()) {
