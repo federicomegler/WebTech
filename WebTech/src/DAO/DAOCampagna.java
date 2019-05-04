@@ -18,15 +18,17 @@ public class DAOCampagna {
 		this.connection = connessione;
 	}
 
-	public boolean cambioStato(String id, String s) {
+	public boolean cambioStato(int id, String s) {
 		
-		String query = "INSERT INTO campagna (nome,committente,stato) VALUES (?,?,'creato')";
-		if(DAOLocalita.checkimage(id)) {
+		String query = "UPDATE campagna SET stato =? WHERE id=?";
+		DAOLocalita d= new DAOLocalita(connection);
+		if(d.checkLocImage(id)) {
+			
 		try {
 			pstate = connection.prepareStatement(query);
-			pstate.setString(1,id);
+			pstate.setInt(1,id);
 			pstate.setString(2,s);
-			ris = pstate.executeQuery();
+		    pstate.executeQuery();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -41,21 +43,46 @@ public class DAOCampagna {
 				e.printStackTrace();
 			}	
 	}
+		return true;
 		}
 		else return false;
 		
 	}
 	
-	
-	
-	public void addCampagna(String nome, String committente) {
+	public void addsubscription (int id, String username) {
+		
+		String query = "INSERT INTO sottoscrizione (id,user) VALUES (?,?)";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1,id);
+			pstate.setString(2, username);
+			pstate.executeQuery();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
+		finally {
+			try {
+				pstate.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+
+    public void addCampagna(String nome, String committente) {
 		
 		String query = "INSERT INTO campagna (nome,committente,stato) VALUES (?,?,'creato')";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1,nome);
 			pstate.setString(2, committente);
-			ris = pstate.executeQuery();
+			pstate.executeQuery();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -76,7 +103,7 @@ public class DAOCampagna {
 	
 	public List<Campagna> getManagerCampagna (String username) {
 		List <Campagna> campagne= new ArrayList<Campagna>();
-		String query = "select * from campagna where committente = ?";
+		String query = "select * from campagna where committente = ? order by stato desc";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
@@ -87,7 +114,7 @@ public class DAOCampagna {
 				c.setNome(ris.getString("nome"));
 				c.setCommittente(ris.getString("committente"));
 				c.setStato(ris.getString("stato"));
-				c.setID_campagna(ris.getString("idcampagna"));
+				c.setID_campagna(ris.getInt("idcampagna"));
 				campagne.add(c);
 			}
 		} catch (SQLException e) {
@@ -121,7 +148,7 @@ public class DAOCampagna {
 				c.setNome(ris.getString("nome"));
 				c.setCommittente(ris.getString("committente"));
 				c.setStato(ris.getString("stato"));
-				c.setID_campagna(ris.getString("idcampagna"));
+				c.setID_campagna(ris.getInt("idcampagna"));
 				campagnesvolte.add(c);
 			}
 		} catch (SQLException e) {
@@ -144,7 +171,7 @@ public class DAOCampagna {
 	
 	public List<Campagna> getWorkerCampagnaNonSvolta (String username) {
 		List <Campagna> campagnenonsvolte=new ArrayList<Campagna>();
-		String query = "select * from campagne where id not in ( select id from campagnesvolta where user = ?)";
+		String query = "select * from campagne where stato='avviata' and id not in ( select id from campagnesvolta where user = ?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
@@ -155,7 +182,7 @@ public class DAOCampagna {
 				c.setNome(ris.getString("nome"));
 				c.setCommittente(ris.getString("committente"));
 				c.setStato(ris.getString("stato"));
-				c.setID_campagna(ris.getString("idcampagna"));
+				c.setID_campagna(ris.getInt("idcampagna"));
 				campagnenonsvolte.add(c);
 			}
 		} catch (SQLException e) {
