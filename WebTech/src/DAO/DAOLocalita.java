@@ -21,10 +21,7 @@ public class DAOLocalita {
 	}
 	
 	public boolean checkLocImage(int idcampagna) { 
-		String query = "select id from localitaponte where idcampagna=? "
-				+ " except select dinstict(idlocalita) "
-				+ "from immagine as i join localita as l on (i.idlocalita=l.id) "
-				+ "where l.idcampagna=? )";
+		String query = "select * from mappacampagna where idcampagna=? and idimmagine=null ";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setInt(1, idcampagna);
@@ -88,17 +85,17 @@ public class DAOLocalita {
     	
     }
 
-    public List<Localita> getPlaces(int idlocalita){
+    public List<Localita> getPlaces(int idcampagna){
     	List<Localita> places= new ArrayList<Localita>();
-		String query = "select * from localita where id =?";   //da vedere dopo le tabelleeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+		String query = "select * from localita where id in (select idlocalita from mappacampagna where idcampagna=?)";
 		try {
 			pstate = connection.prepareStatement(query);
-			pstate.setInt(1, idlocalita);
+			pstate.setInt(1, idcampagna);
 			ris = pstate.executeQuery();
 			if(ris.next()) {
 				Localita l=new Localita();
 				l.setComune(ris.getString("comune"));
-				l.setID_localita(ris.getInt("iD_localita"));
+				l.setID_localita(ris.getInt("id"));
 				l.setLatitudine(ris.getDouble("latitudine"));
 				l.setLongitudine(ris.getDouble("longitudine"));
 				l.setNome(ris.getString("nome"));
@@ -121,4 +118,7 @@ public class DAOLocalita {
 		}
     	return places;
     }
+
+
 }
+

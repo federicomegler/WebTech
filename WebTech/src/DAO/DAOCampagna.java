@@ -26,8 +26,8 @@ public class DAOCampagna {
 			
 		try {
 			pstate = connection.prepareStatement(query);
-			pstate.setInt(1,id);
-			pstate.setString(2,s);
+			pstate.setInt(2,id);
+			pstate.setString(1,s);
 		    pstate.executeQuery();
 			
 		} catch (SQLException e) {
@@ -51,7 +51,7 @@ public class DAOCampagna {
 	
 	public void addsubscription (int id, String username) {
 		
-		String query = "INSERT INTO sottoscrizione (id,user) VALUES (?,?)";
+		String query = "INSERT INTO iscrizione (idcampagna,user) VALUES (?,?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setInt(1,id);
@@ -77,7 +77,7 @@ public class DAOCampagna {
 
     public void addCampagna(String nome, String committente) {
 		
-		String query = "INSERT INTO campagna (nome,committente,stato) VALUES (?,?,'creato')";
+		String query = "INSERT INTO campagna (nome,committente,stato) VALUES (?,?,'creata')";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1,nome);
@@ -135,9 +135,9 @@ public class DAOCampagna {
 		return campagne;
 	}
 	
-	public List<Campagna> getWorkerCampagnaSvolta (String username) {
+	public List<Campagna> getWorkerCampagnaOptata (String username) {
 		List <Campagna> campagnesvolte= new ArrayList<Campagna>();
-		String query = "select * from campagne where id in ( select id from campagnesvolta where user = ?)";
+		String query = "select * from campagne where stato='avviata' and id in ( select idcampagna from iscrizione where user = ?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
@@ -171,7 +171,7 @@ public class DAOCampagna {
 	
 	public List<Campagna> getWorkerCampagnaNonSvolta (String username) {
 		List <Campagna> campagnenonsvolte=new ArrayList<Campagna>();
-		String query = "select * from campagne where stato='avviata' and id not in ( select id from campagnesvolta where user = ?)";
+		String query = "select * from campagne where stato='avviata' and id not in ( select id from iscrizione where user = ?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
