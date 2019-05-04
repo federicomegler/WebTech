@@ -18,7 +18,7 @@ public class DAOUtente {
 	}
 	
 	public Utente checkLogin(String username, String password) {
-		String query = "select * from Manager where (username = ? or mail = ?) and password = ?";
+		String query = "select * from webtech.utente where (username = ? or mail = ?) and password = ?";
 		Utente utente = new Utente();
 		utente.setValid(false);
 		try {
@@ -78,13 +78,37 @@ public class DAOUtente {
 	}
 	
 	public boolean aggiungiManager(Utente utente) {
-		String query = "insert into webtech.utente (username,mail,password,ruolo) values (?,?,?,?)";
+		String query = "insert into webtech.utente (username,mail,password,manager) values (?,?,?,?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, utente.getNome());
 			pstate.setString(2, utente.getMail());
 			pstate.setString(3, utente.getPassword());
 			pstate.setBoolean(4, true);
+			pstate.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			try {
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return true;
+	}
+	
+	public boolean aggiungiLavoratore(Utente utente) {
+		String query = "insert into webtech.utente (username,mail,password,manager,esperienza) values (?,?,?,?,?)";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, utente.getNome());
+			pstate.setString(2, utente.getMail());
+			pstate.setString(3, utente.getPassword());
+			pstate.setBoolean(4, true);
+			pstate.setString(5, utente.getEsperienza());
 			pstate.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

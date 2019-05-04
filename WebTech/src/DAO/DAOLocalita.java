@@ -65,7 +65,7 @@ public class DAOLocalita {
 			pstate.setString(5, nome);
 			pstate.setString(6, comune);
 			pstate.setString(7, regione);
-			pstate.executeQuery();
+			pstate.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -76,7 +76,30 @@ public class Signup extends HttpServlet {
 			DAOUtente daoutente = new DAOUtente(connection);
 			if(daoutente.esisteUtente(utente) == 0) {
 				if(daoutente.aggiungiManager(utente)) {
-					request.getRequestDispatcher("/WEB-INF/LoginPage.jsp").forward(request, response);
+					response.sendRedirect(request.getContextPath()+"/Login");
+				}
+				else {
+					request.setAttribute("errore", 1);
+					doGet(request, response);
+				}
+			}
+			else {
+				request.setAttribute("errore", 1);
+				doGet(request, response);
+			}
+		}
+		else {
+			Utente utente = new Utente();
+			utente.setNome(username);
+			utente.setMail(mail);
+			utente.setPassword(password);
+			utente.setManager(false);
+			utente.setEsperienza("bassa");
+			DAOUtente daoutente = new DAOUtente(connection);
+			if(daoutente.esisteUtente(utente) == 0) {
+				//--------------------------------------------------------------------------
+				if(daoutente.aggiungiManager(utente)) {
+					response.sendRedirect(request.getContextPath()+"/Login");
 				}
 				else {
 					request.setAttribute("errore", 1);
@@ -89,5 +112,4 @@ public class Signup extends HttpServlet {
 			}
 		}
 	}
-
 }

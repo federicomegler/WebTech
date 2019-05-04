@@ -28,7 +28,7 @@ public class DAOCampagna {
 			pstate = connection.prepareStatement(query);
 			pstate.setInt(2,id);
 			pstate.setString(1,s);
-		    pstate.executeQuery();
+		    pstate.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -56,7 +56,7 @@ public class DAOCampagna {
 			pstate = connection.prepareStatement(query);
 			pstate.setInt(1,id);
 			pstate.setString(2, username);
-			pstate.executeQuery();
+			pstate.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -82,7 +82,7 @@ public class DAOCampagna {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1,nome);
 			pstate.setString(2, committente);
-			pstate.executeQuery();
+			pstate.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

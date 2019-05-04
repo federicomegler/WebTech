@@ -7,6 +7,7 @@
 <title>SignUp</title>
 </head>
 <body>
+
 	<form action="Signup" method="Post">
 		<input placeholder="Nome Utente" type="text" name="username" required="required"> <br>
 		<input placeholder="Mail" type="text" name="mail" required="required"><br>
@@ -17,4 +18,5 @@
 		<input type= "submit" value="Registrati">
 	</form>
 </body>
+
 </html>
