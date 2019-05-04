@@ -177,7 +177,6 @@ public class DAOCampagna {
 			pstate.setString(1, username);
 			ris = pstate.executeQuery();
 			if(ris.next()) {
-				
 				Campagna c =new Campagna();
 				c.setNome(ris.getString("nome"));
 				c.setCommittente(ris.getString("committente"));
