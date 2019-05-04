@@ -11,28 +11,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import DAO.DAOUtente;
 import bean.Utente;
 
 /**
- * Servlet implementation class CheckLogin
+ * Servlet implementation class Signup
  */
-@WebServlet("/CheckLogin")
-public class CheckLogin extends HttpServlet {
+@WebServlet("/Signup")
+public class Signup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CheckLogin() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
     public void init() {
 		ServletContext context = getServletContext();
 		String driver = context.getInitParameter("dbDriver");
@@ -49,6 +39,14 @@ public class CheckLogin extends HttpServlet {
 		}
 
     }
+	
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Signup() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -56,6 +54,7 @@ public class CheckLogin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/WEB-INF/SignupPage.jsp").forward(request, response);
 	}
 
 	/**
@@ -64,17 +63,31 @@ public class CheckLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
+		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
-		DAOUtente daologin = new DAOUtente(connection);
-		Utente utente = new Utente();
-		utente = daologin.checkLogin(username, password);
-		if(utente.isValid()) {
-			HttpSession session = request.getSession();
-			session.setAttribute("UtenteConnesso", utente);
-			request.getRequestDispatcher("/WEB-INF/HomePage.jsp").forward(request, response);
-		}
-		else {
-			response.sendRedirect("/Login");
+		String tipo = request.getParameter("tipo_account");
+		
+		if(tipo.equals("manager")) {
+			Utente utente = new Utente();
+			utente.setNome(username);
+			utente.setMail(mail);
+			utente.setPassword(password);
+			utente.setManager(true);
+			DAOUtente daoutente = new DAOUtente(connection);
+			if(daoutente.esisteUtente(utente) == 0) {
+				if(daoutente.aggiungiManager(utente)) {
+					request.getRequestDispatcher("/WEB-INF/LoginPage.jsp").forward(request, response);
+				}
+				else {
+					request.setAttribute("errore", 1);
+					doGet(request, response);
+				}
+			}
+			else {
+				request.setAttribute("errore", 1);
+				doGet(request, response);
+			}
 		}
 	}
+
 }

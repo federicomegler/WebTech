@@ -8,4 +8,50 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/controller/Login</url-pattern>
   </servlet-mapping>
+  
+  
+  
+  
+  <servlet>
+    <servlet-name>Signup</servlet-name>
+    <servlet-class>controller.Signup</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Signup</servlet-name>
+    <url-pattern>/controller/Signup</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  <servlet>
+    <servlet-name>CheckLogin</servlet-name>
+    <servlet-class>controller.CheckLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckLogin</servlet-name>
+    <url-pattern>/controller/CheckLogin</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  <display-name>JDBC Application</display-name>
+  <context-param>
+    <param-name>dbUrl</param-name>
+    <param-value> jdbc:mysql://localhost/utente</param-value>
+  </context-param>
+  <context-param>
+    <param-name>dbUser</param-name>
+    <param-value>root</param-value>
+  </context-param>
+  <context-param>
+    <param-name>dbPassword</param-name>
+    <param-value>gruppo6</param-value>
+  </context-param>
+  <context-param>
+    <param-name>dbDriver</param-name>
+    <param-value>com.mysql.cj.jdbc.Driver</param-value>
+  </context-param>
 </web-app>

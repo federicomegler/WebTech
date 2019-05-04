@@ -8,12 +8,12 @@
 </head>
 <body>
 	<form action="CheckLogin" method="post">
-		<input placeholder="Username" name="username" type="text">
-		<input placeholder="Password" name="password" type="password">
+		<input placeholder="Username" name="username" type="text" required="required">
+		<input placeholder="Password" name="password" type="password" required="required">
 		<input type="submit" value="login">
 	</form>
 	
-	Se non hai una account<a href=""> registrati qui.</a>
+	Se non hai una account<a href="Signup"> registrati qui.</a>
 	
 </body>
 </html>
