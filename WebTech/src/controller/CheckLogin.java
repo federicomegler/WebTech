@@ -70,7 +70,9 @@ public class CheckLogin extends HttpServlet {
 		if(utente.isValid()) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("UtenteConnesso", utente.getNome());
-			request.getRequestDispatcher("/WEB-INF/HomePage.jsp").forward(request, response);
+			request.setAttribute("nome", "eureka");
+			response.addHeader("nome", "eureka");
+			request.getRequestDispatcher("/Home").include(request, response);
 		}
 		else {
 			response.sendRedirect("/Login");
