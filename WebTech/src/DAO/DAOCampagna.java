@@ -75,14 +75,18 @@ public class DAOCampagna {
 		
 	}
 
-    public void addCampagna(String nome, String committente) {
-		
-		String query = "INSERT INTO campagna (nome,committente,stato) VALUES (?,?,'creata')";
+    public int addCampagna(String nome, String committente) {
+		int id=0;
+		String query = "INSERT INTO campagna (nome,committente,stato) VALUES (?,?,'creata');"
+				 +"SELECT last_insert_id() as id";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1,nome);
 			pstate.setString(2, committente);
-			pstate.executeUpdate();
+			ris=pstate.executeQuery();
+			if(ris.next()) {
+				id=ris.getInt("id");
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -92,6 +96,7 @@ public class DAOCampagna {
 		finally {
 			try {
 				pstate.close();
+				ris.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -99,6 +104,7 @@ public class DAOCampagna {
 			
 		}
 		
+		return id;
 	}
 	
 	public List<Campagna> getManagerCampagnaAperta (String username) {
