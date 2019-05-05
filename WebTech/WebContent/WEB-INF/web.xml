@@ -17,6 +17,14 @@
     <url-pattern>/controller/Signup</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>controller.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/controller/Logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>CheckLogin</servlet-name>
     <servlet-class>controller.CheckLogin</servlet-class>
   </servlet>

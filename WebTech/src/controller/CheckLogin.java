@@ -67,8 +67,6 @@ public class CheckLogin extends HttpServlet {
 		utente = daologin.checkLogin(username, password);
 		if(utente.isValid()) {
 			HttpSession session = request.getSession(true);
-			request.setAttribute("nome", "pippo");
-			System.out.println(utente.getNome());
 			session.setAttribute("UtenteConnesso", utente.getNome());
 			getServletContext().getRequestDispatcher("/Home").forward(request, response);
 		}
