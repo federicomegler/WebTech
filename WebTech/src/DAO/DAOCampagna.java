@@ -101,9 +101,9 @@ public class DAOCampagna {
 		
 	}
 	
-	public List<Campagna> getManagerCampagna (String username) {
+	public List<Campagna> getManagerCampagnaAperta (String username) {
 		List <Campagna> campagne= new ArrayList<Campagna>();
-		String query = "select * from campagna where committente = ? order by stato desc";
+		String query = "select * from campagna where committente = ? and stato='aperta' order by nome";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
@@ -135,6 +135,74 @@ public class DAOCampagna {
 		return campagne;
 	}
 	
+	public List<Campagna> getManagerCampagnaChiusa (String username) {
+		List <Campagna> campagne= new ArrayList<Campagna>();
+		String query = "select * from campagna where committente = ? and stato='chiusa' order by nome";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, username);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+		
+				Campagna c =new Campagna();
+				c.setNome(ris.getString("nome"));
+				c.setCommittente(ris.getString("committente"));
+				c.setStato(ris.getString("stato"));
+				c.setID_campagna(ris.getInt("idcampagna"));
+				campagne.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return campagne;
+	}
+	
+	public List<Campagna> getManagerCampagnaCreata (String username) {
+		List <Campagna> campagne= new ArrayList<Campagna>();
+		String query = "select * from campagna where committente = ? and campagna='creata' order by nome";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, username);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+		
+				Campagna c =new Campagna();
+				c.setNome(ris.getString("nome"));
+				c.setCommittente(ris.getString("committente"));
+				c.setStato(ris.getString("stato"));
+				c.setID_campagna(ris.getInt("idcampagna"));
+				campagne.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return campagne;
+	}
+		
 	public List<Campagna> getWorkerCampagnaOptata (String username) {
 		List <Campagna> campagnesvolte= new ArrayList<Campagna>();
 		String query = "select * from campagne where stato='avviata' and id in ( select idcampagna from iscrizione where user = ?)";
