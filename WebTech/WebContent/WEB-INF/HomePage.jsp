@@ -7,7 +7,7 @@
 <meta charset="ISO-8859-1">
 <title>Home Page</title>
 </head>
-<body>
-	ciao
-</body>
+	<body>
+		ciao
+	</body>
 </html>

@@ -45,7 +45,6 @@ public class Signup extends HttpServlet {
      */
     public Signup() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -97,8 +96,7 @@ public class Signup extends HttpServlet {
 			utente.setEsperienza("bassa");
 			DAOUtente daoutente = new DAOUtente(connection);
 			if(daoutente.esisteUtente(utente) == 0) {
-				//--------------------------------------------------------------------------
-				if(daoutente.aggiungiManager(utente)) {
+				if(daoutente.aggiungiLavoratore(utente)) {
 					response.sendRedirect(request.getContextPath()+"/Login");
 				}
 				else {

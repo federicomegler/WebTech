@@ -30,7 +30,6 @@ public class CheckLogin extends HttpServlet {
      */
     public CheckLogin() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     public void init() {
@@ -54,8 +53,7 @@ public class CheckLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -69,10 +67,10 @@ public class CheckLogin extends HttpServlet {
 		utente = daologin.checkLogin(username, password);
 		if(utente.isValid()) {
 			HttpSession session = request.getSession(true);
+			request.setAttribute("nome", "pippo");
+			System.out.println(utente.getNome());
 			session.setAttribute("UtenteConnesso", utente.getNome());
-			request.setAttribute("nome", "eureka");
-			response.addHeader("nome", "eureka");
-			request.getRequestDispatcher("/Home").include(request, response);
+			getServletContext().getRequestDispatcher("/Home").forward(request, response);
 		}
 		else {
 			response.sendRedirect("/Login");

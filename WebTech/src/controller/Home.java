@@ -26,8 +26,10 @@ public class Home extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println(request.getParameter("nome"));
+		System.out.println(request.getAttribute("nome"));
 		System.out.println("ciao");
+		System.out.println(request.getSession().getAttribute("UtenteConnesso"));
+		request.setAttribute("utente", (String)request.getSession().getAttribute("UtenteConnesso"));
 		request.getRequestDispatcher("/WEB-INF/HomePage.jsp").forward(request, response);
 	}
 
