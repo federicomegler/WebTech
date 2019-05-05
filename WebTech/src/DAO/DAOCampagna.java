@@ -75,14 +75,18 @@ public class DAOCampagna {
 		
 	}
 
-    public void addCampagna(String nome, String committente) {
-		
-		String query = "INSERT INTO campagna (nome,committente,stato) VALUES (?,?,'creata')";
+    public int addCampagna(String nome, String committente) {
+		int id=0;
+		String query = "INSERT INTO campagna (nome,committente,stato) VALUES (?,?,'creata');"
+				 +"SELECT last_insert_id() as id";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1,nome);
 			pstate.setString(2, committente);
-			pstate.executeUpdate();
+			ris=pstate.executeQuery();
+			if(ris.next()) {
+				id=ris.getInt("id");
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -92,6 +96,7 @@ public class DAOCampagna {
 		finally {
 			try {
 				pstate.close();
+				ris.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -99,11 +104,12 @@ public class DAOCampagna {
 			
 		}
 		
+		return id;
 	}
 	
-	public List<Campagna> getManagerCampagna (String username) {
+	public List<Campagna> getManagerCampagnaAperta (String username) {
 		List <Campagna> campagne= new ArrayList<Campagna>();
-		String query = "select * from campagna where committente = ? order by stato desc";
+		String query = "select * from campagna where committente = ? and stato='aperta' order by nome";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
@@ -135,6 +141,74 @@ public class DAOCampagna {
 		return campagne;
 	}
 	
+	public List<Campagna> getManagerCampagnaChiusa (String username) {
+		List <Campagna> campagne= new ArrayList<Campagna>();
+		String query = "select * from campagna where committente = ? and stato='chiusa' order by nome";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, username);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+		
+				Campagna c =new Campagna();
+				c.setNome(ris.getString("nome"));
+				c.setCommittente(ris.getString("committente"));
+				c.setStato(ris.getString("stato"));
+				c.setID_campagna(ris.getInt("idcampagna"));
+				campagne.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return campagne;
+	}
+	
+	public List<Campagna> getManagerCampagnaCreata (String username) {
+		List <Campagna> campagne= new ArrayList<Campagna>();
+		String query = "select * from campagna where committente = ? and campagna='creata' order by nome";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, username);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+		
+				Campagna c =new Campagna();
+				c.setNome(ris.getString("nome"));
+				c.setCommittente(ris.getString("committente"));
+				c.setStato(ris.getString("stato"));
+				c.setID_campagna(ris.getInt("idcampagna"));
+				campagne.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return campagne;
+	}
+		
 	public List<Campagna> getWorkerCampagnaOptata (String username) {
 		List <Campagna> campagnesvolte= new ArrayList<Campagna>();
 		String query = "select * from campagne where stato='avviata' and id in ( select idcampagna from iscrizione where user = ?)";
