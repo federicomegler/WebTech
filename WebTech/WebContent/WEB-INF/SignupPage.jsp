@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link href="CSS/SignupStyle.css" type="text/css" rel="stylesheet">
 <title>SignUp</title>
 </head>
 <body>
-
+	<div class="registrazione">
 	<form action="Signup" id="form" method="Post">
 		<input placeholder="Nome Utente" type="text" name="username" required="required"> <br><br>
 		<input placeholder="Mail" id="mail" type="text" name="mail" required="required"> <label id="erroreMail" style="color: red"></label><br><br>
@@ -18,7 +19,9 @@
 		Lavoratore <input type="radio" name="tipo_account" value="lavoratore"><br><br>
 		<input type= "submit" value="Registrati" onclick="return checkCredenziali()">
 	</form>
-	
+	<br>
+	Hai gia' un account? <a href="Login">Login</a>
+	</div>
 </body>
 
 </html>
