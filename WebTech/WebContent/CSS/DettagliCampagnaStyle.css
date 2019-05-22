@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+.step{
+    
+display: none;
+
+    
+}
+input.invalid {
+  background-color: #ffdddd;
+}
+#mapid{
+    width: 600px;
+    height: 400px;
+}

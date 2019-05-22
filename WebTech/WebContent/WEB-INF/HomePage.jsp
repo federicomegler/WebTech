@@ -1,23 +1,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Home Page</title>
 </head>
 <body>
-	<a><c:out value="${nomeutente}"></c:out></a>
-	<a href="Logout">Logout</a>
+
+	<div class="menu">
+	
+		<a href="Profilo"><c:out value="${nomeutente}"></c:out></a> 
+		<a href="Logout"> Logout </a>
+		
+	</div>
+	
+	
+	
 	<table>
 		<c:forEach var="campagna" items="${listacampagna}">
 			<tr>
-				<td><a> <c:out value="${campagna}"></c:out>
+				<td><a href=""> <c:out value="${campagna}"></c:out>
 				</a></td>
 			</tr>
 		</c:forEach>
 	</table>
+	
+	
+	<div>
+	<form action="GetDettagli" method="get"><input type="submit" value="Dettaglio"></form>
+				
+	</div>
+	
 
 	<div>
 		<form action="" method="post">
@@ -38,5 +53,6 @@
 			</table>
 		</form>
 	</div>
+
 </body>
 </html>

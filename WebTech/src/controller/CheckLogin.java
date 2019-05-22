@@ -59,6 +59,7 @@ public class CheckLogin extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -71,7 +72,8 @@ public class CheckLogin extends HttpServlet {
 			getServletContext().getRequestDispatcher("/Home").forward(request, response);
 		}
 		else {
-			response.sendRedirect("/Login");
+			request.setAttribute("errore", 1);
+			getServletContext().getRequestDispatcher("/Login").forward(request, response);
 		}
 	}
 }

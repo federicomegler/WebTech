@@ -6,7 +6,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
-    <url-pattern>/controller/Login</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Signup</servlet-name>
@@ -15,6 +15,14 @@
   <servlet-mapping>
     <servlet-name>Signup</servlet-name>
     <url-pattern>/controller/Signup</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetDettagli</servlet-name>
+    <servlet-class>controller.GetDettagli</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetDettagli</servlet-name>
+    <url-pattern>/controller/GetDettagli</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Logout</servlet-name>
@@ -40,6 +48,16 @@
     <servlet-name>Home</servlet-name>
     <url-pattern>/controller/Home</url-pattern>
   </servlet-mapping>
+  <jsp-config>
+<jsp-property-group>
+ <url-pattern>*.jsp</url-pattern>
+ <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
+</jsp-property-group>
+</jsp-config>
+<mime-mapping>
+    <extension>css</extension>
+    <mime-type>text/css</mime-type>
+</mime-mapping>
   <display-name>JDBC Application</display-name>
   <context-param>
     <param-name>dbUrl</param-name>
