@@ -52,9 +52,9 @@ public class DAOLocalita {
 	}
 
     public void addLocalita(int id,double latitudine, double longitudine, String nome,
-    		                           String comune, String regione, int idcampagna ) {
-    	String query = "INSERT INTO localita (id,idcampagna,latitudine,longitudine,nome,comune,regione) "
-    			+ "VALUES (?,?,?,?,?,?,?)";
+    		                           String comune, String regione, int idcampagna, String stato) {
+    	String query = "INSERT INTO localita (id,idcampagna,latitudine,longitudine,nome,comune,regione,stato) "
+    			+ "VALUES (?,?,?,?,?,?,?,?)";
     	 
 		try {
 			pstate = connection.prepareStatement(query);
@@ -65,6 +65,7 @@ public class DAOLocalita {
 			pstate.setString(5, nome);
 			pstate.setString(6, comune);
 			pstate.setString(7, regione);
+			pstate.setString(8, stato);
 			pstate.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -100,12 +101,12 @@ public class DAOLocalita {
 				l.setLongitudine(ris.getDouble("longitudine"));
 				l.setNome(ris.getString("nome"));
 				l.setRegione(ris.getString("regione"));
+				l.setStato("stato");
 				places.add(l);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		
+			e.printStackTrace();		
 		}
 		finally {
 			try {
@@ -118,7 +119,4 @@ public class DAOLocalita {
 		}
     	return places;
     }
-
-
 }
-

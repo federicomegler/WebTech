@@ -1,9 +1,11 @@
 @charset "ISO-8859-1";
-.step{
-    
-display: none;
 
-    
+body{
+  width:fit-content;
+  height:fit-content;
+}
+.step{
+display: none;
 }
 input.invalid {
   background-color: #ffdddd;
@@ -11,4 +13,26 @@ input.invalid {
 #mapid{
     width: 600px;
     height: 400px;
+}
+
+#mapareacontainer{
+  width:fit-content;
+  height:fit-content;
+  float: left;
+}
+
+#formareacontainer{
+  width:fit-content;
+  height:fit-content;
+  float: right;
+}
+#formmappa{
+  width: 790px;
+  height:400px;
+}
+.buttons{
+  float: right;
+}
+button{
+	border-radius: 10px;
 }

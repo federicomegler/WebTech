@@ -26,7 +26,7 @@
         
         <div class="wizard">
             
-            <form id="addelement" action="ClearAll()" method="post">
+            <form id="addelement" action="http:www.google.com" method="post">
                        
             
             <!-- step1 con localita esistente o si crea nuova-->
@@ -37,18 +37,18 @@
                 <div id="mapid" ></div>
               </div> 
                 <div id="formareacontainer">
-                 <p><input  id="locazione" placeholder="Località" oninput="this.className = ''" name="localita" oninput="this.className = ''" onchange="cambiapopup()"></p>
-                 <p><input  id="C" placeholder="Comune" oninput="this.className = ''" name="comune"  oninput="this.className = ''" disabled></p>
-                 <p><input  id="R" placeholder="Regione" oninput="this.className = ''" name="regione" oninput="this.className = ''" disabled></p>
-                 <p><input  id="S" placeholder="Stato" oninput="this.className = ''" name="stato" oninput="this.className = ''" disabled></p>
-                 <p><input  id="lat" placeholder="Latitudine" oninput="this.className = ''" name="latitudine"  oninput="this.className = ''" disabled></p>
-                 <p><input  id="lon" placeholder="Longitudine" oninput="this.className = ''" name="longitudine" oninput="this.className = ''" disabled></p>
+                 <p><input  id="locazione" placeholder="Località" name="localita" oninput="this.className = ''" onchange="cambiapopup()"></p>
+                 <p><input  id="C" placeholder="Comune" name="comune"  oninput="this.className = ''" disabled></p>
+                 <p><input  id="R" placeholder="Regione" name="regione" oninput="this.className = ''" disabled></p>
+                 <p><input  id="S" placeholder="Stato" name="stato" oninput="this.className = ''" disabled></p>
+                 <p><input  id="lat" placeholder="Latitudine" name="latitudine"  oninput="this.className = ''" disabled></p>
+                 <p><input  id="lon" placeholder="Longitudine" name="longitudine" oninput="this.className = ''" disabled></p>
                 </div>
                </div>
             </div>
             <!-- step2 inserimento dell'immagine-->
             <div class="step">
-              <input id="i" type="file" oninput="this.className = ''">
+              <input id="i" type="file" oninput="this.className = ''" name="file">
               <div class="imagecontainer">
                 <img src="" style="display: none" height="200" height="300" id="image">
               </div>
@@ -59,14 +59,13 @@
                 <p><input type="date" placeholder="Data di recupero" oninput="this.className = ''" name="datarecupero" oninput="this.className = ''"></p>
                 <p><input placeholder="Risoluzione" oninput="this.className = ''" name="risoluzione" oninput="this.className = ''"></p>
             </div>
-             <div style="overflow:auto;">
-                <div style="float:right;">
+             <br><br>
+                <div class="buttons">
         <!-- invio alla funzione di quanto devo spostarmi in base a allo step che voglio vedere-->
                     <button type="button" id="precedente" onclick="Spostapos(-1)">Precedenete</button>
                     <button type="button" id="successivo" onclick="Spostapos(1)">Successivo</button>
                     <button type= "button" id="cancella"  onclick="ClearAll()">Clear</button>
                 </div>
-               </div>
             </form>
         </div>
     </div>

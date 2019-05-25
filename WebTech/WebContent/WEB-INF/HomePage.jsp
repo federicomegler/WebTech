@@ -16,8 +16,6 @@
 		
 	</div>
 	
-	
-	
 	<table>
 		<c:forEach var="campagna" items="${listacampagna}">
 			<tr>

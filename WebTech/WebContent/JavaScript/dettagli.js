@@ -32,8 +32,6 @@ function Spostapos(pos){
     stepcorrente=stepcorrente+pos
    if(stepcorrente==steps.length){
    document.getElementById("addelement").submit();
-   ClearAll()
-   stepcorrente=0
    }
    mostrastep(stepcorrente)
   }

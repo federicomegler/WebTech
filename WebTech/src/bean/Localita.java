@@ -7,6 +7,7 @@ public class Localita {
 	private String nome;
 	private String comune;
 	private String regione;
+	private String stato;
 	
 	
 	public int getID_localita() {
@@ -44,5 +45,11 @@ public class Localita {
 	}
 	public void setRegione(String regione) {
 		this.regione = regione;
+	}
+	public String getStato() {
+		return stato;
+	}
+	public void setStato(String stato) {
+		this.stato = stato;
 	}
 }

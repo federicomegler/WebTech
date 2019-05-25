@@ -1,11 +1,67 @@
 @charset "ISO-8859-1";
-.form{
-	width: 200px;
-    height: 200px;
-    background: #25FF00;
+.box{
+	background-color:#f0f0f0;
+	width: 300px;
+    height: 300px;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -100px;
-    margin-left: -100px;
+    margin-top: -150px;
+    margin-left: -150px;
+}
+
+.form{
+	position:relative;
+	left: 72;
+	top: 40;
+	}
+
+
+	.input {
+	position: relative;
+	width: 50%;
+}
+.input .text{
+	width: 100%;
+	outline: none;
+	border:none;
+	border-bottom: 1px solid #777;
+ 	box-shadow: none !important;
+}
+.input .text:focus{
+	background-color:#eff5fd;
+	border-color: blue;
+	border-width: medium medium 2px;
+}
+.input .floating-label {
+	position: absolute;
+	pointer-events: none;
+	top: 18px;
+	left: 10px;
+	transition: 0.2s ease-in-out all;
+}
+.input input:focus ~ .floating-label,
+.input input:not(:focus):valid ~ .floating-label{
+	top: 0px;
+	left: 10px;
+	font-size: 13px;
+	opacity: 1;
+}
+.submit{
+	width: fit-content;
+	background-color:red;
+	position: relative;
+	left:50;
+	top:15;
+}
+.link{
+	width: fit-content;
+	background-color: red;
+	position: relative;
+	left:40;
+	top:50;
+}
+#button{
+	border-radius:10px;
+	border-color: grey;	
 }
