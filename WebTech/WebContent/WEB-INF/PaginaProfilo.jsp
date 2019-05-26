@@ -6,19 +6,26 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Profilo - ${utente}</title>
+<link href="CSS/ProfiloStyle.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div class="menu">
-		
-		<a href="Logout"> Logout </a>
-	
+	<div class="topnav">
+  		<a style="float: left;" href="Home">HOME</a>
+  		<a style="float: right;" href="Logout">LOGOUT</a>
+  		<a style="float: right;" href="">MODIFICA PROFILO</a>
 	</div>
-	
-	<div class="info">
-		<img alt="Immagine profilo" src="">
-		Nickname:   <c:out value="${nickname}"></c:out>
-		Mail:	<c:out value="${mail}"></c:out>
-		Tipo profilo:   <c:out value="${tipo profilo}"></c:out>
+	<br>
+	<div class="immagine">
+		<img alt="Immagine profilo"
+			src="http://localhost:8081/Images/${immagine}">
 	</div>
+	<br>
+	<table>
+	<tr><td>Nickname:</td><td><c:out value="${nickname}"></c:out></td></tr>
+	<tr><td>Mail:</td><td><c:out value="${mail}"></c:out></td></tr>
+	<tr><td>Esperienza:</td><td><c:out value="${esperienza}"></c:out></td></tr>
+	<tr><td>Tipo Utente:</td><td><c:out value="${tipo}"></c:out></td></tr>
+	</table>
+	<br>
 </body>
 </html>

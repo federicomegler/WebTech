@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import bean.Utente;
 
@@ -122,5 +124,24 @@ public class DAOUtente {
 			}
 		}
 		return true;
+	}
+	
+	public Utente getInfo(String username){
+		Utente info = new Utente();
+		String query = "select * from webtech.utente where username = ?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, username);
+			ris = pstate.executeQuery();
+			while(ris.next()) {
+				info.setNome(ris.getString("username"));
+				info.setMail(ris.getString("mail"));
+				info.setEsperienza(ris.getString("esperienza"));
+				info.setManager(ris.getBoolean("manager"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return info;
 	}
 }

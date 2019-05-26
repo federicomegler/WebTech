@@ -10,11 +10,9 @@
 </head>
 <body>
 
-	<div class="menu">
-	
-		<a href="Profilo"><c:out value="${nomeutente}"></c:out></a> 
-		<a href="Logout"> Logout </a>
-		
+	<div class="topnav">
+  		<a style="float: left;" href="Profilo">PROFILO</a>
+  		<a style="float: right;" href="Logout">LOGOUT</a>
 	</div>
 	
 	<table>
