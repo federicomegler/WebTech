@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home Page</title>
+<link rel="stylesheet" type="text/css" href="CSS/HomePageStyle.css">
 </head>
 <body>
 
@@ -32,7 +33,7 @@
 	</div>
 	
 
-	<div>
+	<div class="modulocreazione">
 		<form action="" method="post">
 			<table>
 				<tr>
