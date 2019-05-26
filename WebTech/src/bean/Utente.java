@@ -7,7 +7,7 @@ public class Utente {
 	private String password;
 	private String mail;
 	private String esperienza;
-	private File immagine;
+	private String immagine;
 	private boolean manager;//true se è un manager
 	private boolean valid;
 	
@@ -35,12 +35,6 @@ public class Utente {
 	public void setEsperienza(String esperienza) {
 		this.esperienza = esperienza;
 	}
-	public File getImmagine() {
-		return immagine;
-	}
-	public void setImmagine(File immagine) {
-		this.immagine = immagine;
-	}
 	public boolean isManager() {
 		return manager;
 	}
@@ -52,5 +46,11 @@ public class Utente {
 	}
 	public void setValid(boolean valid) {
 		this.valid = valid;
+	}
+	public String getImmagine() {
+		return immagine;
+	}
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
 	}
 }

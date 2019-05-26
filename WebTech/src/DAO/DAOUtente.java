@@ -34,7 +34,6 @@ public class DAOUtente {
 				utente.setPassword(password);
 				utente.setMail(ris.getString("mail"));
 				utente.setEsperienza(ris.getString("esperienza"));
-				utente.setImmagine((File)ris.getBlob("immagine"));
 				utente.setManager(ris.getBoolean("manager"));
 				utente.setValid(true);
 			}

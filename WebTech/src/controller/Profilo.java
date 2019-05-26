@@ -58,7 +58,13 @@ public class Profilo extends HttpServlet {
 		request.setAttribute("nickname", info.getNome());
 		request.setAttribute("mail", info.getMail());
 		request.setAttribute("esperienza", info.getEsperienza());
-		request.setAttribute("immagine","default.png");
+		if(info.getImmagine() == null) {
+			request.setAttribute("immagine","default.png");
+		}
+		else {
+			request.setAttribute("immagine",info.getImmagine());
+		}
+		
 		if(info.isManager()) {
 			request.setAttribute("tipo", "Manager");
 		}

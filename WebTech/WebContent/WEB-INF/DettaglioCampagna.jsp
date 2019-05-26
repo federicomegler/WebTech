@@ -16,8 +16,12 @@
 </head>
 <body>
 
-<br>
-<div class="container">
+	<div class="topnav">
+  		<a style="float: left;" href="Home">HOME</a>
+  		<a style="float: right;" href="Logout">LOGOUT</a>
+	</div>
+	
+	<div class="container">
         <div class="details">
             <p id="nome">nome</p>
             <p id="committente">committente</p>
