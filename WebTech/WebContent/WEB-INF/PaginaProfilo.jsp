@@ -7,6 +7,7 @@
 <meta charset="ISO-8859-1">
 <title>Profilo - ${utente}</title>
 <link href="CSS/ProfiloStyle.css" rel="stylesheet" type="text/css">
+<script src="JavaScript/modificaProfilo.js" type="text/javascript" defer></script>
 </head>
 <body>
 	<div class="topnav">
@@ -17,9 +18,9 @@
 	<div class="container">
 	<div class="immagine">
 		<img alt="Immagine profilo"
-			src="/Images/antilope.jpg" class="image">
+			src="/Images/${immagine}" class="image">
 			<div class="middle"><div class="text" onclick="CambiaImmagine()">Cambia Immagine</div></div>
-			<form action="" >
+			<form action="CambiaImmagineProfilo" method="post" enctype="multipart/form-data" id="formimmagine">
 				<input id="selezionaimmagine" type="file" name="nuovaimmagine" style="display: none" onchange="return confermaCambioImmagine()">
 			</form>
 	</div>
@@ -28,7 +29,9 @@
 	
 	<table>
 	<tr><td>Nickname:</td><td><c:out value="${nickname}"></c:out></td></tr>
-	<tr><td>Mail:</td><td><input type="text" value="${mail}" id="mail" disabled></td></tr>
+	<tr><td>Mail:</td><td><input type="text" value="${mail}" id="mail" disabled></td><td><button id="modificaemail" onclick="abilitaModificaEmail()">Modifica Email</button>
+	<button id="confermaemail" style="display:none;" onclick="confermaModificaEmail()">Conferma</button><button id="annullaemail" style="display:none;" onclick="annullaModificaEmail()">Annulla</button></td>
+	<td id="errore mail" style="color: red; display: none;">Email non valida</td></tr>
 	<tr><td>Esperienza:</td><td><c:out value="${esperienza}"></c:out></td></tr>
 	<tr><td>Tipo Utente:</td><td><c:out value="${tipo}"></c:out></td></tr>
 	</table>
@@ -41,36 +44,8 @@
 			<input id="nuova2" type="password" placeholder="Conferma Password" name="nuovapassword2" required><br><br>
 			<label id="errore" style="display: none; color: red;">Le password non corrispondono</label><br>
 			<input type="submit" value="Cambia Password" onclick="return ModificaPassword()"><br><br>
-			<button onclick="AnnullaCambioPassword()"> Annulla</button>
+			<button onclick="return AnnullaCambioPassword()"> Annulla </button>
 		</form>
 	</div>
 </body>
 </html>
-<script>
-	function CreaNuovaPassword(){
-	  document.getElementById("FormPassword").style.display = "block";
-	  document.getElementById("BottoneNuovaPassword").style.display = "none";
-	}
-	
-	function AnnullaCambioPassword(){
-		document.getElementById("FormPassword").style.display = "none";
-		document.getElementById("BottoneNuovaPassword").style.display = "block";
-	}
-	function ModificaPassword(){
-		if(document.getElementById("nuova1").value == document.getElementById("nuova2").value){
-			document.getElementById("formpassword").submit();
-		}
-		else{
-			document.getElementById("errore").style.display = "block";
-			document.getElementById("nuova1").style.background = "#ffdddd";
-			document.getElementById("nuova2").style.background = "#ffdddd";
-			document.getElementById("nuova1").value = "";
-			document.getElementById("nuova2").value = "";
-			return false;
-		}
-	}
-	
-	function CambiaImmagine(){
-		document.getElementById("selezionaimmagine").click();
-	}
-</script>

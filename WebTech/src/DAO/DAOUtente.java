@@ -125,6 +125,18 @@ public class DAOUtente {
 		return true;
 	}
 	
+	public void aggiornaImmagine(String username, String immagine) {
+		String query = "update webtech.utente set immagine=? where username=?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, immagine);
+			pstate.setString(2, username);
+			pstate.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Utente getInfo(String username){
 		Utente info = new Utente();
 		String query = "select * from webtech.utente where username = ?";
@@ -137,6 +149,7 @@ public class DAOUtente {
 				info.setMail(ris.getString("mail"));
 				info.setEsperienza(ris.getString("esperienza"));
 				info.setManager(ris.getBoolean("manager"));
+				info.setImmagine(ris.getString("immagine"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

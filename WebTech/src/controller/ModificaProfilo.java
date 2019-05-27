@@ -37,5 +37,4 @@ public class ModificaProfilo extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
