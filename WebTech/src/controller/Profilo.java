@@ -49,29 +49,36 @@ public class Profilo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tomcatBase = System.getProperty("catalina.base");
-		String path = "\\webapps\\Images\\";
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String utente = (String)request.getSession().getAttribute("UtenteConnesso");
-		DAOUtente dati_utente = new DAOUtente(connection);
-		Utente info = dati_utente.getInfo(utente);
-		request.setAttribute("nickname", info.getNome());
-		request.setAttribute("mail", info.getMail());
-		request.setAttribute("esperienza", info.getEsperienza());
-		if(info.getImmagine() == null) {
-			request.setAttribute("immagine","default.png");
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
 		}
 		else {
-			request.setAttribute("immagine",info.getImmagine());
+			String tomcatBase = System.getProperty("catalina.base");
+			String path = "\\webapps\\Images\\";
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			String utente = (String)request.getSession().getAttribute("UtenteConnesso");
+			DAOUtente dati_utente = new DAOUtente(connection);
+			Utente info = dati_utente.getInfo(utente);
+			request.setAttribute("nickname", info.getNome());
+			request.setAttribute("mail", info.getMail());
+			request.setAttribute("esperienza", info.getEsperienza());
+			if(info.getImmagine() == null) {
+				request.setAttribute("immagine","default.png");
+			}
+			else {
+				request.setAttribute("immagine",info.getImmagine());
+			}
+			
+			if(info.isManager()) {
+				request.setAttribute("tipo", "Manager");
+			}
+			else {
+				request.setAttribute("tipo", "Lavoratore");
+			}
+			getServletContext().getRequestDispatcher("/WEB-INF/PaginaProfilo.jsp").forward(request, response);
 		}
 		
-		if(info.isManager()) {
-			request.setAttribute("tipo", "Manager");
-		}
-		else {
-			request.setAttribute("tipo", "Lavoratore");
-		}
-		getServletContext().getRequestDispatcher("/WEB-INF/PaginaProfilo.jsp").forward(request, response);
+		
 	}
 
 	/**

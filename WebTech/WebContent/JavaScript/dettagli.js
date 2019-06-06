@@ -54,11 +54,12 @@ function validateForm() {
   }
   return valid
 }
-  
+
 function ClearAll(){
       document.getElementById("image").style.display="none";
       document.getElementById("addelement").reset()
       Spostapos(-stepcorrente)
+      mymap.closePopup();
   }
   
 var loadFile= function (){
@@ -87,7 +88,7 @@ var loadFile= function (){
 //mappa
 
 
-var mymap = L.map('mapid').setView([45.7802507654344,9.199769496808585], 13);
+var mymap = L.map('mapid').setView([45.7802507654344,9.199769496808585], 15);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,

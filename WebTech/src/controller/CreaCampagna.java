@@ -58,30 +58,35 @@ public class CreaCampagna extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String lon = request.getParameter("");
-		String lat = request.getParameter("");
-		String stato = request.getParameter("");
-		String regione = request.getParameter("");
-		String comune = request.getParameter("");
-		String localita = request.getParameter("");
-		String provenienza = request.getParameter("");
-		String data_recupero = request.getParameter("");
-		String risoluzione = request.getParameter("");
-		
-		
-		String tomcatBase = System.getProperty("catalina.base");
-		String path = "\\webapps\\Images\\";
-		File saveDir = new File(tomcatBase);
-		if(!saveDir.exists()) {
-			saveDir.mkdirs();
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
 		}
-		Part part = request.getPart("file");
-		String estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
-		System.out.println(estensione);
-		//inserisco nel database i dati relativi all'immagine e all'estensione.
-		//il database mi restituisce il nuovo nome(unico), salvo il file con il nuovo nome
-		part.write(tomcatBase  + path + "file3.jpg");
+		else {
+			String lon = request.getParameter("");
+			String lat = request.getParameter("");
+			String stato = request.getParameter("");
+			String regione = request.getParameter("");
+			String comune = request.getParameter("");
+			String localita = request.getParameter("");
+			String provenienza = request.getParameter("");
+			String data_recupero = request.getParameter("");
+			String risoluzione = request.getParameter("");
+			
+			
+			String tomcatBase = System.getProperty("catalina.base");
+			String path = "\\webapps\\Images\\";
+			File saveDir = new File(tomcatBase);
+			if(!saveDir.exists()) {
+				saveDir.mkdirs();
+			}
+			Part part = request.getPart("file");
+			String estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
+			System.out.println(estensione);
+			//inserisco nel database i dati relativi all'immagine e all'estensione.
+			//il database mi restituisce il nuovo nome(unico), salvo il file con il nuovo nome
+			part.write(tomcatBase  + path + "file3.jpg");
+		}
+		
 		
 	}
 

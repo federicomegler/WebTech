@@ -61,19 +61,25 @@ public class CheckLogin extends HttpServlet {
 	 */
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		DAOUtente daologin = new DAOUtente(connection);
-		Utente utente = new Utente();
-		utente = daologin.checkLogin(username, password);
-		if(utente.isValid()) {
-			HttpSession session = request.getSession(true);
-			session.setAttribute("UtenteConnesso", utente.getNome());
-			getServletContext().getRequestDispatcher("/Home").forward(request, response);
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
 		}
 		else {
-			request.setAttribute("errore", 1);
-			getServletContext().getRequestDispatcher("/Login").forward(request, response);
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			DAOUtente daologin = new DAOUtente(connection);
+			Utente utente = new Utente();
+			utente = daologin.checkLogin(username, password);
+			if(utente.isValid()) {
+				HttpSession session = request.getSession(true);
+				session.setAttribute("UtenteConnesso", utente.getNome());
+				getServletContext().getRequestDispatcher("/Home").forward(request, response);
+			}
+			else {
+				request.setAttribute("errore", 1);
+				getServletContext().getRequestDispatcher("/Login").forward(request, response);
+			}
 		}
+		
 	}
 }

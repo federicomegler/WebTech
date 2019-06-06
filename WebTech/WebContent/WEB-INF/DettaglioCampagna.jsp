@@ -18,6 +18,7 @@
 
 	<div class="topnav">
   		<a style="float: left;" href="Home">HOME</a>
+  		<a style="float: left;" href="Profilo">PROFILO</a>
   		<a style="float: right;" href="Logout">LOGOUT</a>
 	</div>
 	
@@ -27,6 +28,11 @@
             <p id="committente">committente</p>
             <p id="stato">stato</p>
         </div>
+        
+       <form action="GetMap" method="post">
+       		<input type="submit" value="Visualizza Mappa">
+       </form>
+        <br>
         
         <div class="wizard">
             

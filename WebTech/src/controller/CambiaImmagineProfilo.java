@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import DAO.DAOUtente;
+import bean.Utente;
 
 /**
  * Servlet implementation class CambiaImmagineProfilo
@@ -52,30 +53,39 @@ public class CambiaImmagineProfilo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tomcatBase = System.getProperty("catalina.base");
-		String path = "\\webapps\\Images\\";
-		File saveDir = new File(tomcatBase);
-		if(!saveDir.exists()) {
-			saveDir.mkdirs();
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
 		}
-		Part part = request.getPart("nuovaimmagine");
-		String estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
-		String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
-		DAOUtente utente = new DAOUtente(connection);
-		utente.aggiornaImmagine(nome_utente, nome_utente+estensione);
-		File immagine = new File(tomcatBase  + path + nome_utente + estensione);
-		if(immagine.exists()) {
-			immagine.delete();
+		else {
+			String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
+			DAOUtente utente = new DAOUtente(connection);
+			String tomcatBase = System.getProperty("catalina.base");
+			String path = "\\webapps\\ImmaginiUtente\\";
+			Utente user = utente.getInfo(nome_utente);
+			System.out.println(request.getParameter("nuovaimmagine"));
+			
+				File saveDir = new File(tomcatBase);
+				if(!saveDir.exists()) {
+					saveDir.mkdirs();
+				}
+				Part part = request.getPart("nuovaimmagine");
+				String estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
+				utente.aggiornaImmagine(nome_utente, nome_utente + estensione);
+				File immagine = new File(tomcatBase  + path + user.getImmagine());
+				if(immagine.exists()) {
+					immagine.delete();
+				}
+				part.write(tomcatBase  + path + nome_utente + estensione);
+				getServletContext().getRequestDispatcher("/Profilo").forward(request, response);
 		}
-		part.write(tomcatBase  + path + nome_utente + estensione);
-		getServletContext().getRequestDispatcher("/Profilo").forward(request, response);
+		
+		
 	}
 }

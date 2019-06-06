@@ -15,12 +15,12 @@
 	left: 72;
 	top: 40;
 	}
-
-
-	.input {
+	
+.input {
 	position: relative;
 	width: 50%;
 }
+
 .input .text{
 	width: 100%;
 	outline: none;
@@ -28,11 +28,13 @@
 	border-bottom: 1px solid #777;
  	box-shadow: none !important;
 }
+
 .input .text:focus{
 	background-color:#eff5fd;
 	border-color: blue;
 	border-width: medium medium 2px;
 }
+
 .input .floating-label {
 	position: absolute;
 	pointer-events: none;
@@ -40,6 +42,7 @@
 	left: 10px;
 	transition: 0.2s ease-in-out all;
 }
+
 .input input:focus ~ .floating-label,
 .input input:not(:focus):valid ~ .floating-label{
 	top: 0px;
@@ -47,20 +50,21 @@
 	font-size: 13px;
 	opacity: 1;
 }
+
 .submit{
 	width: fit-content;
-	background-color:red;
 	position: relative;
 	left:50;
 	top:15;
 }
+
 .link{
 	width: fit-content;
-	background-color: red;
 	position: relative;
 	left:40;
 	top:50;
 }
+
 #button{
 	border-radius:10px;
 	border-color: grey;	

@@ -8,24 +8,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class GetMap
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/GetMap")
+public class GetMap extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public GetMap() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/LoginPage.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
+		}
+		else {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			getServletContext().getRequestDispatcher("/WEB-INF/MapPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

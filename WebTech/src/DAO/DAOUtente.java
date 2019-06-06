@@ -135,8 +135,32 @@ public class DAOUtente {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			try {
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
+	public void eliminaImmagine(String username) {
+		String query = "update webtech.utente set immagine=null where username=?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, username);
+			pstate.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	public Utente getInfo(String username){
 		Utente info = new Utente();
 		String query = "select * from webtech.utente where username = ?";
@@ -153,6 +177,13 @@ public class DAOUtente {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			try {
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return info;
 	}

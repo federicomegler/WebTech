@@ -34,8 +34,13 @@ function CambiaImmagine(){
 }
 
 function confermaCambioImmagine(){
-	document.getElementById("formimmagine").submit();
-	return true;
+	if(confirm("L'immagine profilo verra' modificata!")){
+		document.getElementById("formimmagine").submit();
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 function abilitaModificaEmail(){
@@ -74,4 +79,14 @@ function checkEmail(nuovaemail) {
     else{
 		return false;
     }
+}
+
+function eliminaImmagine(){
+	if(confirm("L'immagine verra' rimossa")){
+		//document.getElementById("formimmagine").submit();
+		return true;
+	}
+	else{
+		return false;
+	}
 }
