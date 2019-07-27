@@ -61,10 +61,6 @@ public class CheckLogin extends HttpServlet {
 	 */
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("UtenteConnesso") == null) {
-			response.sendRedirect("Login");
-		}
-		else {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			DAOUtente daologin = new DAOUtente(connection);
@@ -79,7 +75,5 @@ public class CheckLogin extends HttpServlet {
 				request.setAttribute("errore", 1);
 				getServletContext().getRequestDispatcher("/Login").forward(request, response);
 			}
-		}
-		
 	}
 }

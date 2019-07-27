@@ -4,6 +4,7 @@
 var stepcorrente=0;
 mostrastep(stepcorrente)
 
+
 function mostrastep(s){
     
     var step = document.getElementsByClassName("step")
@@ -191,3 +192,16 @@ function onClick_Marker(e) {
          document.getElementById("lon").value=x.lng;
 	 reverseGeocode(x);
 }
+
+window.onload = function (){
+	  document.getElementById("precedente").addEventListener("click", (e) => {
+	    Spostapos(-1);
+	  },false);
+	  document.getElementById("successivo").addEventListener("click", (e) => {
+	    Spostapos(1);
+	  },false);
+	  document.getElementById("cancella").addEventListener("click", (e) => {
+	    ClearAll();
+	  },false);
+
+	}

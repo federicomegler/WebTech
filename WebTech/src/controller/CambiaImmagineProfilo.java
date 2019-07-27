@@ -67,9 +67,8 @@ public class CambiaImmagineProfilo extends HttpServlet {
 			String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
 			DAOUtente utente = new DAOUtente(connection);
 			String tomcatBase = System.getProperty("catalina.base");
-			String path = "\\webapps\\ImmaginiUtente\\";
+			String path = "/webapps/ImmaginiUtente/";
 			Utente user = utente.getInfo(nome_utente);
-			System.out.println(request.getParameter("nuovaimmagine"));
 			
 				File saveDir = new File(tomcatBase);
 				if(!saveDir.exists()) {

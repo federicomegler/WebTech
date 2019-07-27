@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta http-equiv="Cache-Control" content="no-store" />
-<title>Profilo - ${utente}</title>
+<title>Profilo - ${nickname}</title>
 <link href="CSS/ProfiloStyle.css" rel="stylesheet" type="text/css">
 <script src="JavaScript/modificaProfilo.js" type="text/javascript" defer></script>
 </head>
@@ -22,8 +22,8 @@
 			<img alt="Immagine profilo" src="/ImmaginiUtente/${immagine}"
 				class="image">
 			<div class="middle">
-				<div class="cambia" onclick="CambiaImmagine()">Cambia Immagine</div>
-				<div class="elimina" onclick="eliminaImmagine()">Elimina
+				<div class="cambia" id="cambia">Cambia Immagine</div>
+				<div class="elimina" id="elimina">Elimina
 					Immagine</div>
 			</div>
 			<form action="CambiaImmagineProfilo" method="post"
@@ -43,12 +43,10 @@
 		<tr>
 			<td>Mail:</td>
 			<td><input type="text" value="${mail}" id="mail" disabled></td>
-			<td><button id="modificaemail" onclick="abilitaModificaEmail()">Modifica
+			<td><button id="modificaemail">Modifica
 					Email</button>
-				<button id="confermaemail" style="display: none;"
-					onclick="confermaModificaEmail()">Conferma</button>
-				<button id="annullaemail" style="display: none;"
-					onclick="annullaModificaEmail()">Annulla</button></td>
+				<button id="confermaemail" style="display: none;">Conferma</button>
+				<button id="annullaemail" style="display: none;">Annulla</button></td>
 			<td id="errore mail" style="color: red; display: none;">Email
 				non valida</td>
 		</tr>
@@ -62,7 +60,7 @@
 		</tr>
 	</table>
 	<br>
-	<button onclick="CreaNuovaPassword()" id="BottoneNuovaPassword">Modifica
+	<button id="BottoneNuovaPassword">Modifica
 		password</button>
 	<div style="display: none;" id="FormPassword">
 		<form action="http:google.com" method="post" id="formpassword"
@@ -74,10 +72,11 @@
 			<br> <input id="nuova2" type="password"
 				placeholder="Conferma Password" name="nuovapassword2" required><br>
 			<br> <label id="errore" style="display: none; color: red;">Le
-				password non corrispondono</label><br> <input type="submit"
-				value="Cambia Password" onclick="return ModificaPassword()"><br>
+				password non corrispondono</label><br> 
+				<input type="submit"
+				value="Cambia Password" id="cambiaPassword"><br>
 			<br>
-			<button onclick="return AnnullaCambioPassword()">Annulla</button>
+			<button id="annullaCambioPassword">Annulla</button>
 		</form>
 	</div>
 </body>

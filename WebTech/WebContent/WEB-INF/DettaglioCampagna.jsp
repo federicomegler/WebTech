@@ -65,16 +65,16 @@
             </div>
             <!-- step3-->
             <div class="step">
-                <p><input placeholder="Provenienza" oninput="this.className = ''" name="provenienza" oninput="this.className = ''"></p>
-                <p><input type="date" placeholder="Data di recupero" oninput="this.className = ''" name="datarecupero" oninput="this.className = ''"></p>
-                <p><input placeholder="Risoluzione" oninput="this.className = ''" name="risoluzione" oninput="this.className = ''"></p>
+                <p><input placeholder="Provenienza" oninput="this.className = ''" name="provenienza"></p>
+                <p><input type="date" placeholder="Data di recupero" oninput="this.className = ''" name="datarecupero"></p>
+                <p><input placeholder="Risoluzione" oninput="this.className = ''" name="risoluzione"></p>
             </div>
              <br><br>
                 <div class="buttons">
         <!-- invio alla funzione di quanto devo spostarmi in base a allo step che voglio vedere-->
-                    <button type="button" id="precedente" onclick="Spostapos(-1)">Precedenete</button>
-                    <button type="button" id="successivo" onclick="Spostapos(1)">Successivo</button>
-                    <button type= "button" id="cancella"  onclick="ClearAll()">Clear</button>
+                    <button type="button" id="precedente">Precedenete</button>
+                    <button type="button" id="successivo">Successivo</button>
+                    <button type= "button" id="cancella">Clear</button>
                 </div>
             </form>
         </div>

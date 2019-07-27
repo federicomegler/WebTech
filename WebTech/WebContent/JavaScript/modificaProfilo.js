@@ -1,6 +1,41 @@
 /**
  * 
  */
+
+window.onload = function(){
+    document.getElementById("cambia").addEventListener("click", function(){
+        CambiaImmagine();
+    },false);
+
+    document.getElementById("elimina").addEventListener("click",function(){
+        eliminaImmagine();
+    },false);
+
+    document.getElementById("modificaemail").addEventListener("click",function(){
+        abilitaModificaEmail();
+    },false);
+
+    document.getElementById("confermaemail").addEventListener("click",function(){
+        confermaModificaEmail();
+    },false);
+
+    document.getElementById("annullaemail").addEventListener("click",function(){
+        annullaModificaEmail();
+    },false);
+
+    document.getElementById("BottoneNuovaPassword").addEventListener("click",function(){
+        CreaNuovaPassword();
+    },false);
+
+    document.getElementById("cambiaPassword").addEventListener("click",function(){
+        ModificaPassword();
+    },false);
+
+    document.getElementById("annullaCambioPassword").addEventListener("click",function(){
+    	AnnullaCambioPassword();
+    },false);
+}
+
 var email;
 function CreaNuovaPassword(){
 
@@ -13,7 +48,7 @@ function CreaNuovaPassword(){
 function AnnullaCambioPassword(){
 	document.getElementById("FormPassword").style.display = "none";
 	document.getElementById("BottoneNuovaPassword").style.display = "block";
-	return false;
+	document.getElementById("formpassword").reset();
 }
 function ModificaPassword(){
 	if(document.getElementById("nuova1").value == document.getElementById("nuova2").value){
@@ -36,10 +71,6 @@ function CambiaImmagine(){
 function confermaCambioImmagine(){
 	if(confirm("L'immagine profilo verra' modificata!")){
 		document.getElementById("formimmagine").submit();
-		return true;
-	}
-	else{
-		return false;
 	}
 }
 
