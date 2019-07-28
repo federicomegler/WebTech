@@ -37,12 +37,23 @@ window.onload = function(){
     },false);
     
     document.getElementById("conferma").addEventListener("click",function(){
-    	//TODO function
+    	document.getElementById("principale").className = "";
+        document.getElementById("alert").className = "alertOff";
+        eleminaImmagine();
     },false);
     
     document.getElementById("annulla").addEventListener("click",function(){
     	document.getElementById("principale").className = "";
         document.getElementById("alert").className = "alertOff";
+    },false);
+    
+    document.getElementById("ok").addEventListener("click", function(){
+    	confermaCambioImmagine();
+    	document.getElementById("confermaCambio").className = "confermaCambioOff";
+    },false);
+    
+    document.getElementById("selezionaimmagine").addEventListener("change", function(){
+    	document.getElementById("confermaCambio").className = "confermaCambioOn";
     },false);
 }
 
@@ -81,9 +92,7 @@ function CambiaImmagine(){
 }
 
 function confermaCambioImmagine(){
-	if(confirm("L'immagine profilo verra' modificata!")){
 		document.getElementById("formimmagine").submit();
-	}
 }
 
 function abilitaModificaEmail(){
@@ -122,4 +131,8 @@ function checkEmail(nuovaemail) {
     else{
 		return false;
     }
+}
+
+function eliminaImmagine(){
+	
 }
