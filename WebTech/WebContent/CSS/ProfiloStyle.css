@@ -1,5 +1,45 @@
 @charset "ISO-8859-1";
 
+.principaleOff{
+	pointer-events: none;
+	opacity: 0.3;
+}
+
+.alertOff{
+	display: none;
+}
+
+.alert{
+	padding: 10px 10px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	margin-top: -50px;
+	margin-left: -100px;
+	color: #4CAF60;
+	background-color: #d0ffd3
+}
+
+.conferma{
+	background-color: #4CAF60;
+	color: white;
+	padding: 10px 20px;
+	margin: 3px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.annulla{
+	margin:3px;
+	background-color: #4CAF60;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+
 .container{
 	position: relative;
   	width: 200px;

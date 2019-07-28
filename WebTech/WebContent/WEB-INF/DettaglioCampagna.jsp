@@ -47,12 +47,12 @@
                 <div id="mapid" ></div>
               </div> 
                 <div id="formareacontainer">
-                 <p><input  id="locazione" placeholder="Località" name="localita" oninput="this.className = ''" onchange="cambiapopup()"></p>
-                 <p><input  id="C" placeholder="Comune" name="comune"  oninput="this.className = ''" disabled></p>
-                 <p><input  id="R" placeholder="Regione" name="regione" oninput="this.className = ''" disabled></p>
-                 <p><input  id="S" placeholder="Stato" name="stato" oninput="this.className = ''" disabled></p>
-                 <p><input  id="lat" placeholder="Latitudine" name="latitudine"  oninput="this.className = ''" disabled></p>
-                 <p><input  id="lon" placeholder="Longitudine" name="longitudine" oninput="this.className = ''" disabled></p>
+                 <p><input  id="locazione" placeholder="Località" name="localita" ></p>
+                 <p><input  id="C" placeholder="Comune" name="comune"  disabled></p>
+                 <p><input  id="R" placeholder="Regione" name="regione" disabled></p>
+                 <p><input  id="S" placeholder="Stato" name="stato" disabled></p>
+                 <p><input  id="lat" placeholder="Latitudine" name="latitudine"  disabled></p>
+                 <p><input  id="lon" placeholder="Longitudine" name="longitudine" disabled></p>
                 </div>
                </div>
             </div>
@@ -65,9 +65,9 @@
             </div>
             <!-- step3-->
             <div class="step">
-                <p><input placeholder="Provenienza" oninput="this.className = ''" name="provenienza"></p>
-                <p><input type="date" placeholder="Data di recupero" oninput="this.className = ''" name="datarecupero"></p>
-                <p><input placeholder="Risoluzione" oninput="this.className = ''" name="risoluzione"></p>
+                <p><input id="provenienza" placeholder="Provenienza" name="provenienza"></p>
+                <p><input id="data" type="date" placeholder="Data di recupero" name="datarecupero"></p>
+                <p><input id="risoluzione" placeholder="Risoluzione" name="risoluzione"></p>
             </div>
              <br><br>
                 <div class="buttons">
