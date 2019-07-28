@@ -8,7 +8,8 @@ window.onload = function(){
     },false);
 
     document.getElementById("elimina").addEventListener("click",function(){
-        eliminaImmagine();
+        document.getElementById("principale").className = "principaleOff";
+        document.getElementById("alert").className = "alert";
     },false);
 
     document.getElementById("modificaemail").addEventListener("click",function(){
@@ -34,6 +35,15 @@ window.onload = function(){
     document.getElementById("annullaCambioPassword").addEventListener("click",function(){
     	AnnullaCambioPassword();
     },false);
+    
+    document.getElementById("conferma").addEventListener("click",function(){
+    	//TODO function
+    },false);
+    
+    document.getElementById("annulla").addEventListener("click",function(){
+    	document.getElementById("principale").className = "";
+        document.getElementById("alert").className = "alertOff";
+    },false);
 }
 
 var email;
@@ -51,16 +61,18 @@ function AnnullaCambioPassword(){
 	document.getElementById("formpassword").reset();
 }
 function ModificaPassword(){
-	if(document.getElementById("nuova1").value == document.getElementById("nuova2").value){
+	var password1 = document.getElementById("nuova1").value;
+	var password2 = document.getElementById("nuova2").value;
+	if(password1 == password2 && password1 !== ""){
 		document.getElementById("formpassword").submit();
 	}
 	else{
+		document.getElementById("formpassword").reset();
 		document.getElementById("errore").style.display = "block";
 		document.getElementById("nuova1").style.background = "#ffdddd";
 		document.getElementById("nuova2").style.background = "#ffdddd";
 		document.getElementById("nuova1").value = "";
 		document.getElementById("nuova2").value = "";
-		return false;
 	}
 }
 
@@ -110,14 +122,4 @@ function checkEmail(nuovaemail) {
     else{
 		return false;
     }
-}
-
-function eliminaImmagine(){
-	if(confirm("L'immagine verra' rimossa")){
-		//document.getElementById("formimmagine").submit();
-		return true;
-	}
-	else{
-		return false;
-	}
 }

@@ -194,6 +194,50 @@ function onClick_Marker(e) {
 }
 
 window.onload = function (){
+	document.getElementById("locazione").addEventListener("input",function(e){
+        this.className = "";
+    },false);
+
+    document.getElementById("locazione").addEventListener("change",function(e){
+        cambiapopup();
+    },false);
+
+    document.getElementById("C").addEventListener("input", function(e){
+        this.className = "";
+    },false);
+
+    document.getElementById("R").addEventListener("input",function(e){
+        this.className = "";
+    },false);
+
+    document.getElementById("S").addEventListener("input",function(e){
+        this.className = "";
+    },false);
+
+    document.getElementById("lat").addEventListener("input",function(e){
+        this.className = "";
+    },false);
+
+    document.getElementById("lon").addEventListener("input",function(e){
+        this.className = "";
+    },false);
+
+    document.getElementById("i").addEventListener("input",function(e){
+        this.className = "";
+    },false);
+
+    document.getElementById("provenienza").addEventListener("input",function(e){
+        this.className = "";
+    },false);
+
+    document.getElementById("data").addEventListener("input",function(e){
+        this.className = "";
+    },false);
+
+    document.getElementById("risoluzione").addEventListener("input",function(e){
+        this.className = "";
+    },false);
+
 	  document.getElementById("precedente").addEventListener("click", (e) => {
 	    Spostapos(-1);
 	  },false);

@@ -33,7 +33,6 @@ public class Home extends HttpServlet {
 		}
 		else {
 			List<String> listacampagne = new ArrayList<String>();
-			response.getWriter().append("Served at: ").append(request.getContextPath());
 			request.setAttribute("nomeutente", (String)request.getSession(true).getAttribute("UtenteConnesso"));
 			request.setAttribute("listacampagne", listacampagne);
 			request.getRequestDispatcher("/WEB-INF/HomePage.jsp").forward(request, response);
