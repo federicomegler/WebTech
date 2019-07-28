@@ -32,7 +32,7 @@
 	
 
 	<div class="modulocreazione">
-		<form action="" method="post">
+		<form action="CreaCampagna" method="post">
 			<table>
 				<tr>
 					<td>Nome campagna:</td>

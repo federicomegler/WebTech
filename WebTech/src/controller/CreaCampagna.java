@@ -11,7 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import DAO.DAOCampagna;
 
 /**
  * Servlet implementation class CreaCampagna
@@ -62,29 +65,16 @@ public class CreaCampagna extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {
-			String lon = request.getParameter("");
-			String lat = request.getParameter("");
-			String stato = request.getParameter("");
-			String regione = request.getParameter("");
-			String comune = request.getParameter("");
-			String localita = request.getParameter("");
-			String provenienza = request.getParameter("");
-			String data_recupero = request.getParameter("");
-			String risoluzione = request.getParameter("");
-			
-			
-			String tomcatBase = System.getProperty("catalina.base");
-			String path = "\\webapps\\Images\\";
-			File saveDir = new File(tomcatBase);
-			if(!saveDir.exists()) {
-				saveDir.mkdirs();
-			}
-			Part part = request.getPart("file");
-			String estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
-			System.out.println(estensione);
-			//inserisco nel database i dati relativi all'immagine e all'estensione.
-			//il database mi restituisce il nuovo nome(unico), salvo il file con il nuovo nome
-			part.write(tomcatBase  + path + "file3.jpg");
+			HttpSession session = request.getSession();
+			String username =(String)session.getAttribute("UtenteConnesso");
+			String nomecampagna = request.getParameter("nome");
+			String committente = request.getParameter("committente");
+			DAOCampagna daocampagna= new DAOCampagna(connection);
+			daocampagna.addCampagna(nomecampagna, committente,username);
+			session.setAttribute("nomecampagna", nomecampagna);
+			session.setAttribute("committente", committente);
+			session.setAttribute("stato","creata");
+			request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
 		}
 		
 		

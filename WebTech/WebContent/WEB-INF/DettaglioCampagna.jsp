@@ -24,9 +24,9 @@
 	
 	<div class="container">
         <div class="details">
-            <p id="nome">nome</p>
-            <p id="committente">committente</p>
-            <p id="stato">stato</p>
+            nome <p id="nomecampagna" >${nomecampagna}</p>
+            committente <p id="committente">${committente}</p>
+            stato <p id="stato">${stato}</p>
         </div>
         
        <form action="GetMap" method="post">

@@ -75,19 +75,15 @@ public class DAOCampagna {
 		
 	}
 
-    public int addCampagna(String nome, String committente) {
+    public int addCampagna(String nome, String committente,String creatore) {
 		int id=0;
-		String query = "INSERT INTO campagna (nome,committente,stato) VALUES (?,?,'creata');"
-				 +"SELECT last_insert_id() as id";
+		String query = "INSERT INTO webtech.campagna (nome,committente,stato,creatore) VALUES (?,?,'creata',?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1,nome);
 			pstate.setString(2, committente);
-			ris=pstate.executeQuery();
-			if(ris.next()) {
-				id=ris.getInt("id");
-			}
-			
+			pstate.setString(3,creatore);
+			pstate.executeUpdate();		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,7 +92,6 @@ public class DAOCampagna {
 		finally {
 			try {
 				pstate.close();
-				ris.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
