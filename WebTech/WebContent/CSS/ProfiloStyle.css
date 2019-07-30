@@ -5,6 +5,30 @@
 	opacity: 0.3;
 }
 
+.confermaCambioOff{
+	display: none;
+}
+
+.confermaCambioOn{
+	padding: 10px 10px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	margin-top: -50px;
+	margin-left: -100px;
+	color: #4CAF60;
+	background-color: #d0ffd3
+}
+
+.ok{
+	background-color: #4CAF60;
+	color: white;
+	padding: 10px 20px;
+	margin: 3px;
+	text-align: center;
+	cursor: pointer;
+}
+
 .alertOff{
 	display: none;
 }

@@ -11,6 +11,13 @@
 <script src="JavaScript/modificaProfilo.js" type="text/javascript" defer></script>
 </head>
 <body>
+	
+	<div class="confermaCambioOff" id="confermaCambio">
+		<p>Verrà cambiata l'immagine di profilo!</p>
+		<br>
+		<div class="ok" id="ok">OK</div>
+	</div>
+	
 	<div class="alertOff" id="alert">
 		<p>Sei sicuro di voler eliminare l'immagine?</p>
 		<br>
@@ -37,7 +44,7 @@
 				<form action="CambiaImmagineProfilo" method="post"
 					enctype="multipart/form-data" id="formimmagine">
 					<input id="selezionaimmagine" type="file" name="nuovaimmagine"
-						style="display: none" onchange="return confermaCambioImmagine()">
+						style="display: none">
 				</form>
 			</div>
 		</div>
