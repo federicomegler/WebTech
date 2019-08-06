@@ -209,9 +209,7 @@ function checkEmail(nuovaemail) {
     }
 }
 
-function eliminaImmagine(){
-	console.log("eliminaimm")
-	
+function eliminaImmagine(){	
 	var x = new XMLHttpRequest();
 	x.onreadystatechange= function (){
 		
