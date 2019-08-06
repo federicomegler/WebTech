@@ -35,7 +35,7 @@
 		<br>
 		<div class="container">
 			<div class="immagine">
-				<img alt="Immagine profilo" src="/ImmaginiUtente/${immagine}"
+				<img id ="immprofilo" alt="Immagine profilo" src="/ImmaginiUtente/${immagine}"
 					class="image">
 				<div class="middle">
 					<div class="cambia" id="cambia">Cambia Immagine</div>
@@ -45,6 +45,7 @@
 					enctype="multipart/form-data" id="formimmagine">
 					<input id="selezionaimmagine" type="file" name="nuovaimmagine"
 						style="display: none">
+					<input id="infoelimina" type="text" name="elminafoto" style=" display: none ">
 				</form>
 			</div>
 		</div>
@@ -65,10 +66,13 @@
 				<td id="errore mail" style="color: red; display: none;">Email
 					non valida</td>
 			</tr>
+		<c:if test="${tipo != 'Manager' }">
 			<tr>
 				<td>Esperienza:</td>
 				<td><c:out value="${esperienza}"></c:out></td>
 			</tr>
+			
+		</c:if>	
 			<tr>
 				<td>Tipo Utente:</td>
 				<td><c:out value="${tipo}"></c:out></td>
@@ -77,15 +81,16 @@
 		<br>
 		<button id="BottoneNuovaPassword">Modifica password</button>
 		<div style="display: none;" id="FormPassword">
-			<form action="http:google.com" method="post" id="formpassword"
-				novalidate>
+			<form id="formpassword" novalidate>
 				<input id="vecchia" type="password" placeholder="Vecchia Password"
 					name="vecchiapassword" required><br> <br> <input
 					id="nuova1" type="password" placeholder="Nuova Password"
 					name="nuovapassword1" required><br> <br> <input
 					id="nuova2" type="password" placeholder="Conferma Password"
 					name="nuovapassword2" required><br> <br> <label
-					id="errore" style="display: none; color: red;">Le password
+					id="errore1" style="display: none; color: red;">Password
+					errata</label><br> <br> <label
+					id="errore2" style="display: none; color: red;">Le password
 					non corrispondono</label><br> <br>
 			</form>
 			<button id="cambiaPassword">Cambia Password</button>

@@ -16,8 +16,6 @@
     <servlet-name>Signup</servlet-name>
     <url-pattern>/controller/Signup</url-pattern>
   </servlet-mapping>
- 
- 
   <servlet>
     <servlet-name>GetMap</servlet-name>
     <servlet-class>controller.GetMap</servlet-class>
@@ -26,11 +24,6 @@
     <servlet-name>GetMap</servlet-name>
     <url-pattern>/controller/GetMap</url-pattern>
   </servlet-mapping>
- 
- 
- 
- 
- 
   <servlet>
     <servlet-name>GetDettagli</servlet-name>
     <servlet-class>controller.GetDettagli</servlet-class>

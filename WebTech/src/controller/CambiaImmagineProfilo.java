@@ -53,7 +53,32 @@ public class CambiaImmagineProfilo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
+		}
+		else {
+
+			String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
+			DAOUtente utente = new DAOUtente(connection);
+			String tomcatBase = System.getProperty("catalina.base");
+			String path = "/webapps/ImmaginiUtente/";
+			Utente user = utente.getInfo(nome_utente);
+			
+				File saveDir = new File(tomcatBase);
+				if(!saveDir.exists()) {
+					saveDir.mkdirs();
+				}
+
+				utente.aggiornaImmagine(nome_utente, null);
+				File immagine = new File(tomcatBase  + path + user.getImmagine());
+				if(immagine.exists()) {
+					immagine.delete();
+				}
+				getServletContext().getRequestDispatcher("/Profilo").forward(request, response);
+			
+		}	
+		
 	}
 
 	/**

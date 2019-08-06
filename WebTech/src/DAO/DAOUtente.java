@@ -78,6 +78,41 @@ public class DAOUtente {
 		return 0;
 	}
 	
+	public boolean modificaMail (Utente utente ) {
+		
+		String query= "update utente set mail=? where username=?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, utente.getMail());
+			pstate.setString(2, utente.getNome());
+			pstate.executeUpdate();		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean modificaPassword (Utente utente ) {
+		
+		String query= "update utente set password=? where username=?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, utente.getPassword());
+			pstate.setString(2, utente.getNome());
+			pstate.executeUpdate();		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
 	public boolean aggiungiManager(Utente utente) {
 		String query = "insert into webtech.utente (username,mail,password,manager) values (?,?,?,?)";
 		try {
@@ -108,7 +143,7 @@ public class DAOUtente {
 			pstate.setString(1, utente.getNome());
 			pstate.setString(2, utente.getMail());
 			pstate.setString(3, utente.getPassword());
-			pstate.setBoolean(4, true);
+			pstate.setBoolean(4, false);
 			pstate.setString(5, utente.getEsperienza());
 			pstate.executeUpdate();
 		} catch (SQLException e) {
@@ -126,6 +161,7 @@ public class DAOUtente {
 	}
 	
 	public void aggiornaImmagine(String username, String immagine) {
+
 		String query = "update webtech.utente set immagine=? where username=?";
 		try {
 			pstate = connection.prepareStatement(query);
