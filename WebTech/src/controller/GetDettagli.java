@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import DAO.DAOCampagna;
 
 /**
  * Servlet implementation class GetDettagli
@@ -30,16 +33,24 @@ public class GetDettagli extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {
-			response.getWriter().append("Served at: ").append(request.getContextPath());
+			String nomecampagna =(String)request.getParameter("nome");
+			String committente = (String)request.getParameter("committente");
+			String stato =(String)request.getParameter("stato");
+			String id = (String)request.getParameter("id");
+			request.setAttribute("nomecampagna", nomecampagna);
+			request.setAttribute("committente", committente);
+			request.setAttribute("stato",stato);
+			request.setAttribute("id",id);
 			request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
 		}
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 }

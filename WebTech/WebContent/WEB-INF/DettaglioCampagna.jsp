@@ -34,11 +34,10 @@
        </form>
         <br>
         
-        <div class="wizard">
+        <div id="wizard">
             
-            <form id="addelement" action="http:www.google.com" method="post">
-                       
-            
+            <form id="addelement" action="\GestioneDatiWizard" method="post">
+
             <!-- step1 con localita esistente o si crea nuova-->
             <div class="step">
             <div id="formmappa">

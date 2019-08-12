@@ -1,14 +1,13 @@
 package bean;
 
-import java.io.File;
 import java.sql.Date;
 
 public class Immagine {
+	private String id;
 	private String provenienza;
 	private Date data_recupero;
 	private String risoluzione;
-	private File immagine;
-	private int ID_localita;
+	private String formato;
 	
 	public String getProvenienza() {
 		return provenienza;
@@ -28,16 +27,16 @@ public class Immagine {
 	public void setRisoluzione(String risoluzione) {
 		this.risoluzione = risoluzione;
 	}
-	public File getImmagine() {
-		return immagine;
+	public String getFormato() {
+		return formato;
 	}
-	public void setImmagine(File immagine) {
-		this.immagine = immagine;
+	public void setFormato(String formato) {
+		this.formato = formato;
 	}
-	public int getID_localita() {
-		return ID_localita;
+	public String getId() {
+		return id;
 	}
-	public void setID_localita(int iD_localita) {
-		ID_localita = iD_localita;
+	public void setId(String id) {
+		this.id = id;
 	}
 }

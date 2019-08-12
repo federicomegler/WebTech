@@ -36,8 +36,7 @@ public class DAOImmagine {
 			if(ris.next()) {
 			Immagine i = new Immagine();
 			i.setData_recupero(ris.getDate("datarecupero"));
-			i.setID_localita(ris.getInt("idlocalita"));
-			i.setImmagine((File)ris.getBlob("immagine"));
+			i.setFormato(ris.getString("formato"));
 			i.setProvenienza(ris.getString("provenienza"));
 			i.setRisoluzione(ris.getString("risoluzione"));
 			immaginicampagna.add(i);
@@ -61,16 +60,19 @@ public class DAOImmagine {
 		
 	}
 
-	public void addElementMappacampagna(int idimmagine,int idcampagna,int idlocalita) {
-		
-		String query=" INSERT INTO mappacampagna (idcampagna,idlocalita,idimmagine) VALUES(?,?,?)";
-		
+	public int addImmagine (Date d, String provenienza, String risoluzione, String formato) {
+		int idimm=0;
+		String query = "INSERT INTO immagine (provenienza,datarecupero,risoluzione,formato) "
+				+ "VALUES (?,?,?,?,?); SELECT LAST_INSERT_ID() as last_id;";
 		try {
 			pstate = connection.prepareStatement(query);
-			pstate.setInt(1,idcampagna);
-			pstate.setInt(1,idlocalita);
-			pstate.setInt(1,idimmagine);
-			pstate.executeUpdate();
+			pstate.setString(1,provenienza);
+			pstate.setDate(2, d);
+			pstate.setString(3,risoluzione);
+			pstate.setString(3,formato);
+			ris = pstate.executeQuery();
+			if(ris.next())
+			idimm = ris.getInt("last_id");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -87,73 +89,9 @@ public class DAOImmagine {
 			
 		}
 		
-		
-	}
-	
-	public void addImmagine (int idimmagine,int idcampagna,int idlocalita,Date d,File immagine, String provenienza, String risoluzione) {
-		String query = "INSERT INTO immagine (idimmagine,provenienza,datarecupero,risoluzione,immagine) "
-				+ "VALUES (?,?,?,?,?)";
-		
-		if(addImmagineMappacampagna(idimmagine,idcampagna,idlocalita)==0) {
-			
-			addElementMappacampagna(idimmagine,idcampagna,idlocalita);
-			
-		}
-		try {
-			pstate = connection.prepareStatement(query);
-			pstate.setInt(1,idimmagine);
-			pstate.setString(2,provenienza);
-			pstate.setDate(3, d);
-			pstate.setString(4,risoluzione);
-			pstate.setBlob(5,(Blob) immagine);
-			pstate.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		
-		}
-		finally {
-			try {
-				pstate.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
+		return idimm;
 				
 	}
 	
-	public int addImmagineMappacampagna(int idimmagine,int idcampagna,int idlocalita) {
-		int i=0;
-		String query = "UPDATE mappacampagna SET (idimmagine=?)"
-				+ "WHERE idlocalita=? and idcampagna=? and idimmagine=null ";
-		
-		try {
-			pstate = connection.prepareStatement(query);
-			pstate.setInt(1,idimmagine);
-			pstate.setInt(2,idlocalita);
-			pstate.setInt(3,idcampagna);
-			i=pstate.executeUpdate(); // 0 se non ha fatto cambiamenti
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		
-		}
-		finally {
-			try {
-				pstate.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
-		return i;
-				
-	}
 
 }

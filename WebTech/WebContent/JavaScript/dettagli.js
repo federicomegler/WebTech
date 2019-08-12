@@ -83,8 +83,11 @@ var loadFile= function (){
         }
         
     }
-  document.getElementById("i").addEventListener("change",loadFile)
-
+  
+function get(name){
+	   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+	      return decodeURIComponent(name[1]);
+	}
 
 //mappa
 
@@ -100,6 +103,13 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 	}).addTo(mymap);
 
 function init(){
+	
+	  if(get("stato")!="creata"){
+		  
+			 document.getElementById("wizard").style.display= "none";
+			  
+		  }
+	  
     var marker=L.marker([45.7802507654344,9.199769496808585]).addTo(mymap)
 		.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
 marker.on('click', onClick_Marker)}
@@ -247,5 +257,7 @@ window.onload = function (){
 	  document.getElementById("cancella").addEventListener("click", (e) => {
 	    ClearAll();
 	  },false);
+	  
+	  document.getElementById("i").addEventListener("change",loadFile)
 
 	}

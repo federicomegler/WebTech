@@ -7,6 +7,7 @@
 <meta charset="ISO-8859-1">
 <title>Home Page</title>
 <link rel="stylesheet" type="text/css" href="CSS/HomePageStyle.css">
+<script src="JavaScript/home.js" type="text/javascript" defer></script>
 </head>
 <body>
 
@@ -14,22 +15,34 @@
   		<a style="float: left;" href="Profilo">PROFILO</a>
   		<a style="float: right;" href="Logout">LOGOUT</a>
 	</div>
-	
-	<table>
-		<c:forEach var="campagna" items="${listacampagna}">
-			<tr>
-				<td><a href=""> <c:out value="${campagna}"></c:out>
-				</a></td>
-			</tr>
-		</c:forEach>
-	</table>
-	
-	
-	<div>
-	<form action="GetDettagli" method="get"><input type="submit" value="Dettaglio"></form>
-				
+		
+	<button id="create" class="Cbtn">Campagne create</button>
+	<div id="containercreate" >
+	<button id="nomecreata">Lista campagne vuota</button>
+	<button id="sCr" class="left" >&#10094;</button>
+    <button id="dCr" class="right">&#10095;</button>
 	</div>
 	
+	<button id="avviate" class="Cbtn">Campagne avviate</button>
+	<div id="containeravviate" >
+	<button id="nomeavviata">Lista campagne vuota</button>
+	<button id="sAv" class="left" >&#10094;</button>
+    <button id="dAv" class="right">&#10095;</button>
+	</div>
+	
+	<button id="chiuse" class="Cbtn">Campagne chiuse</button>
+	<div id="containerchiuse" >
+	<button id="nomechiusa">Lista campagne vuota</button>
+	<button id="sCh" class="left" >&#10094;</button>
+    <button id="dCh" class="right">&#10095;</button>
+	</div>			
+
+		<form id="dett" action="GetDettagli" method="get" style=" display: none">
+            <input type="text" id="id" name="id">
+			<input type="text" id="nome" name="nome">
+            <input type="text" id="committente" name="committente">
+            <input type="text" id="stato" name="stato">    
+		</form>
 
 	<div class="modulocreazione">
 		<form action="CreaCampagna" method="post">
