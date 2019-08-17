@@ -66,6 +66,7 @@ public class GestioneDatiWizard extends HttpServlet {
 
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
+			
 		}
 		else {
 			
