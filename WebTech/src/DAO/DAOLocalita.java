@@ -53,12 +53,11 @@ public class DAOLocalita {
 
     public int addLocalita(double latitudine, double longitudine, String nome,
     	                           String comune, String regione, String stato) {
-    	int idloc=0;
+    	int idloc=-1;
     	String query = "INSERT INTO localita (idcampagna,latitudine,longitudine,nome,comune,regione,stato) "
     			+ "VALUES (?,?,?,?,?,?,?); SELECT LAST_INSERT_ID() as last_id;";
     	Localita loc = new Localita(); 
-        loc=getLocalita (-1 , nome, comune, regione, stato); 
-        	
+        loc=getLocalita (-1 , nome, comune, regione, stato);        	
     	if(loc!=null) return loc.getID_localita();
     	try {
 			pstate = connection.prepareStatement(query);

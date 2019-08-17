@@ -73,29 +73,37 @@ public class GestioneDatiWizard extends HttpServlet {
 			String estensione =null;
 			String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
 		    idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
+		    
 		    double lat = Double.parseDouble((String)request.getParameter("latitudine"));
 		    double lon =Double.parseDouble((String)request.getParameter("longitudine"));
 		    String localita = (String)request.getParameter("localita");
 		    String comune = (String)request.getParameter("comune");
 		    String stato = (String)request.getParameter("Stato");
 		    String regione = (String)request.getParameter("regione");
-            String provenienza = (String)request.getParameter("provenienza");
+          
+		    String provenienza = (String)request.getParameter("provenienza");
 			Date data; //= Date.parse((String)request.getParameter("datarecupero")); conversione string to date
 //            String string = "January 2, 2010";
 //            DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
 //            Date date = format.parse(string);
             String risoluzione = (String)request.getParameter("risoluzione");
-			DAOCampagna dcampagna = new DAOCampagna(connection);
+			
+            DAOCampagna dcampagna = new DAOCampagna(connection);
 		    DAOImmagine dimm = new DAOImmagine(connection);
 		    DAOLocalita dloc = new DAOLocalita(connection);
+		   
 		    idloc= dloc.addLocalita( lat, lon, localita, comune, regione, stato);
+		    
 		    String tomcatBase = System.getProperty("catalina.base");
 			String path = "/webapps/ImmaginiCampagna/";
 			File saveDir = new File(tomcatBase);
 			Part part = request.getPart("nuovaimmagine");
 			estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
+			
 			idimm=dimm.addImmagine(data, provenienza, risoluzione, estensione);
+			
 			dcampagna.addMappacampagna(idimm, idcamp, idloc);
+			
 			File immagine = new File(tomcatBase  + path + Integer.toString(idcamp)+ Integer.toString(idloc) + Integer.toString(idimm));
 			if(!saveDir.exists()) {
 					saveDir.mkdirs();
@@ -116,8 +124,6 @@ public class GestioneDatiWizard extends HttpServlet {
 
 /*sistemare do post 
  * prelevare id campagna e inviare i parametri della stessa alla servlet dei dettagli
- * dare un'occhio ai dao specialmente a quello delle localita perchè manca il controllo  localita esistente
- * ho tolto le funzioni dao immagine perchè erano inutili per motivi logici 
  * valutare se introdurre il daomappacampagna per le funzioni di set e get e cehck situati nei dao
  * controllare il salvataggio delle immagini riguardo al nome assegnato idcamp + idloc + idimm
  */
