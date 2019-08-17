@@ -169,12 +169,11 @@ function annullaModificaEmail(){
 function confermaModificaEmail(){
 	var nuovaemail = document.getElementById("mail").value;
 	if(checkEmail(nuovaemail)){
-	//async
 		var x = new XMLHttpRequest();
 		x.onreadystatechange= function (){
 			
-			if(x.readyState==4 && x.status==200){
-				var infomail=(x.responseText);
+			if(x.readyState == 4 && x.status == 200){
+				var infomail = x.responseText;
 				if(infomail){ // modifica esito positivo quindi true 
 					email=document.getElementById("mail").value
 					annullaModificaEmail()

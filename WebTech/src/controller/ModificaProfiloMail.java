@@ -22,7 +22,7 @@ import bean.Utente;
 /**
  * Servlet implementation class ModificaProfilo
  */
-@WebServlet("/ModificaProfilo")
+@WebServlet("/ModificaProfiloMail")
 public class ModificaProfiloMail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -50,7 +50,6 @@ public class ModificaProfiloMail extends HttpServlet {
      */
     public ModificaProfiloMail() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -69,7 +68,7 @@ public class ModificaProfiloMail extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {	
-			HttpSession s=request.getSession(true);
+			HttpSession s = request.getSession(true);
 			String mail =(String)request.getParameter("nuovaemail");
 			String nome_utente = (String)s.getAttribute("UtenteConnesso");
 			DAOUtente utente = new DAOUtente(connection);

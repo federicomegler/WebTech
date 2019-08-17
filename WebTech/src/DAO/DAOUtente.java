@@ -91,7 +91,6 @@ public class DAOUtente {
 			e.printStackTrace();
 			return false;
 		}
-		
 		return true;
 	}
 	

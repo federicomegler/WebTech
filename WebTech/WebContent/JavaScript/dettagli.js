@@ -85,7 +85,7 @@ var loadFile= function (){
     }
   
 function get(name){
-	   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+	   if(name=(new RegExp('[?&]'+ encodeURIComponent(name)+ '=([^&]*)')).exec(location.search))
 	      return decodeURIComponent(name[1]);
 	}
 
@@ -104,7 +104,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 
 function init(){
 	
-	  if(get("stato")!="creata"){
+	  if(get("stato")!= "creata"){
 		  
 			 document.getElementById("wizard").style.display= "none";
 			  
