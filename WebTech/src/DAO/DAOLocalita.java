@@ -56,8 +56,11 @@ public class DAOLocalita {
     	int idloc=0;
     	String query = "INSERT INTO localita (idcampagna,latitudine,longitudine,nome,comune,regione,stato) "
     			+ "VALUES (?,?,?,?,?,?,?); SELECT LAST_INSERT_ID() as last_id;";
-    	 //fare controllo della localita se esiste quindi nome localita uguale stesso comune steesa regione stesso stato
-		try {
+    	Localita loc = new Localita(); 
+        loc=getLocalita (-1 , nome, comune, regione, stato); 
+        	
+    	if(loc!=null) return loc.getID_localita();
+    	try {
 			pstate = connection.prepareStatement(query);
 			pstate.setDouble(1,latitudine);
 			pstate.setDouble(2,longitudine);
@@ -122,4 +125,47 @@ public class DAOLocalita {
 		}
     	return places;
     }
+  
+    public Localita getLocalita (int id,String nome,
+            String comune, String regione, String stato) {
+    	
+    	Localita l=null;
+    	String query = "select * from localita where id =? or (nome=? and comune=? and regione=? and stato=?)";
+    	try {
+    		pstate = connection.prepareStatement(query);
+    		pstate.setInt(1, id);
+    	    pstate.setString(2, nome);
+			pstate.setString(3, comune);
+			pstate.setString(4, regione);
+			pstate.setString(5, stato);
+    		ris = pstate.executeQuery();
+    		if(ris.next()) {
+    			l =new Localita();
+    			l.setID_localita(ris.getInt("id"));
+    			l.setNome(ris.getString("nome"));
+    			l.setComune(ris.getString("comune"));
+    			l.setRegione(ris.getString("regione"));
+    			l.setStato(ris.getString("stato"));
+    			l.setLatitudine(ris.getDouble("latitudine"));
+    			l.setLongitudine(ris.getDouble("longitudine"));    			
+    		}
+    	} catch (SQLException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	
+    	}
+    	finally {
+    		try {
+    			ris.close();
+    			pstate.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    	
+    	return l;
+    }	
+    	
+
 }

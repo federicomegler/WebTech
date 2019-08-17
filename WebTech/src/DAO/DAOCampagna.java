@@ -138,7 +138,7 @@ public class DAOCampagna {
 		
 	public List<Campagna> getWorkerCampagnaOptata (String username) {
 		List <Campagna> campagnesvolte= new ArrayList<Campagna>();
-		String query = "select * from campagne where stato='avviata' and id in ( select idcampagna from iscrizione where user = ?)";
+		String query = "select * from campagna where stato='avviata' and id in ( select idcampagna from iscrizione where user = ?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
@@ -149,7 +149,7 @@ public class DAOCampagna {
 				c.setNome(ris.getString("nome"));
 				c.setCommittente(ris.getString("committente"));
 				c.setStato(ris.getString("stato"));
-				c.setID_campagna(ris.getInt("idcampagna"));
+				c.setID_campagna(ris.getInt("id"));
 				campagnesvolte.add(c);
 			}
 		} catch (SQLException e) {
@@ -172,7 +172,7 @@ public class DAOCampagna {
 	
 	public List<Campagna> getWorkerCampagnaNonSvolta (String username) {
 		List <Campagna> campagnenonsvolte=new ArrayList<Campagna>();
-		String query = "select * from campagne where stato='avviata' and id not in ( select id from iscrizione where user = ?)";
+		String query = "select * from campagna where stato='avviata' and id not in ( select id from iscrizione where user = ?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
@@ -182,7 +182,7 @@ public class DAOCampagna {
 				c.setNome(ris.getString("nome"));
 				c.setCommittente(ris.getString("committente"));
 				c.setStato(ris.getString("stato"));
-				c.setID_campagna(ris.getInt("idcampagna"));
+				c.setID_campagna(ris.getInt("id"));
 				campagnenonsvolte.add(c);
 			}
 		} catch (SQLException e) {
@@ -203,8 +203,43 @@ public class DAOCampagna {
 		return campagnenonsvolte;
 	}
 	
+    public Campagna getCampagna (int id, String creatore) {
 	
-public void addMappacampagna(int idimmagine,int idcampagna,int idlocalita) {
+    Campagna c =new Campagna();;
+	String query = "select * from campagna where id =? creatore=?";
+	try {
+		pstate = connection.prepareStatement(query);
+		pstate.setInt(1, id);
+		pstate.setString(2,creatore);
+		ris = pstate.executeQuery();
+		if(ris.next()) {
+			
+			c.setNome(ris.getString("nome"));
+			c.setCommittente(ris.getString("committente"));
+			c.setStato(ris.getString("stato"));
+			c.setID_campagna(ris.getInt("id"));
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	
+	}
+	finally {
+		try {
+			ris.close();
+			pstate.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	return c;
+	
+	
+}	
+	
+    public void addMappacampagna(int idimmagine,int idcampagna,int idlocalita) {
 		
 		String query=" INSERT INTO mappacampagna (idcampagna,idlocalita,idimmagine) VALUES(?,?,?)";
 		
