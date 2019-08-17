@@ -81,6 +81,8 @@ public class GestioneDatiWizard extends HttpServlet {
 		    String stato = (String)request.getParameter("Stato");
 		    String regione = (String)request.getParameter("regione");
           
+		    
+		    
 		    String provenienza = (String)request.getParameter("provenienza");
 			Date data; //= Date.parse((String)request.getParameter("datarecupero")); conversione string to date
 //            String string = "January 2, 2010";
