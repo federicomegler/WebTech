@@ -259,5 +259,41 @@ window.onload = function (){
 	  },false);
 	  
 	  document.getElementById("i").addEventListener("change",loadFile)
+	  
+	  document.getElementById("btnAvviaCampagna").addEventListener("click", (e) => {
+		  //avvia la campagna
+		  
+		  var x = new XMLHttpRequest();
+		  
+		  x.onreadystatechange = function(){
+			  if(x.readyState == 4 && x.status == 200){
+				  var ris = JSON.parse(x.responseText);
+				  if(ris){
+					  location.reload();
+				  }
+				  else{
+					  document.getElementById("erroreAvvio").style.display = "block";
+				  }
+			  }
+		  }
+		  var id = document.getElementById("idcampagna").innerHTML;
+		  x.open("POST", "\AvviaCampagna",true);
+		  var param = "id="+id;
+		  console.log(id);
+		  x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		  x.send(param);
+	  },false);
+	  
+	  
+	  
+	  if(document.getElementById("stato").innerHTML != "creata"){
+		  document.getElementById("VisualizzaMappa").style.display = "none";
+	  }
+	  else{
+		  document.getElementById("VisualizzaMappa").style.display = "block";
+	  }
+	  
+	  
+	  
 
 	}

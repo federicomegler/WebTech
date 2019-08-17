@@ -43,7 +43,7 @@
             <input type="text" id="committente" name="committente">
             <input type="text" id="stato" name="stato">    
 		</form>
-
+		
 	<div class="modulocreazione">
 		<form action="CreaCampagna?stato=creata"method="post">
 			<table>

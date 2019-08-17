@@ -33,6 +33,7 @@ public class GetDettagli extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {
+			//va controllato che i dati siano reali e non modificati a lato client
 			String nomecampagna =(String)request.getParameter("nome");
 			String committente = (String)request.getParameter("committente");
 			String stato =(String)request.getParameter("stato");

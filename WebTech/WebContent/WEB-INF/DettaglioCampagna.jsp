@@ -24,12 +24,16 @@
 	
 	<div class="container">
         <div class="details">
+        	id campagna <p id="idcampagna"> ${id} </p>
             nome <p id="nomecampagna" >${nomecampagna}</p>
             committente <p id="committente">${committente}</p>
             stato <p id="stato">${stato}</p>
         </div>
         
-       <form action="GetMap" method="post">
+        <button id="btnAvviaCampagna"> Avvia Campagna </button>
+        <label id="erroreAvvio" style="display:none; color:red;"> Impossibile avviare campagna! </label><br>
+        
+       <form action="GetMap" method="post" id="VisualizzaMappa">
        		<input type="submit" value="Visualizza Mappa">
        </form>
         <br>
