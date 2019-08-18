@@ -279,7 +279,6 @@ window.onload = function (){
 		  var id = document.getElementById("idcampagna").innerHTML;
 		  x.open("POST", "\AvviaCampagna",true);
 		  var param = "id="+id;
-		  console.log(id);
 		  x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		  x.send(param);
 	  },false);
@@ -292,8 +291,4 @@ window.onload = function (){
 	  else{
 		  document.getElementById("VisualizzaMappa").style.display = "block";
 	  }
-	  
-	  
-	  
-
 	}

@@ -203,10 +203,40 @@ public class DAOCampagna {
 		return campagnenonsvolte;
 	}
 	
+	
+	public boolean esisteCampagna(int id, String creatore) {
+		String query = "select * from campagna where id =? and creatore=?";
+		boolean risultato = false;
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1, id);
+			pstate.setString(2,creatore);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				risultato = true;
+			}
+			else {
+				risultato = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return risultato;
+	}
+	
+	
     public Campagna getCampagna (int id, String creatore) {
 	
     Campagna c =new Campagna();;
-	String query = "select * from campagna where id =? creatore=?";
+	String query = "select * from campagna where id =? and creatore=?";
 	try {
 		pstate = connection.prepareStatement(query);
 		pstate.setInt(1, id);
@@ -220,7 +250,6 @@ public class DAOCampagna {
 			c.setID_campagna(ris.getInt("id"));
 		}
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	
 	}
@@ -229,7 +258,6 @@ public class DAOCampagna {
 			ris.close();
 			pstate.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

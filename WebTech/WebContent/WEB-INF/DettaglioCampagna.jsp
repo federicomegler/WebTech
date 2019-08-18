@@ -24,7 +24,7 @@
 	
 	<div class="container">
         <div class="details">
-        	id campagna <p id="idcampagna"> ${id} </p>
+        	id campagna <p id="idcampagna">${id}</p>
             nome <p id="nomecampagna" >${nomecampagna}</p>
             committente <p id="committente">${committente}</p>
             stato <p id="stato">${stato}</p>
