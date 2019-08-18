@@ -37,7 +37,7 @@
     <button id="dCh" class="right">&#10095;</button>
 	</div>			
 
-		<form id="dett" action="GetDettagli" method="get" style=" display: none">
+		<form id="dett" action="GetDettagli" method="post" style=" display: none">
             <input type="text" id="id" name="id">
 			<input type="text" id="nome" name="nome">
             <input type="text" id="committente" name="committente">
@@ -45,7 +45,7 @@
 		</form>
 		
 	<div class="modulocreazione">
-		<form action="CreaCampagna?stato=creata"method="post">
+		<form action="CreaCampagna?stato=creata" method="post">
 			<table>
 				<tr>
 					<td>Nome campagna:</td>
