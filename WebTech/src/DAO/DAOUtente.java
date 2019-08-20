@@ -78,6 +78,32 @@ public class DAOUtente {
 		return 0;
 	}
 	
+	public int isManager(String utente) {
+		String query = "select manager from webtech.utente where username=?";
+		int risultato = -1;
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, utente);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				risultato = ris.getInt("manager");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return -1;
+			}
+		}
+		return risultato;
+	}
+
 	public boolean modificaMail (Utente utente ) {
 		
 		String query= "update utente set mail=? where username=?";
