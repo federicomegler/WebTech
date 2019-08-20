@@ -1,9 +1,7 @@
 package DAO;
 import java.io.File;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,16 +58,20 @@ public class DAOImmagine {
 		
 	}
 
-	public int addImmagine (Date d, String provenienza, String risoluzione, String formato) {
+	public int addImmagine (Date date, String provenienza, String risoluzione, String formato) {
 		int idimm=0;
-		String query = "INSERT INTO immagine (provenienza,datarecupero,risoluzione,formato) "
-				+ "VALUES (?,?,?,?,?); SELECT LAST_INSERT_ID() as last_id;";
+		String query1 = "INSERT INTO webtech.immagine (provenienza,datarecupero,risoluzione,formato) "
+				+ "VALUES (?,?,?,?);";
+	 	String query2="SELECT LAST_INSERT_ID() as last_id;";
+    	
 		try {
-			pstate = connection.prepareStatement(query);
+			pstate = connection.prepareStatement(query1);
 			pstate.setString(1,provenienza);
-			pstate.setDate(2, d);
+			pstate.setDate(2, date);
 			pstate.setString(3,risoluzione);
-			pstate.setString(3,formato);
+			pstate.setString(4,formato);
+			pstate.executeUpdate();
+			pstate = connection.prepareStatement(query2);
 			ris = pstate.executeQuery();
 			if(ris.next())
 			idimm = ris.getInt("last_id");

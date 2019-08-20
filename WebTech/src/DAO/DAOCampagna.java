@@ -22,7 +22,7 @@ public class DAOCampagna {
 		
 		String query = "UPDATE campagna SET stato =? WHERE id=?";
 		DAOLocalita d= new DAOLocalita(connection);
-		if(d.checkLocImage(id)) {
+		if(d.checkLoc(id)) {
 			
 		try {
 			pstate = connection.prepareStatement(query);
@@ -205,15 +205,15 @@ public class DAOCampagna {
 	
     public Campagna getCampagna (int id, String creatore) {
 	
-    Campagna c =new Campagna();;
-	String query = "select * from campagna where id =? creatore=?";
+    Campagna c =null;
+	String query = "select * from campagna where id =? and creatore=?";
 	try {
 		pstate = connection.prepareStatement(query);
 		pstate.setInt(1, id);
 		pstate.setString(2,creatore);
 		ris = pstate.executeQuery();
 		if(ris.next()) {
-			
+			c =new Campagna();
 			c.setNome(ris.getString("nome"));
 			c.setCommittente(ris.getString("committente"));
 			c.setStato(ris.getString("stato"));
@@ -246,8 +246,8 @@ public class DAOCampagna {
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setInt(1,idcampagna);
-			pstate.setInt(1,idlocalita);
-			pstate.setInt(1,idimmagine);
+			pstate.setInt(2,idlocalita);
+			pstate.setInt(3,idimmagine);
 			pstate.executeUpdate();
 			
 		} catch (SQLException e) {

@@ -20,53 +20,28 @@ public class DAOLocalita {
 		this.connection = connessione;
 	}
 	
-	public boolean checkLocImage(int idcampagna) { 
-		String query = "select * from mappacampagna where idcampagna=? and idimmagine=null ";
-		try {
-			pstate = connection.prepareStatement(query);
-			pstate.setInt(1, idcampagna);
-			ris = pstate.executeQuery();
-			if(ris.next()) {
-			
-				return false;
-				
-			}
-			else {
-				
-				return true;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		finally {
-			try {
-				ris.close();
-				pstate.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 
     public int addLocalita(double latitudine, double longitudine, String nome,
     	                           String comune, String regione, String stato) {
     	int idloc=-1;
-    	String query = "INSERT INTO localita (idcampagna,latitudine,longitudine,nome,comune,regione,stato) "
-    			+ "VALUES (?,?,?,?,?,?,?); SELECT LAST_INSERT_ID() as last_id;";
+    	String query1 = "INSERT INTO webtech.localita (latitudine,longitudine,nome,comune,regione,stato) "
+    			+ "VALUES (?,?,?,?,?,?)";
+    	String query2="SELECT LAST_INSERT_ID() as last_id;";
+    	
     	Localita loc = new Localita(); 
-        loc=getLocalita (-1 , nome, comune, regione, stato);        	
-    	if(loc!=null) return loc.getID_localita();
+        loc=getLocalita (-1 , nome, comune, regione, stato);          
+    	if(loc!=null) { 
+    		return loc.getID_localita();}
     	try {
-			pstate = connection.prepareStatement(query);
+			pstate = connection.prepareStatement(query1);
 			pstate.setDouble(1,latitudine);
 			pstate.setDouble(2,longitudine);
 			pstate.setString(3, nome);
 			pstate.setString(4, comune);
 			pstate.setString(5, regione);
 			pstate.setString(6, stato);
+			pstate.executeUpdate();
+			pstate = connection.prepareStatement(query2);
 			ris=pstate.executeQuery();
 			if(ris.next())
 				idloc = ris.getInt("last_id");
@@ -93,7 +68,7 @@ public class DAOLocalita {
 
     public List<Localita> getPlaces(int idcampagna){
     	List<Localita> places= new ArrayList<Localita>();
-		String query = "select * from localita where id in (select idlocalita from mappacampagna where idcampagna=?)";
+		String query = "select * from webtech.localita where id in (select idlocalita from webtech.mappacampagna where idcampagna=?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setInt(1, idcampagna);
@@ -129,7 +104,7 @@ public class DAOLocalita {
             String comune, String regione, String stato) {
     	
     	Localita l=null;
-    	String query = "select * from localita where id =? or (nome=? and comune=? and regione=? and stato=?)";
+    	String query = "select * from webtech.localita where id =? or (nome=? and comune=? and regione=? and stato=?)";
     	try {
     		pstate = connection.prepareStatement(query);
     		pstate.setInt(1, id);
@@ -165,6 +140,37 @@ public class DAOLocalita {
     	
     	return l;
     }	
-    	
+
+	public boolean checkLoc(int idcampagna) { 
+		String query = "select * from webtech.mappacampagna where idcampagna=?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1, idcampagna);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+			
+				return true;
+				
+			}
+			else {
+				return false;
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
 
 }

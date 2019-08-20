@@ -12,7 +12,6 @@
 <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="anonymous" >
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js" integrity="sha512-IkGU/uDhB9u9F8k+2OsA6XXoowIhOuQL1NTgNZHY1nkURnqEGlDZq3GsfmdJdKFe1k1zOc6YU2K7qY+hF9AodA==" crossorigin="anonymous"></script>	
-<script src="JavaScript/dettagli.js" type="text/javascript" defer></script>
 </head>
 <body>
 
@@ -38,10 +37,14 @@
        </form>
         <br>
         
+        
+      <c:if test="${stato=='creata'}">  
+      <script src="JavaScript/dettagli.js" type="text/javascript" defer></script>
         <div id="wizard">
             
-            <form id="addelement" action="\GestioneDatiWizard" method="post">
+            <form id="addelement" action="GestioneDatiWizard" method="post" enctype='multipart/form-data'>
 
+     		<input type="text" id="id" name="idcampagna" style=" display: none" value="${idcampagna}">
             <!-- step1 con localita esistente o si crea nuova-->
             <div class="step">
             <div id="formmappa">
@@ -50,12 +53,12 @@
                 <div id="mapid" ></div>
               </div> 
                 <div id="formareacontainer">
-                 <p><input  id="locazione" placeholder="Località" name="localita" ></p>
-                 <p><input  id="C" placeholder="Comune" name="comune"  disabled></p>
-                 <p><input  id="R" placeholder="Regione" name="regione" disabled></p>
-                 <p><input  id="S" placeholder="Stato" name="stato" disabled></p>
-                 <p><input  id="lat" placeholder="Latitudine" name="latitudine"  disabled></p>
-                 <p><input  id="lon" placeholder="Longitudine" name="longitudine" disabled></p>
+                 <p><input type="text" id="locazione" placeholder="Località" name="localita" ></p>
+                 <p><input type="text" id="C" placeholder="Comune" name="comune"  readonly></p>
+                 <p><input type="text" id="R" placeholder="Regione" name="regione" readonly></p>
+                 <p><input type="text" id="S" placeholder="Stato" name="Stato" readonly></p>
+                 <p><input type="text" id="lat" placeholder="Latitudine" name="lat"  readonly></p>
+                 <p><input type="text" id="lon" placeholder="Longitudine" name="lon" readonly></p>
                 </div>
                </div>
             </div>
@@ -68,9 +71,9 @@
             </div>
             <!-- step3-->
             <div class="step">
-                <p><input id="provenienza" placeholder="Provenienza" name="provenienza"></p>
-                <p><input id="data" type="date" placeholder="Data di recupero" name="datarecupero"></p>
-                <p><input id="risoluzione" placeholder="Risoluzione" name="risoluzione"></p>
+                <p><input type="text" id="provenienza" placeholder="Provenienza" name="provenienza"></p>
+                <p><input type="date"  id="data" placeholder="Data di recupero" name="datarecupero"></p>
+                <p><input type="text" id="risoluzione" placeholder="Risoluzione" name="risoluzione"></p>
             </div>
              <br><br>
                 <div class="buttons">
@@ -79,8 +82,12 @@
                     <button type="button" id="successivo">Successivo</button>
                     <button type= "button" id="cancella">Clear</button>
                 </div>
+                <c:if test="${errore}">
+                <label>errore dettaglio campagna</label>
+                </c:if>
             </form>
         </div>
+        </c:if>
     </div>
 </body>
 </html>

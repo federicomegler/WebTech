@@ -37,11 +37,12 @@ public class GetDettagli extends HttpServlet {
 			String nomecampagna =(String)request.getParameter("nome");
 			String committente = (String)request.getParameter("committente");
 			String stato =(String)request.getParameter("stato");
-			String id = (String)request.getParameter("id");
+			String id = (String)request.getParameter("idcampagna");
 			request.setAttribute("nomecampagna", nomecampagna);
 			request.setAttribute("committente", committente);
 			request.setAttribute("stato",stato);
-			request.setAttribute("id",id);
+			request.setAttribute("idcampagna",id);
+			request.setAttribute("errore",false);
 			request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
 		}
 		
