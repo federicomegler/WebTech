@@ -45,7 +45,7 @@
 		</form>
 		
 	<div class="modulocreazione">
-		<form action="CreaCampagna?stato=creata"method="post">
+		<form action="CreaCampagna?stato=creata" method="post">
 			<table>
 				<tr>
 					<td>Nome campagna:</td>

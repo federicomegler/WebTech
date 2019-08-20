@@ -83,11 +83,6 @@ var loadFile= function (){
         }
         
     }
-  
-function get(name){
-	   if(name=(new RegExp('[?&]'+ encodeURIComponent(name)+ '=([^&]*)')).exec(location.search))
-	      return decodeURIComponent(name[1]);
-	}
 
 //mappa
 
@@ -104,7 +99,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 
 function init(){
 	
-	  if(get("stato")!= "creata"){
+	  if(document.getElementById("stato").innerHTML != "creata"){
 		  
 			 document.getElementById("wizard").style.display= "none";
 			  
@@ -279,7 +274,6 @@ window.onload = function (){
 		  var id = document.getElementById("idcampagna").innerHTML;
 		  x.open("POST", "\AvviaCampagna",true);
 		  var param = "id="+id;
-		  console.log(id);
 		  x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		  x.send(param);
 	  },false);
@@ -288,12 +282,10 @@ window.onload = function (){
 	  
 	  if(document.getElementById("stato").innerHTML != "creata"){
 		  document.getElementById("VisualizzaMappa").style.display = "none";
+		  document.getElementById("btnAvviaCampagna").style.display = "none";
 	  }
 	  else{
 		  document.getElementById("VisualizzaMappa").style.display = "block";
+		  document.getElementById("btnAvviaCampagna").style.display = "block";
 	  }
-	  
-	  
-	  
-
 	}
