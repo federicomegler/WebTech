@@ -68,11 +68,10 @@ public class GetDettagli extends HttpServlet {
 			Campagna campagna = new Campagna();
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			campagna = daocampagna.getCampagna(Integer.parseInt(id), (String)request.getSession().getAttribute("UtenteConnesso"));
-			
 			request.setAttribute("nomecampagna", campagna.getNome());
 			request.setAttribute("committente", campagna.getCommittente());
 			request.setAttribute("stato",campagna.getStato());
-			request.setAttribute("id",campagna.getID_campagna());
+			request.setAttribute("idcampagna",campagna.getID_campagna());
 			request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
 		}
 	}

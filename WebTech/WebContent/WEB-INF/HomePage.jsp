@@ -39,9 +39,6 @@
 
 		<form id="dett" action="GetDettagli" method="get" style=" display: none">
             <input type="text" id="id" name="idcampagna">
-			<input type="text" id="nome" name="nome">
-            <input type="text" id="committente" name="committente">
-            <input type="text" id="stato" name="stato">    
 		</form>
 		
 	<div class="modulocreazione">
