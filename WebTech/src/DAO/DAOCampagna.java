@@ -235,7 +235,7 @@ public class DAOCampagna {
 	
     public Campagna getCampagna (int id, String creatore) {
 	
-    Campagna c =null;
+    Campagna c = null;
 	String query = "select * from campagna where id =? and creatore=?";
 	try {
 		pstate = connection.prepareStatement(query);

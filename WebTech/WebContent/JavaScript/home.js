@@ -51,9 +51,6 @@ window.onload= function(){
 		if(!listacreate){return}
 		
 		document.getElementById("id").value = (listacreate[c1]).ID_campagna;
-		document.getElementById("nome").value = (listacreate[c1]).nome;
-		document.getElementById("committente").value = (listacreate[c1]).committente;
-		document.getElementById("stato").value = (listacreate[c1]).stato;
 		document.getElementById("dett").submit()
 		
 	},false)	
@@ -61,18 +58,12 @@ window.onload= function(){
 	document.getElementById("nomeavviata").addEventListener("click",function(){
 		if(!listaavviate){return}
 		document.getElementById("id").value = (listaavviate[c2]).ID_campagna;
-		document.getElementById("nome").value = (listaavviate[c2]).nome;
-		document.getElementById("committente").value = (listaavviate[c2]).committente;
-		document.getElementById("stato").value = (listaavviate[c2]).stato;
 		document.getElementById("dett").submit()
 	},false)
 	
 	document.getElementById("nomechiusa").addEventListener("click",function(){
 		if(!listachiuse){return}
 		document.getElementById("id").value = (listachiuse[c3]).ID_campagna;
-		document.getElementById("nome").value = (listachiuse[c3]).nome;
-		document.getElementById("committente").value = (listachiuse[c3]).committente;
-		document.getElementById("stato").value = (listachiuse[c3]).stato;
 		document.getElementById("dett").submit()
 		
 	},false)
