@@ -26,14 +26,14 @@ import bean.Utente;
 /**
  * Servlet implementation class GetListeCampagne
  */
-@WebServlet("/GetListeCampagne")
-public class GetListeCampagne extends HttpServlet {
+@WebServlet("/GetListeCampagneManager")
+public class GetListeCampagneManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;  
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetListeCampagne() {
+    public GetListeCampagneManager() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -64,14 +64,14 @@ public class GetListeCampagne extends HttpServlet {
 		}
 		else {
 			
-			HttpSession s=request.getSession(true);
+			HttpSession session = request.getSession(true);
 			String stato =(String)request.getParameter("stato");
-			String nome_utente = (String)s.getAttribute("UtenteConnesso");
+			String nome_utente = (String)session.getAttribute("UtenteConnesso");
 			DAOCampagna camp = new DAOCampagna(connection);
-			List<Campagna> arr=new ArrayList<Campagna>();		
-			arr=camp.getManagerCampagna(nome_utente, stato);
-			String res=new Gson().toJson(arr);
-			PrintWriter out= response.getWriter();
+			List<Campagna> arr = new ArrayList<Campagna>();		
+			arr = camp.getManagerCampagna(nome_utente, stato);
+			String res = new Gson().toJson(arr);
+			PrintWriter out = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			out.print(res);
@@ -87,8 +87,7 @@ public class GetListeCampagne extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }

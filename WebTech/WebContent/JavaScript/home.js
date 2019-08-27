@@ -48,7 +48,7 @@ window.onload= function(){
 	},false)
 	
 	document.getElementById("nomecreata").addEventListener("click",function(){
-		if(!listacreate){return}
+		if(listacreate.length == 0){return}
 		
 		document.getElementById("id").value = (listacreate[c1]).ID_campagna;
 		document.getElementById("dett").submit()
@@ -56,13 +56,13 @@ window.onload= function(){
 	},false)	
 
 	document.getElementById("nomeavviata").addEventListener("click",function(){
-		if(!listaavviate){return}
+		if(listaavviate.length == 0){return}
 		document.getElementById("id").value = (listaavviate[c2]).ID_campagna;
 		document.getElementById("dett").submit()
 	},false)
 	
 	document.getElementById("nomechiusa").addEventListener("click",function(){
-		if(!listachiuse){return}
+		if(listachiuse.length == 0){return}
 		document.getElementById("id").value = (listachiuse[c3]).ID_campagna;
 		document.getElementById("dett").submit()
 		
@@ -116,7 +116,7 @@ function getCreate (){
 			showCreate(0)
 		}
 	}
-	x.open("GET", "\GetListeCampagne?stato=creata",true)    
+	x.open("GET", "\GetListeCampagneManager?stato=creata",true)    
 	x.send();
 	
 	
@@ -132,7 +132,7 @@ function getAvviate (){
 			showAvviate(0)
 		}
 	}
-	x.open("GET", "\GetListeCampagne?stato=avviata",true)    
+	x.open("GET", "\GetListeCampagneManager?stato=avviata",true)    
 	x.send();
 	
 }
@@ -149,13 +149,13 @@ function getChiuse (){
 			
 		}
 	}
-	x.open("GET", "\GetListeCampagne?stato=chiusa",true)    
+	x.open("GET", "\GetListeCampagneManager?stato=chiusa",true)    
 	x.send();
 	
 }
 
 function showCreate(n) {
-	if(listacreate){	
+	if(listacreate.length > 0){	
 	  if (c1+n > listacreate.length-1) {c1 = 0} 
 	  else if (c1+n < 0) {c1 = listacreate.length-1} 
 	  else {
@@ -168,7 +168,7 @@ function showCreate(n) {
 	}
 
 function showAvviate(n) {
-	if(listaavviate){
+	if(listaavviate.length > 0){
 		
 		  if (c2+n > listaavviate.length-1) {c2 = 0} 
 		  else if (c2+n < 0) {c2 = listaavviate.length-1} 
@@ -181,7 +181,7 @@ function showAvviate(n) {
 	}
 
 function showChiuse(n) {
-	if(listachiuse){
+	if(listachiuse.length > 0){
 		
 		  if (c3+n > listachiuse.length-1) {c3 = 0} 
 		  else if (c3+n < 0) {c3 = listachiuse.length-1} 

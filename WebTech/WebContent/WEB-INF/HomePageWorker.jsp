@@ -7,7 +7,7 @@
 <meta charset="ISO-8859-1">
 <title>Home Page</title>
 <link rel="stylesheet" type="text/css" href="CSS/HomePageStyle.css">
-<script src="JavaScript/home.js" type="text/javascript" defer></script>
+<script src="JavaScript/homeWorker.js" type="text/javascript" defer></script>
 </head>
 <body>
 
@@ -16,11 +16,19 @@
 			style="float: right;" href="Logout">LOGOUT</a>
 	</div>
 
-	<button id="avviate" class="Cbtn">Campagne avviate</button>
-	<div id="containeravviate">
-		<button id="nomeavviata">Lista campagne vuota</button>
-		<button id="sAv" class="left">&#10094;</button>
-		<button id="dAv" class="right">&#10095;</button>
+	<button id="optate" class="Cbtn">Mostra campagne optate</button>
+	<button id="nonoptate" class="Cbtn">Mostra campagne non optate</button>
+	
+	<div id="containernonoptate">
+		<button id="nomenonoptata">Lista campagne vuota</button>
+		<button id="sNop" class="left">&#10094;</button>
+		<button id="dNop" class="right">&#10095;</button>
+	</div>
+	
+	<div id="containeroptate">
+		<button id="nomeoptata">Lista campagne vuota</button>
+		<button id="sOp" class="left">&#10094;</button>
+		<button id="dOp" class="right">&#10095;</button>
 	</div>
 
 	<form id="dett" action="GetDettagli" method="post"

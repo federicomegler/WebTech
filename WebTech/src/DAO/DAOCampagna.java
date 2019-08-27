@@ -102,13 +102,13 @@ public class DAOCampagna {
 		return id;
 	}
 	
-	public List<Campagna> getManagerCampagna (String username , String s) {
+	public List<Campagna> getManagerCampagna (String username , String stato) {
 		List <Campagna> campagne= new ArrayList<Campagna>();
 		String query = "select * from campagna where creatore = ? and stato= ? order by nome";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
-			pstate.setString(2, s);
+			pstate.setString(2, stato);
 			ris = pstate.executeQuery();
 			while(ris.next()) {
 				Campagna c =new Campagna();
@@ -172,7 +172,7 @@ public class DAOCampagna {
 	
 	public List<Campagna> getWorkerCampagnaNonSvolta (String username) {
 		List <Campagna> campagnenonsvolte=new ArrayList<Campagna>();
-		String query = "select * from campagna where stato='avviata' and id not in ( select id from iscrizione where user = ?)";
+		String query = "select * from webtech.campagna where stato='avviata' and id not in ( select id from webtech.iscrizione where user = ?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
@@ -186,7 +186,6 @@ public class DAOCampagna {
 				campagnenonsvolte.add(c);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		
 		}
@@ -195,7 +194,6 @@ public class DAOCampagna {
 				ris.close();
 				pstate.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
