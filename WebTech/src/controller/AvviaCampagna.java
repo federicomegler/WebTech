@@ -58,25 +58,30 @@ public class AvviaCampagna extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id =Integer.parseInt(request.getParameter("id"));
-		String creatore = (String)request.getSession().getAttribute("UtenteConnesso");
-		DAOCampagna campagna = new DAOCampagna(connection);
-		if(campagna.esisteCampagna(id, creatore)) {
-			campagna.cambioStato(id, "avviata");
-			String res=new Gson().toJson(true);
-			PrintWriter out= response.getWriter();
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			out.print(res);
-			out.flush();
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
 		}
 		else {
-			String res=new Gson().toJson(false);
-			PrintWriter out= response.getWriter();
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			out.print(res);
-			out.flush();
+			int id =Integer.parseInt(request.getParameter("id"));
+			String creatore = (String)request.getSession().getAttribute("UtenteConnesso");
+			DAOCampagna campagna = new DAOCampagna(connection);
+			if(campagna.esisteCampagna(id, creatore)) {
+				campagna.cambioStato(id, "avviata");
+				String res=new Gson().toJson(true);
+				PrintWriter out= response.getWriter();
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				out.print(res);
+				out.flush();
+			}
+			else {
+				String res=new Gson().toJson(false);
+				PrintWriter out= response.getWriter();
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				out.print(res);
+				out.flush();
+			}
 		}
 	}
 
