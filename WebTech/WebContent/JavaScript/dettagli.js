@@ -199,6 +199,12 @@ function onClick_Marker(e) {
 }
 
 window.onload = function (){
+	
+	if(document.getElementById("stato").innerHTML != "creata"){
+		document.getElementById("btnAvviaCampagna").style.display = "none";
+	}
+	
+	
 	document.getElementById("locazione").addEventListener("input",function(e){
         this.className = "";
     },false);
@@ -272,7 +278,7 @@ window.onload = function (){
 			  }
 		  }
 		  var id = document.getElementById("idcampagna").innerHTML;
-		  x.open("POST", "\AvviaCampagna",true);
+		  x.open("POST", "/AvviaCampagna",true);
 		  var param = "id="+id;
 		  x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		  x.send(param);

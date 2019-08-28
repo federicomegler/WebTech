@@ -88,8 +88,8 @@ public class GestioneDatiWizard extends HttpServlet {
 			idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
 
 			//controllo
-			Campagna c= new Campagna();
-			c=dcampagna.getCampagna(idcamp, nome_utente);
+			Campagna c = new Campagna();
+			c = dcampagna.getCampagna(idcamp, nome_utente);
 
 			if(c!=null && c.getStato().equals("creata")) {
 				System.out.println("store");
@@ -98,11 +98,11 @@ public class GestioneDatiWizard extends HttpServlet {
 				String stato = (String)request.getParameter("Stato");
 				String regione = (String)request.getParameter("regione");
 				double lat = Double.parseDouble((String)request.getParameter("lat"));
-				double lon =Double.parseDouble((String)request.getParameter("lon"));
+				double lon = Double.parseDouble((String)request.getParameter("lon"));
 
 				String provenienza = (String)request.getParameter("provenienza");
-				String data=((String)request.getParameter("datarecupero"));
-				Date date=Date.valueOf(data);
+				String data =((String)request.getParameter("datarecupero"));
+				Date date = Date.valueOf(data);
 				String risoluzione = (String)request.getParameter("risoluzione");
 
 				idloc= dloc.addLocalita( lat, lon, localita, comune, regione, stato);
@@ -113,13 +113,14 @@ public class GestioneDatiWizard extends HttpServlet {
 				Part part = request.getPart("file");
 				estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
 
-				idimm=dimm.addImmagine(date, provenienza, risoluzione, estensione);
+				idimm = dimm.addImmagine(date, provenienza, risoluzione, estensione);
 
 				dcampagna.addMappacampagna(idimm, idcamp, idloc);
 
 				File immagine = new File(tomcatBase  + path + Integer.toString(idcamp)+ Integer.toString(idloc) + Integer.toString(idimm));
 				if(!saveDir.exists()) {
 					saveDir.mkdirs();
+					System.out.println("la directory non esiste");
 				}
 				estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
 				part.write(tomcatBase + path + idcamp+ idloc + idimm+ estensione);

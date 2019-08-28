@@ -1,14 +1,16 @@
 @charset "ISO-8859-1";
 
+html,body{
+  height: 100%;
+}
+
 #mapid{
-    width: 1000px;
-    height: 800px;
+    height: 100%;
 }
 
 #mapareacontainer{
-  width:fit-content;
-  height:fit-content;
-  float: left;
+  height: 90%;
+  margin: 5px;
 }
 
 .topnav {
@@ -35,4 +37,4 @@
 * {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
-}
+  }
