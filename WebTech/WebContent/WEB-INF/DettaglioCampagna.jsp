@@ -33,6 +33,8 @@
         <label id="erroreAvvio" style="display:none; color:red;"> Impossibile avviare campagna! </label><br>
         
        <form action="GetMap" method="post" id="VisualizzaMappa">
+        
+        	<input type="text" value="${idcampagna}" name="idcampagna" style="display : none">
        		<input type="submit" value="Visualizza Mappa">
        </form>
         <br>
