@@ -22,12 +22,14 @@
 	<div class="topnav">
 		<a style="float: left;" href="Home">HOME</a>
 		<a style="float: right;" href="Profilo">PROFILO</a> 
-		 <a style="float: left;" href="Profilo">INDIETRO</a>
 		<a style="float: right;" href="Logout">LOGOUT</a>
 	</div>
 
 	<div id="mapareacontainer">
 		<div id="mapid"></div>
 	</div>
+	
+
+	
 </body>
 </html>

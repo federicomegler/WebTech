@@ -8,7 +8,7 @@ public class Localita {
 	private String comune;
 	private String regione;
 	private String stato;
-	
+	private String colore;
 	
 	public int getID_localita() {
 		return ID_localita;
@@ -51,5 +51,11 @@ public class Localita {
 	}
 	public void setStato(String stato) {
 		this.stato = stato;
+	}
+	public String getColore() {
+		return colore;
+	}
+	public void setColore(String colore) {
+		this.colore = colore;
 	}
 }

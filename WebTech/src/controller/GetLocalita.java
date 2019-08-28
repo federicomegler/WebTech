@@ -1,36 +1,34 @@
 package controller;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+
+import com.google.gson.Gson;
 
 import DAO.DAOCampagna;
+import DAO.DAOLocalita;
+import bean.Campagna;
+import bean.Localita;
 
 /**
- * Servlet implementation class CreaCampagna
+ * Servlet implementation class GetLocalita
  */
-@WebServlet("/CreaCampagna")
-public class CreaCampagna extends HttpServlet {
+@WebServlet("/GetLocalita")
+public class GetLocalita extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Connection connection;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreaCampagna() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+    private Connection connection;
     
     public void init() {
     	ServletContext context = getServletContext();
@@ -46,40 +44,50 @@ public class CreaCampagna extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+    }
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public GetLocalita() {
+        super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request, response);
+
+		DAOLocalita l = new DAOLocalita (connection);
+		DAOCampagna dcampagna = new DAOCampagna(connection);
+		String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
+		int idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
+		Campagna c= new Campagna();
+		c=dcampagna.getCampagna(idcamp, nome_utente);
+		if(c!=null){
+			
+		List<Localita> loc= new ArrayList<Localita>();
+		loc=l.getPlaces(c.getID_campagna());
+		String res=new Gson().toJson(loc);
+		PrintWriter out= response.getWriter();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		out.print(res);
+		out.flush();
+		
+		}else {
+			request.setAttribute("errore",true);
+			getServletContext().getRequestDispatcher("/GetDettagli").forward(request, response);
+		}
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("UtenteConnesso") == null) {
-			response.sendRedirect("Login");
-		}
-		else {
-			int id = 0;
-			HttpSession session = request.getSession();
-			String username =(String)session.getAttribute("UtenteConnesso");
-			String nomecampagna = request.getParameter("nome");
-			String committente = request.getParameter("committente");
-			DAOCampagna daocampagna= new DAOCampagna(connection);
-			id = daocampagna.addCampagna(nomecampagna, committente,username);
-			request.setAttribute("idcampagna", id);
-			request.setAttribute("nomecampagna", nomecampagna);
-			request.setAttribute("committente", committente);
-			request.setAttribute("stato","creata");
-			request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
-		}
-		
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

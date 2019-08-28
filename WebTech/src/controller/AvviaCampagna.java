@@ -66,7 +66,8 @@ public class AvviaCampagna extends HttpServlet {
 			String creatore = (String)request.getSession().getAttribute("UtenteConnesso");
 			DAOCampagna campagna = new DAOCampagna(connection);
 			if(campagna.esisteCampagna(id, creatore)) {
-				campagna.cambioStato(id, "avviata");
+				campagna.cambioStato(id, "avviata");// utilizziamo la stessa servlet per i cmbi di stato e cambio nome servlet
+			
 				String res=new Gson().toJson(true);
 				PrintWriter out= response.getWriter();
 				response.setContentType("application/json");
