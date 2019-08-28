@@ -57,18 +57,18 @@ public class GetLocalita extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		DAOLocalita l = new DAOLocalita (connection);
 		DAOCampagna dcampagna = new DAOCampagna(connection);
 		String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
 		int idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
 		Campagna c= new Campagna();
-		c=dcampagna.getCampagna(idcamp, nome_utente);
+		c = dcampagna.getCampagna(idcamp, nome_utente);
 		if(c!=null){
 			
 		List<Localita> loc= new ArrayList<Localita>();
 		loc=l.getPlaces(c.getID_campagna());
-		String res=new Gson().toJson(loc);
+		System.out.println(loc.get(0).getNome());
+		String res = new Gson().toJson(loc);
 		PrintWriter out= response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -79,15 +79,12 @@ public class GetLocalita extends HttpServlet {
 			request.setAttribute("errore",true);
 			getServletContext().getRequestDispatcher("/GetDettagli").forward(request, response);
 		}
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
-
 }

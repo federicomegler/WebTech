@@ -24,7 +24,9 @@
 		<a style="float: right;" href="Profilo">PROFILO</a> 
 		<a style="float: right;" href="Logout">LOGOUT</a>
 	</div>
-
+	
+	ID Campagna -->  <p id="idcampagna">${idcampagna}</p>
+	
 	<div id="mapareacontainer">
 		<div id="mapid"></div>
 	</div>

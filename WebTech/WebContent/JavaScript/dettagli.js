@@ -278,7 +278,7 @@ window.onload = function (){
 			  }
 		  }
 		  var id = document.getElementById("idcampagna").innerHTML;
-		  x.open("POST", "/AvviaCampagna",true);
+		  x.open("POST", "\AvviaCampagna",true);
 		  var param = "id="+id;
 		  x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		  x.send(param);

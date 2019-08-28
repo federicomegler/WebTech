@@ -58,10 +58,10 @@ function init(){
 			
 			if(x.readyState==4 && x.status==200){
 				var ris = JSON.parse(x.responseText);
-				  addMarkers (ris);
+				  addMarkers(ris);
 			}
 		}
-		x.open("GET", "\GetLocalita",true)    
+		x.open("GET", "\GetLocalita?idcampagna=" + document.getElementById("idcampagna").innerHTML,true)    
 		x.send();
 		
 }
@@ -83,28 +83,24 @@ function onClick_Marker(e) {
 }
 
 function addMarkers (loc){
-/*
-  for(let i=0; i<loc.size(); ++i){
-	switch (loc[i].color) {
-	case "yellow":
-		L.marker([loc[i].latitudine,loc[i].longitudine], {icon: yellowIcon}).addTo(mymap)
-		.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
-		break;
-	case "green":
-		L.marker([loc[i].latitudine,loc[i].longitudine], {icon: greenIcon}).addTo(mymap)
-		.bindPopup("<b>"+loc[i].nome+"</b>").openPopup();
-		break;
-	case "red":
-		L.marker([loc[i].latitudine,loc[i].longitudine], {icon: redIcon}).addTo(mymap)
-		.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
-		break;}
-		
-		}
-		 */
-	
-	L.marker([45.7802507654344,9.199769496808585], {icon: greenIcon}).addTo(mymap)
-	.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup(); //nome marker metterò il nome della località
-	marker.on('click', onClick_Marker)
 	console.log(loc);
-	
+	for(let i=0; i<loc.length; ++i){
+		var marker;
+		switch (loc[i].colore) {
+		case "yellow":
+			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: yellowIcon}).addTo(mymap)
+			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
+			break;
+		case "green":
+			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: greenIcon}).addTo(mymap)
+			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup();
+			break;
+		case "red":
+			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: redIcon}).addTo(mymap)
+			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
+			break;
+		}
+		marker.on('click', onClick_Marker)
+		console.log(loc);
+	}
 }

@@ -273,7 +273,7 @@ public class DAOCampagna {
 	
     public void addMappacampagna(int idimmagine,int idcampagna,int idlocalita) {
 		
-		String query=" INSERT INTO mappacampagna (idcampagna,idlocalita,idimmagine) VALUES(?,?,?)";
+		String query=" INSERT INTO mappacampagna (idcampagna,idlocalita,idimmagine,colore) VALUES(?,?,?,yellow)";
 		
 		try {
 			pstate = connection.prepareStatement(query);

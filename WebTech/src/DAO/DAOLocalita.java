@@ -68,7 +68,8 @@ public class DAOLocalita {
 
     public List<Localita> getPlaces(int idcampagna){
     	List<Localita> places= new ArrayList<Localita>();
-		String query = "select * from webtech.localita where id in (select idlocalita from webtech.mappacampagna where idcampagna=?)";
+		String query = "select * from webtech.localita as loc join webtech.mappacampagna as mc on loc.id = mc.idlocalita where mc.idcampagna = ?";
+		
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setInt(1, idcampagna);
@@ -81,7 +82,8 @@ public class DAOLocalita {
 				l.setLongitudine(ris.getDouble("longitudine"));
 				l.setNome(ris.getString("nome"));
 				l.setRegione(ris.getString("regione"));
-				l.setStato("stato");
+				l.setStato(ris.getString("stato"));
+				l.setColore(ris.getString("colore"));
 				places.add(l);
 			}
 		} catch (SQLException e) {
