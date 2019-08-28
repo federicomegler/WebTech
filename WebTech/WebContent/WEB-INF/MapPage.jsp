@@ -29,7 +29,5 @@
 		<div id="mapid"></div>
 	</div>
 	
-
-	
 </body>
 </html>
