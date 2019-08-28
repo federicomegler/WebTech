@@ -65,12 +65,14 @@ public class CreaCampagna extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {
+			int id = 0;
 			HttpSession session = request.getSession();
 			String username =(String)session.getAttribute("UtenteConnesso");
 			String nomecampagna = request.getParameter("nome");
 			String committente = request.getParameter("committente");
 			DAOCampagna daocampagna= new DAOCampagna(connection);
-			daocampagna.addCampagna(nomecampagna, committente,username);
+			id = daocampagna.addCampagna(nomecampagna, committente,username);
+			request.setAttribute("idcampagna", id);
 			request.setAttribute("nomecampagna", nomecampagna);
 			request.setAttribute("committente", committente);
 			request.setAttribute("stato","creata");

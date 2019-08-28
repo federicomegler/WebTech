@@ -66,16 +66,26 @@ public class AvviaCampagna extends HttpServlet {
 			String creatore = (String)request.getSession().getAttribute("UtenteConnesso");
 			DAOCampagna campagna = new DAOCampagna(connection);
 			if(campagna.esisteCampagna(id, creatore)) {
-				campagna.cambioStato(id, "avviata");
-				String res=new Gson().toJson(true);
-				PrintWriter out= response.getWriter();
-				response.setContentType("application/json");
-				response.setCharacterEncoding("UTF-8");
-				out.print(res);
-				out.flush();
+				System.out.println("sono nella servlet avvia campagna");
+				if(campagna.cambioStato(id, "avviata")) {
+					String res=new Gson().toJson(true);
+					PrintWriter out= response.getWriter();
+					response.setContentType("application/json");
+					response.setCharacterEncoding("UTF-8");
+					out.print(res);
+					out.flush();
+				}
+				else {
+					String res = new Gson().toJson(false);
+					PrintWriter out= response.getWriter();
+					response.setContentType("application/json");
+					response.setCharacterEncoding("UTF-8");
+					out.print(res);
+					out.flush();
+				}
 			}
 			else {
-				String res=new Gson().toJson(false);
+				String res = new Gson().toJson(false);
 				PrintWriter out= response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
@@ -84,5 +94,4 @@ public class AvviaCampagna extends HttpServlet {
 			}
 		}
 	}
-
 }

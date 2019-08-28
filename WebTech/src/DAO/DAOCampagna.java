@@ -19,36 +19,35 @@ public class DAOCampagna {
 	}
 
 	public boolean cambioStato(int id, String s) {
-		
+
 		String query = "UPDATE campagna SET stato =? WHERE id=?";
 		DAOLocalita d= new DAOLocalita(connection);
 		if(d.checkLoc(id)) {
-			
-		try {
-			pstate = connection.prepareStatement(query);
-			pstate.setInt(2,id);
-			pstate.setString(1,s);
-		    pstate.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		
-		}
-		finally {
+
 			try {
-				pstate.close();
+				pstate = connection.prepareStatement(query);
+				pstate.setInt(2,id);
+				pstate.setString(1,s);
+				pstate.executeUpdate();
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
-	}
-		return true;
+
+			}
+			finally {
+				try {
+					pstate.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}	
+			}
+			return true;
 		}
 		else return false;
-		
+
 	}
-	
+
 	public void addsubscription (int id, String username) {
 		
 		String query = "INSERT INTO iscrizione (idcampagna,user) VALUES (?,?)";
@@ -78,27 +77,34 @@ public class DAOCampagna {
     public int addCampagna(String nome, String committente,String creatore) {
 		int id=0;
 		String query = "INSERT INTO webtech.campagna (nome,committente,stato,creatore) VALUES (?,?,'creata',?)";
+		
+		String query2 = "SELECT LAST_INSERT_ID() as last_id";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1,nome);
 			pstate.setString(2, committente);
 			pstate.setString(3,creatore);
-			pstate.executeUpdate();		
+			pstate.executeUpdate();
+			
+			pstate = connection.prepareStatement(query2);
+			ris = pstate.executeQuery();
+			
+			if(ris.next()) {
+				id = ris.getInt("last_id");
+			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		
 		}
 		finally {
 			try {
 				pstate.close();
+				ris.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
+			}			
 		}
-		
 		return id;
 	}
 	
