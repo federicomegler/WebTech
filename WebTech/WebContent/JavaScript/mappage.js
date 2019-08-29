@@ -1,10 +1,27 @@
 window.onload = function(){
 	
 	init(); //prova marker
+	document.getElementById("left").addEventListener("click",(e)=>{
+		showImm(-1);
+		getAnn();
+		
+		
+		
+	}, false);
 	
-	//event listener dei pulsanti che richiedono i dati delle relative foto
 	
+	
+	document.getElementById("right").addEventListener("click",(e)=>{
+		showImm(1);
+		getAnn();
+		
+	}, false);
+	
+	// event listener src immagine get annotazioni
 }
+var idlocalita;
+var listaImm;
+var c=0;
 var greenIcon = L.icon({
 	iconUrl: '/icone/green.png',
 	shadowUrl: '/icone/ombra.png',
@@ -65,25 +82,140 @@ function init(){
 		x.send();
 		
 }
+
+function reverseGeocode(c) {
+	fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + c.lng+ '&lat=' + c.lat)
+.then(function(response) {
+    return response.json();
+}).then(function(json) {
+    setInfoLocalita(json)			
+});
+
+}
+
+function setInfoLocalita(daticitta){
+
+	if(daticitta.address){
+		if(daticitta.address.city){
+			document.getElementById("datilocalita").innerHTML = daticitta.address.city;
+		}
+		else if(daticitta.address.village){
+			document.getElementById("datilocalita").innerHTML = daticitta.address.village;
+		}
+		else if(daticitta.address.town){
+			document.getElementById("datilocalita").innerHTML = daticitta.address.town;
+		}
+		else{					
+			document.getElementById("datilocalita").innerHTML = "unknown";
+		}
+		if(daticitta.address.state){
+			document.getElementById("datilocalita").innerHTML = document.getElementById("datilocalita").innerHTML + ", " + daticitta.address.state;
+		}
+		else if(daticitta.address.county){
+			document.getElementById("datilocalita").innerHTML = document.getElementById("datilocalita").innerHTML + ", " + daticitta.address.county;
+		}
+		else{
+			document.getElementById("datilocalita").innerHTML = document.getElementById("datilocalita").innerHTML + ", unknown";
+		}
+		if(daticitta.address.country){
+			document.getElementById("datilocalita").innerHTML = document.getElementById("datilocalita").innerHTML + ", " + daticitta.address.country;
+		}
+		else{
+			document.getElementById("datilocalita").innerHTML = document.getElementById("datilocalita").innerHTML + ", unknown";
+		}
+
+
+	}
+	else{
+		document.getElementById("datilocalita").innerHTML = "UNKNOWN";
+	}
+
+}
+
+function showAnn(listaann){
+	var container = document.getElementById("annotazioni");
+	while (container.firstChild) {
+	    container.removeChild(container.firstChild);
+	  }
+	for(var i=0; i<listaann.length; ++i){
+		var c_utente = document.createElement("div"); // container utente
+		c_utente.innerHTML = listaann[i].proprietario + " Exp: " + listaann[i].fiducia;
+		container.appendChild(c_utente);
+		c_note = document.createElement("div");
+		c_note.innerHTML = listaann[i].note;  // container note
+		container.appendChild(c_note);
+		var c_info = document.createElement("div"); //&#9830
+		var c_validita = document.createElement("div");
+		if(listaann[i].validita){
+			c_validita.style.backgroundColor = "green";
+
+		}
+		else{
+			c_validita.style.backgroundColor = "red";
+		}
+		c_info.appendChild(c_validita);
+		c_info.innerHTML = " data creazione: " + listaann[i].data_creazione;
+		container.appendChild(c_info);
+	}
+}
+
+
 var popup = L.popup();
 var x
 function onMapout(e){
-	var marker= L.marker(x).addTo(mymap)
-	.bindPopup(document.getElementById("locazione").value).openPopup();
-	marker.valueOf()._icon.style.color = 'green'
-	marker.on('click', onClick_Marker)
+	var marker= L.marker(x).addTo(mymap).bindPopup(document.getElementById("locazione").value).openPopup();
+	marker.valueOf()._icon.style.color = 'green';
+	marker.on('click', onClick_Marker);
 }
 
-function onClick_Marker(e) {
-	var marker = e.target;
-	x=marker.getLatLng();
-	document.getElementById("lat").value=x.lat;
-	document.getElementById("lon").value=x.lng;
-	reverseGeocode(x);
-}
+
+
+function showImm(n) {
+	if(listaImm.length > 0){
+
+		if (c+n > listaImm.length-1) {c = 0} 
+		else if (c+n < 0) {c = listaImm.length-1} 
+		else {
+			c = c+n;
+		} 
+		document.getElementById("immagine").src = "/ImmaginiCampagna/" + listaImm[c].id + listaImm[c].formato;
+		document.getElementById("datiimmagine").innerHTML ="provenienza: " + listaImm[c].provenienza + ", " + listaImm[c].data_recupero + ", risoluzione: " + listaImm[c].risoluzione;
+	}}
+
+	function getAnn(){
+		var x = new XMLHttpRequest();
+		x.onreadystatechange= function (){
+			
+			if(x.readyState==4 && x.status==200){
+				var ris = JSON.parse(x.responseText);
+				  showAnn(ris);
+			}
+		}
+		x.open("GET", "\getAnnotazioni?idimmagine=" + listaImm[c].id + "&idlocalita=" + idlocalita + "&idcampagna=" + document.getElementById("idcampagna").innerHTML,true);   
+		x.send();
+	}
+
+
+	function onClick_Marker(e) {
+		var marker = e.target;
+		coordinate = marker.getLatLng();
+		idlocalita = marker.id;
+		reverseGeocode(coordinate);
+		var x = new XMLHttpRequest();
+		x.onreadystatechange= function (){
+
+			if(x.readyState==4 && x.status==200){
+				listaImm = JSON.parse(x.responseText);
+				c=0;
+				showImm(0);
+				getAnn();
+			}
+		}
+		x.open("GET", "\GetDatiImmagine?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idlocalita="+idlocalita ,true); 
+		x.send();
+	}
 
 function addMarkers (loc){
-	console.log(loc);
 	for(let i=0; i<loc.length; ++i){
 		var marker;
 		switch (loc[i].colore) {
@@ -100,7 +232,8 @@ function addMarkers (loc){
 			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
 			break;
 		}
+		marker.id=loc[i].ID_localita;
+		marker.nome=loc[i].nome;
 		marker.on('click', onClick_Marker)
-		console.log(loc);
 	}
 }

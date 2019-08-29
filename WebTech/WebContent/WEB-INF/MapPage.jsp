@@ -31,5 +31,16 @@
 		<div id="mapid"></div>
 	</div>
 	
+	<p id="datilocalita"></p>
+	
+	<div id="immagini" >
+		<img alt="immagine" id="immagine" src="">
+		<p id="datiimmagine"></p>
+		<button id="left">&#10094</button>
+		<button id="right">&#10095</button>
+	</div>
+	
+	<div id="annotazioni"></div>
+	
 </body>
 </html>

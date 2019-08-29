@@ -50,41 +50,43 @@ public class DAOAnnotazione {
 				
 	}
 
-	public List<Annotazione> getDescription(int idcampagna,String username) {
-		List<Annotazione> annotazioni = new ArrayList<Annotazione>();
-		String query = "select * from annotazione where user=? and idimmagine in (select idimmagine from mappacampagna where idcampagna=?)";
+	public List<Annotazione> getAnnotazioni(int idimmagine, int idcampagna, int idlocalita){
+		List<Annotazione> lista = null;
+		String query = "select * from webtech.annotazione as a join webtech.mappacampagna as mc on a.idimmagine = mc.idimmagine where mc.idimmagine = ? and mc.idcampagna = ? and mc.idlocalita = ? order by datacreazione";
+		
 		try {
 			pstate = connection.prepareStatement(query);
-			pstate.setString(1, username);
+			pstate.setInt(1, idimmagine);
 			pstate.setInt(2, idcampagna);
+			pstate.setInt(3, idlocalita);
 			ris = pstate.executeQuery();
-			if(ris.next()) {
-				Annotazione a= new Annotazione();
+			lista = new ArrayList<Annotazione>();
+			while(ris.next()) {
+				Annotazione a = new Annotazione();
+				a.setProprietario(ris.getString("user"));
 				a.setData_creazione(ris.getDate("datacreazione"));
+				a.setValidita(ris.getBoolean("validita"));
 				a.setFiducia(ris.getString("fiducia"));
 				a.setNote(ris.getString("note"));
-				a.setProprietario(username);
-				a.setValidita(ris.getBoolean("validita"));
-				annotazioni.add(a);
+				lista.add(a);
 			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		
+			return null;
 		}
 		finally {
 			try {
-				ris.close();
 				pstate.close();
+				ris.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
 		
-			
-		return annotazioni;
 		
+		return lista;
 	}
-  
+	
 }

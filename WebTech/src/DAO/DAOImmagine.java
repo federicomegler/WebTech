@@ -22,17 +22,19 @@ public class DAOImmagine {
 		this.connection = connessione;
 	}
    
-	public List<Immagine> getAlbum(int idcampagna ){
+	public List<Immagine> getImmaginiLocalita(int idcampagna, int idlocalita){
 		
 		List <Immagine> immaginicampagna = new ArrayList<Immagine>();
-		String query = "select * from immagine as i join mappacampagna as m "
-				+ "on (i.id=m.idimmagine) where m.idcampagna=?";
+		String query = "select * from webtech.immagine as i join webtech.mappacampagna as mc on (i.id=mc.idimmagine) where mc.idcampagna=? and mc.idlocalita = ?";
+		
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setInt(1, idcampagna);
+			pstate.setInt(2, idlocalita);
 			ris = pstate.executeQuery();
-			if(ris.next()) {
+			while(ris.next()) {
 			Immagine i = new Immagine();
+			i.setId(ris.getInt("id"));
 			i.setData_recupero(ris.getDate("datarecupero"));
 			i.setFormato(ris.getString("formato"));
 			i.setProvenienza(ris.getString("provenienza"));

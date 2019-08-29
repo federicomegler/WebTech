@@ -30,9 +30,12 @@ public class DAOLocalita {
     	
     	Localita loc = new Localita(); 
         loc=getLocalita (-1 , nome, comune, regione, stato);          
-    	if(loc!=null) { 
-    		return loc.getID_localita();}
+    	if(loc!=null) {
+    		System.out.println("localita gia esistente");
+    		return loc.getID_localita();
+    		}
     	try {
+    		System.out.println("localita non esistente");
 			pstate = connection.prepareStatement(query1);
 			pstate.setDouble(1,latitudine);
 			pstate.setDouble(2,longitudine);
@@ -101,6 +104,34 @@ public class DAOLocalita {
 		}
     	return places;
     }
+    
+    public Localita getLocalita(int idcampagna, int idlocalita){
+    	String query = "select * from webtech.mappacampagna as mc join webtech.localita as l on mc.idlocalita = l.id where mc.idcampagna = ? and l.id = ?";
+    	Localita l = null;
+    	try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1, idcampagna);
+			pstate.setInt(2, idlocalita);
+			ris = pstate.executeQuery();
+			
+			if(ris.next()) {
+				l =new Localita();
+    			l.setID_localita(ris.getInt("id"));
+    			l.setNome(ris.getString("nome"));
+    			l.setComune(ris.getString("comune"));
+    			l.setRegione(ris.getString("regione"));
+    			l.setStato(ris.getString("stato"));
+    			l.setLatitudine(ris.getDouble("latitudine"));
+    			l.setLongitudine(ris.getDouble("longitudine"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+			
+		}
+    	return l;
+    }
   
     public Localita getLocalita (int id,String nome,
             String comune, String regione, String stato) {
@@ -126,7 +157,6 @@ public class DAOLocalita {
     			l.setLongitudine(ris.getDouble("longitudine"));    			
     		}
     	} catch (SQLException e) {
-    		// TODO Auto-generated catch block
     		e.printStackTrace();
     	
     	}
@@ -135,7 +165,6 @@ public class DAOLocalita {
     			ris.close();
     			pstate.close();
     		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     	}

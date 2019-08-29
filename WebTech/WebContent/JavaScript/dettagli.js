@@ -105,8 +105,8 @@ function init(){
 			  
 		  }
 	  
-    var marker=L.marker([45.7802507654344,9.199769496808585]).addTo(mymap)
-		.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+    var marker=L.marker([45.7802507654344,9.199769496808585]).addTo(mymap);
+    marker.idloc = "ciao bella";
 marker.on('click', onClick_Marker)}
 var popup = L.popup();
 var x
@@ -148,54 +148,54 @@ function reverseGeocode(c) {
      .then(function(response) {
             return response.json();
         }).then(function(json) {
-            newfunction(json)
-						
+            setInfoLocalita(json)				
         });
 	
 }
-		
-function newfunction(daticitta){
 
-if(daticitta.address){
-					if(daticitta.address.city){
-			   document.getElementById("C").value=daticitta.address.city
-				 }
-				 else if(daticitta.address.village){
-					document.getElementById("C").value=daticitta.address.village
-				 }
-				 else if(daticitta.address.town){
-					document.getElementById("C").value=daticitta.address.town
-				 }
-				 else{					
-					document.getElementById("C").value=''
-				 }
-				 
-				 if(daticitta.address.country){document.getElementById("S").value=daticitta.address.country}
-         else{document.getElementById("S").value=''
-				 }
-				 
-				  if(daticitta.address.state){document.getElementById("R").value=daticitta.address.state}
-					else if(daticitta.address.county){
-						document.getElementById("R").value=daticitta.address.county
-					}
-         else{document.getElementById("R").value=''
-				 }
-}
-else{
-	document.getElementById("C").value=''
-	document.getElementById("R").value=''
-	document.getElementById("S").value=''
-}
+function setInfoLocalita(daticitta){
 
-
+	if(daticitta.address){
+		if(daticitta.address.city){
+			document.getElementById("C").value=daticitta.address.city
 		}
-		
+		else if(daticitta.address.village){
+			document.getElementById("C").value=daticitta.address.village
+		}
+		else if(daticitta.address.town){
+			document.getElementById("C").value=daticitta.address.town
+		}
+		else{					
+			document.getElementById("C").value=''
+		}
+
+		if(daticitta.address.country){document.getElementById("S").value=daticitta.address.country}
+		else{document.getElementById("S").value=''
+		}
+
+		if(daticitta.address.state){document.getElementById("R").value=daticitta.address.state}
+		else if(daticitta.address.county){
+			document.getElementById("R").value=daticitta.address.county
+		}
+		else{document.getElementById("R").value=''
+		}
+	}
+	else{
+		document.getElementById("C").value=''
+			document.getElementById("R").value=''
+				document.getElementById("S").value=''
+	}
+
+
+}
+
 function onClick_Marker(e) {
 	    var marker = e.target;
+	    console.log(marker.idloc)
 	    x=marker.getLatLng();
          document.getElementById("lat").value=x.lat;
          document.getElementById("lon").value=x.lng;
-	 reverseGeocode(x);
+         reverseGeocode(x);
 }
 
 window.onload = function (){

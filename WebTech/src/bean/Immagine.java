@@ -3,7 +3,7 @@ package bean;
 import java.sql.Date;
 
 public class Immagine {
-	private String id;
+	private int id;
 	private String provenienza;
 	private Date data_recupero;
 	private String risoluzione;
@@ -33,10 +33,10 @@ public class Immagine {
 	public void setFormato(String formato) {
 		this.formato = formato;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 }

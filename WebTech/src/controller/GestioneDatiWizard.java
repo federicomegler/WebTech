@@ -92,7 +92,6 @@ public class GestioneDatiWizard extends HttpServlet {
 			c = dcampagna.getCampagna(idcamp, nome_utente);
 
 			if(c!=null && c.getStato().equals("creata")) {
-				System.out.println("store");
 				String localita = (String)request.getParameter("localita");
 				String comune = (String)request.getParameter("comune");
 				String stato = (String)request.getParameter("Stato");
@@ -117,13 +116,13 @@ public class GestioneDatiWizard extends HttpServlet {
 
 				dcampagna.addMappacampagna(idimm, idcamp, idloc);
 
-				File immagine = new File(tomcatBase  + path + Integer.toString(idcamp)+ Integer.toString(idloc) + Integer.toString(idimm));
+				File immagine = new File(tomcatBase  + path + Integer.toString(idimm));
 				if(!saveDir.exists()) {
 					saveDir.mkdirs();
 					System.out.println("la directory non esiste");
 				}
 				estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
-				part.write(tomcatBase + path + idcamp+ idloc + idimm+ estensione);
+				part.write(tomcatBase + path + idimm + estensione);
 				System.out.println("dispatcher");
 				request.setAttribute("idcampagna",idcamp);
 				request.setAttribute("errore",false);
