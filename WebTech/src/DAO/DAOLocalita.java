@@ -19,6 +19,31 @@ public class DAOLocalita {
 	public DAOLocalita(Connection connessione) {
 		this.connection = connessione;
 	}
+
+	public int totaleLocalita(int idcampagna) {
+		String query = "select count(distinct idlocalita) as totlocalita from webtech.mappacampagna where idcampagna = ?";
+		int tot = -1;
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1, idcampagna);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				tot = ris.getInt("totlocalita");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		finally {
+			try {
+				pstate.close();
+				ris.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return tot;
+	}
 	
 
     public int addLocalita(double latitudine, double longitudine, String nome,

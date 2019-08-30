@@ -19,6 +19,34 @@ public class DAOAnnotazione {
 	public DAOAnnotazione(Connection connessione) {
 		this.connection = connessione;
 	}
+	
+	public int getNumAnnotazioniCampagna(int idcampagna) {
+		String query = "select count(*) as tot from webtech.annotazione as a join (select * from webtech.mappacampagna where idcampagna = ?) as mc on a.idimmagine = mc.idimmagine";
+		int tot = -1;
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1, idcampagna);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				tot = ris.getInt("tot");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		finally {
+			try {
+				pstate.close();
+				ris.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return tot;
+	}
+	
 
 	public void addDescription (int idimmagine,String username, boolean validita, String fiducia, String note) {
 		

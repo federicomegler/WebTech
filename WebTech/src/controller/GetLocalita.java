@@ -67,7 +67,6 @@ public class GetLocalita extends HttpServlet {
 			
 		List<Localita> loc= new ArrayList<Localita>();
 		loc=l.getPlaces(c.getID_campagna());
-		System.out.println(loc.get(0).getNome());
 		String res = new Gson().toJson(loc);
 		PrintWriter out= response.getWriter();
 		response.setContentType("application/json");

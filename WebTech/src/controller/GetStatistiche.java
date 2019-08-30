@@ -21,27 +21,25 @@ import DAO.DAOAnnotazione;
 import DAO.DAOCampagna;
 import DAO.DAOImmagine;
 import DAO.DAOLocalita;
-import bean.Annotazione;
-import bean.Campagna;
 import bean.Immagine;
-import bean.Localita;
 
 /**
- * Servlet implementation class getAnnotazioni
+ * Servlet implementation class GetStatistiche
  */
-@WebServlet("/getAnnotazioni")
-public class getAnnotazioni extends HttpServlet {
+@WebServlet("/GetStatistiche")
+public class GetStatistiche extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Connection connection;   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public getAnnotazioni() {
+    public GetStatistiche() {
         super();
     }
 
+    
     public void init() {
-		ServletContext context = getServletContext();
+    	ServletContext context = getServletContext();
 		String driver = context.getInitParameter("dbDriver");
 		String url = context.getInitParameter("dbUrl") + "?useLegacyDatetimeCode=false&serverTimezone=Europe/Rome";
 		String user = context.getInitParameter("dbUser");
@@ -60,39 +58,40 @@ public class getAnnotazioni extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("UtenteConnesso") == null) {
-			response.sendRedirect("Login");
-		}
-		else{
-			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
-			int idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
-			int idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
-			DAOCampagna daocampagna = new DAOCampagna(connection);
-			DAOImmagine daoimmagine = new DAOImmagine(connection);
-			DAOLocalita daolocalita = new DAOLocalita(connection);
-			Campagna campagna = new Campagna();
-			campagna = daocampagna.getCampagna(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso"));
-			Localita localita = new Localita();
-			localita = daolocalita.getLocalita(idcampagna, idlocalita);
-			if(campagna != null && localita != null) {
-				DAOAnnotazione daoannotazione = new DAOAnnotazione(connection);
-				List<Annotazione> listaannotazione = new ArrayList<Annotazione>();
-				listaannotazione = daoannotazione.getAnnotazioni(idimmagine,idcampagna,idlocalita);
-				String res = new Gson().toJson(listaannotazione);
-				PrintWriter out = response.getWriter();
-				response.setContentType("application/json");
-				response.setCharacterEncoding("UTF-8");
-				out.print(res);
-				out.flush();
-			}
-		}
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
+		}
+		else {
+			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+			String creatore = (String)request.getSession().getAttribute("UtenteConnesso");
+			DAOCampagna campagna = new DAOCampagna(connection);
+			DAOImmagine daoimmagine = new DAOImmagine(connection);
+			DAOAnnotazione daoannotazione = new DAOAnnotazione(connection);
+			DAOLocalita daolocalita = new DAOLocalita(connection);
+			if(campagna.esisteCampagna(idcampagna, creatore)) {
+				int numerofoto = daoimmagine.getTotaleImmaginiCampagna(idcampagna);
+				int numeroann = daoannotazione.getNumAnnotazioniCampagna(idcampagna);
+				int numeroloc = daolocalita.totaleLocalita(idcampagna);
+				List<Immagine> listaimmaginiconfl = new ArrayList<Immagine>();
+				listaimmaginiconfl = daoimmagine.getImmaginiLocalitaConflitto(idcampagna);
+				request.setAttribute("idcampagna", idcampagna);
+				request.setAttribute("totLocalita", numeroloc);
+				request.setAttribute("totImmagini", numerofoto);
+				request.setAttribute("totAnnotazioni", numeroann);
+				request.setAttribute("listaImmagini", listaimmaginiconfl);
+				getServletContext().getRequestDispatcher("/WEB-INF/PaginaStatistiche.jsp").forward(request, response);
+			}
+			else {
+				getServletContext().getRequestDispatcher("/WEB-INF/Home.jsp").forward(request, response);
+			}
 
+		}
+	}
 }
