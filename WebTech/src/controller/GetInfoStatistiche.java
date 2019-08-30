@@ -21,24 +21,24 @@ import DAO.DAOAnnotazione;
 import DAO.DAOCampagna;
 import DAO.DAOImmagine;
 import DAO.DAOLocalita;
+import bean.Annotazione;
 import bean.Campagna;
-import bean.Immagine;
 import bean.Localita;
 
 /**
- * Servlet implementation class GetDatiLocalita
+ * Servlet implementation class GetInfoStatistiche
  */
-@WebServlet("/GetDatiImmagine")
-public class GetDatiImmagine extends HttpServlet {
+@WebServlet("/GetInfoStatistiche")
+public class GetInfoStatistiche extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Connection connection;   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetDatiImmagine() {
+    public GetInfoStatistiche() {
         super();
     }
-
+    
     public void init() {
     	ServletContext context = getServletContext();
 		String driver = context.getInitParameter("dbDriver");
@@ -53,9 +53,8 @@ public class GetDatiImmagine extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
     }
-    
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -65,34 +64,32 @@ public class GetDatiImmagine extends HttpServlet {
 		}
 		else {
 			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
-			int idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
+			int idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			DAOImmagine daoimmagine = new DAOImmagine(connection);
 			DAOLocalita daolocalita = new DAOLocalita(connection);
 			Campagna campagna = new Campagna();
 			campagna = daocampagna.getCampagna(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso"));
-			Localita localita = new Localita();
-			localita = daolocalita.getLocalita(idcampagna, idlocalita);
-			if(campagna != null && localita != null) {
-				List<Immagine> listaimmagine = new ArrayList<Immagine>();
-				listaimmagine = daoimmagine.getImmaginiLocalita(idcampagna, idlocalita);
-				String res = new Gson().toJson(listaimmagine);
+			if(campagna != null) {
+				DAOAnnotazione daoannotazione = new DAOAnnotazione(connection);
+				List<Annotazione> listaannotazione = new ArrayList<Annotazione>();
+				Localita localita = daolocalita.getLocalita(idimmagine);
+				listaannotazione = daoannotazione.getAnnotazioni(idimmagine,idcampagna,localita.getID_localita());
+				String res1 = new Gson().toJson(listaannotazione);
+				String res2 = new Gson().toJson(localita);  
+				String res1_2 = "["+res1+","+res2+"]";
 				PrintWriter out = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
-				out.print(res);
+				out.print(res1_2);
 				out.flush();
 			}
-			else {
-			}
 		}
-	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

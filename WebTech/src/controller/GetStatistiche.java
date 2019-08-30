@@ -21,6 +21,7 @@ import DAO.DAOAnnotazione;
 import DAO.DAOCampagna;
 import DAO.DAOImmagine;
 import DAO.DAOLocalita;
+import bean.Campagna;
 import bean.Immagine;
 
 /**
@@ -71,11 +72,13 @@ public class GetStatistiche extends HttpServlet {
 		else {
 			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
 			String creatore = (String)request.getSession().getAttribute("UtenteConnesso");
-			DAOCampagna campagna = new DAOCampagna(connection);
+			DAOCampagna daocampagna = new DAOCampagna(connection);
 			DAOImmagine daoimmagine = new DAOImmagine(connection);
 			DAOAnnotazione daoannotazione = new DAOAnnotazione(connection);
 			DAOLocalita daolocalita = new DAOLocalita(connection);
-			if(campagna.esisteCampagna(idcampagna, creatore)) {
+			Campagna campagna = new Campagna();
+			campagna = daocampagna.getCampagna(idcampagna, creatore);
+			if(campagna != null) {
 				int numerofoto = daoimmagine.getTotaleImmaginiCampagna(idcampagna);
 				int numeroann = daoannotazione.getNumAnnotazioniCampagna(idcampagna);
 				int numeroloc = daolocalita.totaleLocalita(idcampagna);
@@ -86,6 +89,7 @@ public class GetStatistiche extends HttpServlet {
 				request.setAttribute("totImmagini", numerofoto);
 				request.setAttribute("totAnnotazioni", numeroann);
 				request.setAttribute("listaImmagini", listaimmaginiconfl);
+				request.setAttribute("nome", campagna.getNome());
 				getServletContext().getRequestDispatcher("/WEB-INF/PaginaStatistiche.jsp").forward(request, response);
 			}
 			else {

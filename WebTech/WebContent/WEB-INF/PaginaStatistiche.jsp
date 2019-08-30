@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Statistiche</title>
 <link rel="stylesheet" type="text/css" href="CSS/StatisticheStyle.css">
+<script src="JavaScript/statistiche.js" type="text/javascript" defer></script>
 </head>
 <body>
 	<div class="topnav">
@@ -14,7 +15,8 @@
 			href="Profilo">PROFILO</a> <a style="float: right;" href="Logout">LOGOUT</a>
 	</div>
 	
-	<p id="campagna">Campagna: ${idcampagna}</p>
+	ID Campagna: <p id="idcampagna">${idcampagna}</p>
+	<p id="nomecampagna">Nome campagna: ${nome}</p>
 	<p id="numerolocalita">Numero totale Località: ${totLocalita}</p>
 	<p id="numeroimmagini">Numero totale Immagini: ${totImmagini}</p>
 	<p id="numeroannotazioni">Numero totale Annotazioni:
@@ -27,13 +29,24 @@
 
 
 	<p id="numeroconflitti">Numero conflitti: ${listaImmagini.size()}</p>
-	<div id="elencoImmagini">
-		<c:forEach var="imm" items="${listaImmagini}">
-			<div id="${imm.id}">
-				<img alt="Cliccare per info"
-					src="/ImmaginiCampagna/${imm.id}${imm.formato}">
+
+	<c:if test="${listaImmagini.size() > 0}">
+		<div id="elencoImmagini">
+			<c:forEach var="imm" items="${listaImmagini}">
+				<div>
+					<img id="${imm.id}" alt="Cliccare per info"
+						src="/ImmaginiCampagna/${imm.id}${imm.formato}">
+				</div>
+			</c:forEach>
+		</div>
+
+		<div id="containerdettagli">
+			<div id="IMG">
+				<p id="localitaimmagine"></p>
+				<img id="immagineZoom" alt="" src="">
 			</div>
-		</c:forEach>
-	</div>
+			<div id="annotazioni"></div>
+		</div>
+	</c:if>
 </body>
 </html>

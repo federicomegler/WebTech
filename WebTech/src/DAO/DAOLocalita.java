@@ -130,6 +130,36 @@ public class DAOLocalita {
     	return places;
     }
     
+    
+    
+    public Localita getLocalita(int idimmagine){
+    	String query = "select * from webtech.mappacampagna as mc join webtech.localita as l on mc.idlocalita = l.id where mc.idimmagine = ?";
+    	Localita l = null;
+    	try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1, idimmagine);
+			ris = pstate.executeQuery();
+			
+			if(ris.next()) {
+				l =new Localita();
+    			l.setID_localita(ris.getInt("id"));
+    			l.setNome(ris.getString("nome"));
+    			l.setComune(ris.getString("comune"));
+    			l.setRegione(ris.getString("regione"));
+    			l.setStato(ris.getString("stato"));
+    			l.setLatitudine(ris.getDouble("latitudine"));
+    			l.setLongitudine(ris.getDouble("longitudine"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+			
+		}
+    	return l;
+    }
+    
+    
     public Localita getLocalita(int idcampagna, int idlocalita){
     	String query = "select * from webtech.mappacampagna as mc join webtech.localita as l on mc.idlocalita = l.id where mc.idcampagna = ? and l.id = ?";
     	Localita l = null;
