@@ -50,7 +50,7 @@ public class DAOCampagna {
 
 	public void addsubscription (int id, String username) {
 		
-		String query = "INSERT INTO iscrizione (idcampagna,user) VALUES (?,?)";
+		String query = "INSERT INTO webtech.iscrizione (idcampagna,user) VALUES (?,?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setInt(1,id);
@@ -58,7 +58,6 @@ public class DAOCampagna {
 			pstate.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		
 		}
@@ -66,12 +65,9 @@ public class DAOCampagna {
 			try {
 				pstate.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
-		
 	}
 	
 	public Campagna getCampagnaAvviata(int idcampagna) {

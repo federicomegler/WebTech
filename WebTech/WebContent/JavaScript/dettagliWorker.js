@@ -1,20 +1,15 @@
 window.onload = function(){
 	
 	init(); //prova marker
+	
 	document.getElementById("left").addEventListener("click",(e)=>{
 		showImm(-1);
 		getAnn();
-		
-		
-		
 	}, false);
-	
-	
 	
 	document.getElementById("right").addEventListener("click",(e)=>{
 		showImm(1);
 		getAnn();
-		
 	}, false);
 	
 	// event listener src immagine get annotazioni
@@ -22,41 +17,6 @@ window.onload = function(){
 var idlocalita;
 var listaImm;
 var c=0;
-var greenIcon = L.icon({
-	iconUrl: '/icone/green.png',
-	shadowUrl: '/icone/ombra.png',
-
-	iconSize:    [25, 41],
-	iconAnchor:  [12, 41],
-	popupAnchor: [1, -34],
-	tooltipAnchor: [16, -28],
-	shadowSize:  [41, 41]
-});
-
-var yellowIcon = L.icon({
-	iconUrl: '/icone/yellow.png',
-	shadowUrl: '/icone/ombra.png',
-
-	iconSize:    [25, 41],
-	iconAnchor:  [12, 41],
-	popupAnchor: [1, -34],
-	tooltipAnchor: [16, -28],
-	shadowSize:  [41, 41]
-});
-
-var redIcon = L.icon({
-	iconUrl: '/icone/red.png',
-	shadowUrl: '/icone/ombra.png',
-
-	iconSize:    [25, 41],
-	iconAnchor:  [12, 41],
-	popupAnchor: [1, -34],
-	tooltipAnchor: [16, -28],
-	shadowSize:  [41, 41]
-});
-
-
-
 
 var mymap = L.map('mapid').setView([45.7802507654344,9.199769496808585], 13);
 
@@ -78,7 +38,7 @@ function init(){
 				  addMarkers(ris);
 			}
 		}
-		x.open("GET", "\GetLocalita?idcampagna=" + document.getElementById("idcampagna").innerHTML,true)    
+		x.open("GET", "\GetLocalitaWorker?idcampagna=" + document.getElementById("idcampagna").innerHTML,true)    
 		x.send();
 		
 }
@@ -123,13 +83,10 @@ function setInfoLocalita(daticitta){
 		else{
 			document.getElementById("datilocalita").innerHTML = document.getElementById("datilocalita").innerHTML + ", unknown";
 		}
-
-
 	}
 	else{
 		document.getElementById("datilocalita").innerHTML = "UNKNOWN";
 	}
-
 }
 
 function showAnn(listaann){
@@ -168,7 +125,22 @@ function onMapout(e){
 	marker.on('click', onClick_Marker);
 }
 
+function nuovaAnnotazione(){
+	
+	var x = new XMLHttpRequest();
+	x.onreadystatechange= function (){
 
+		if(x.readyState==4 && x.status==200){
+			esito = JSON.parse(x.responseText);
+			if(!esito){
+				document.getElementById("errore").style.diplay = "block";
+			}
+			getAnn();
+		}
+	}
+	x.open("GET", "\CreaCommento?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idimmagine="+listaImm[c].id + "&nota=" + document.getElementById("nota").value + "&validita=" + document.getElementById("validita") + "&idlocalita=" + idlocalita,true); 
+	x.send();
+}
 
 function showImm(n) {
 	if(listaImm.length > 0){
@@ -188,10 +160,16 @@ function showImm(n) {
 			
 			if(x.readyState==4 && x.status==200){
 				var ris = JSON.parse(x.responseText);
-				  showAnn(ris);
+				if(ris[1]){
+					document.getElementById("formAnnotazione").style.display = "none";
+				}
+				else{
+					document.getElementById("formAnnotazione").style.display = "block";
+				}
+				  showAnn(ris[0]);
 			}
 		}
-		x.open("GET", "\getAnnotazioni?idimmagine=" + listaImm[c].id + "&idlocalita=" + idlocalita + "&idcampagna=" + document.getElementById("idcampagna").innerHTML,true);   
+		x.open("GET", "\getAnnotazioniWorker?idimmagine=" + listaImm[c].id + "&idlocalita=" + idlocalita + "&idcampagna=" + document.getElementById("idcampagna").innerHTML,true);   
 		x.send();
 	}
 
@@ -211,7 +189,7 @@ function showImm(n) {
 				getAnn();
 			}
 		}
-		x.open("GET", "\GetDatiImmagine?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idlocalita="+idlocalita ,true); 
+		x.open("GET", "\GetDatiImmagineWorker?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idlocalita="+idlocalita ,true); 
 		x.send();
 	}
 
@@ -229,7 +207,7 @@ function addMarkers (loc){
 			break;
 		case "red":
 			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: redIcon}).addTo(mymap)
-			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
+			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup();
 			break;
 		}
 		marker.id=loc[i].ID_localita;

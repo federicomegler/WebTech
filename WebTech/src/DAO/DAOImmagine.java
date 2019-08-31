@@ -22,6 +22,32 @@ public class DAOImmagine {
 		this.connection = connessione;
 	}
 	
+	public boolean checkImmagine(int idcampagna, int idimmagine, int idlocalita) {
+		String query = "select * from webtech.mappacampagna where idimmagine =? and idcampagna=? and idlocalita=?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1, idimmagine);
+			pstate.setInt(2, idcampagna);
+			pstate.setInt(3, idlocalita);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
 	public int getTotaleImmaginiCampagna(int idcampagna) {
 		String query = "select count(*) as totale from webtech.mappacampagna where idcampagna=?";
 		int tot = -1;

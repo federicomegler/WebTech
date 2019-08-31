@@ -83,8 +83,6 @@ public class GetDettagliWorker extends HttpServlet {
     			request.setAttribute("errore",true);
     			request.getRequestDispatcher("/WEB-INF/HomePageWorker.jsp").forward(request, response);
     		}
-
     	}
 	}
-
 }

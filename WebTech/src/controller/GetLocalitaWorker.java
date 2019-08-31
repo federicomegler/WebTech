@@ -17,31 +17,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import DAO.DAOAnnotazione;
 import DAO.DAOCampagna;
-import DAO.DAOImmagine;
 import DAO.DAOLocalita;
-import bean.Annotazione;
 import bean.Campagna;
-import bean.Immagine;
 import bean.Localita;
 
 /**
- * Servlet implementation class getAnnotazioni
+ * Servlet implementation class GetLocalitaWorker
  */
-@WebServlet("/getAnnotazioni")
-public class getAnnotazioni extends HttpServlet {
+@WebServlet("/GetLocalitaWorker")
+public class GetLocalitaWorker extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Connection connection;   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public getAnnotazioni() {
+    public GetLocalitaWorker() {
         super();
+        // TODO Auto-generated constructor stub
     }
-
+    
     public void init() {
-		ServletContext context = getServletContext();
+    	ServletContext context = getServletContext();
 		String driver = context.getInitParameter("dbDriver");
 		String url = context.getInitParameter("dbUrl") + "?useLegacyDatetimeCode=false&serverTimezone=Europe/Rome";
 		String user = context.getInitParameter("dbUser");
@@ -54,36 +51,37 @@ public class getAnnotazioni extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
     }
-    
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("UtenteConnesso") == null) {
-			response.sendRedirect("Login");
-		}
-		else{
-			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
-			int idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
-			int idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
-			DAOCampagna daocampagna = new DAOCampagna(connection);
-			DAOLocalita daolocalita = new DAOLocalita(connection);
-			Campagna campagna = new Campagna();
-			campagna = daocampagna.getCampagna(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso"));
-			Localita localita = new Localita();
-			localita = daolocalita.getLocalita(idcampagna, idlocalita);
-			if(campagna != null && localita != null) {
-				DAOAnnotazione daoannotazione = new DAOAnnotazione(connection);
-				List<Annotazione> listaannotazione = new ArrayList<Annotazione>();
-				listaannotazione = daoannotazione.getAnnotazioni(idimmagine,idcampagna,idlocalita);
-				String res = new Gson().toJson(listaannotazione);
-				PrintWriter out = response.getWriter();
+		DAOLocalita l = new DAOLocalita (connection);
+		DAOCampagna dcampagna = new DAOCampagna(connection);
+		String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
+		int idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
+		Campagna c= new Campagna();
+		c = dcampagna.getCampagnaAvviata(idcamp);
+		if(c!=null){
+			if(dcampagna.esisteCampagnaWorker(idcamp, nome_utente)) {
+				List<Localita> loc= new ArrayList<Localita>();
+				loc=l.getPlaces(c.getID_campagna());
+				String res = new Gson().toJson(loc);
+				PrintWriter out= response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
 				out.print(res);
 				out.flush();
 			}
+			else {
+				request.setAttribute("errore",true);
+				getServletContext().getRequestDispatcher("/WEB-INF/DettaglioCampagnaWorker.jsp").forward(request, response);
+			}
+		}else {
+			request.setAttribute("errore",true);
+			getServletContext().getRequestDispatcher("/WEB-INF/DettaglioCampagnaWorker.jsp").forward(request, response);
 		}
 	}
 
@@ -91,7 +89,8 @@ public class getAnnotazioni extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

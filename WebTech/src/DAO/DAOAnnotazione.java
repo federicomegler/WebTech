@@ -20,6 +20,31 @@ public class DAOAnnotazione {
 		this.connection = connessione;
 	}
 	
+	public boolean checkAnnotazione(String user, int idimmagine) {
+		String query = "select * from webtech.annotazione where idimmagine=? and user=?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1, idimmagine);
+			pstate.setString(2, user);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
 	public int getNumAnnotazioniCampagna(int idcampagna) {
 		String query = "select count(*) as tot from webtech.annotazione as a join (select * from webtech.mappacampagna where idcampagna = ?) as mc on a.idimmagine = mc.idimmagine";
 		int tot = -1;
@@ -48,7 +73,7 @@ public class DAOAnnotazione {
 	}
 	
 
-	public void addDescription (int idimmagine,String username, boolean validita, String fiducia, String note) {
+	public boolean addAnnotazione (int idimmagine,String username, boolean validita, String fiducia, String note) {
 		
 		String query = "INSERT INTO annotazione (idimmagine,user,datacreazione,validita,fiduica,note) "
 				+ "VALUES (?,?,SYSDATE(),?,?,?)";
@@ -60,22 +85,19 @@ public class DAOAnnotazione {
 			pstate.setString(4,fiducia);
 			pstate.setString(5, note);
 			pstate.executeUpdate();
+			return true;
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		
+		return false;
 		}
 		finally {
 			try {
 				pstate.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
-				
 	}
 
 	public List<Annotazione> getAnnotazioni(int idimmagine, int idcampagna, int idlocalita){

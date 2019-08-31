@@ -69,6 +69,7 @@ public class CheckLogin extends HttpServlet {
 			if(utente.isValid()) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("UtenteConnesso", utente.getNome());
+				session.setAttribute("tipo", utente.isManager());
 				getServletContext().getRequestDispatcher("/Home").forward(request, response);
 			}
 			else {

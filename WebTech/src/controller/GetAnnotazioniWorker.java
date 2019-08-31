@@ -23,25 +23,25 @@ import DAO.DAOImmagine;
 import DAO.DAOLocalita;
 import bean.Annotazione;
 import bean.Campagna;
-import bean.Immagine;
 import bean.Localita;
 
 /**
- * Servlet implementation class getAnnotazioni
+ * Servlet implementation class GetAnnotazioniWorker
  */
-@WebServlet("/getAnnotazioni")
-public class getAnnotazioni extends HttpServlet {
+@WebServlet("/GetAnnotazioniWorker")
+public class GetAnnotazioniWorker extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Connection connection;   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public getAnnotazioni() {
+    public GetAnnotazioniWorker() {
         super();
+        // TODO Auto-generated constructor stub
     }
-
+    
     public void init() {
-		ServletContext context = getServletContext();
+    	ServletContext context = getServletContext();
 		String driver = context.getInitParameter("dbDriver");
 		String url = context.getInitParameter("dbUrl") + "?useLegacyDatetimeCode=false&serverTimezone=Europe/Rome";
 		String user = context.getInitParameter("dbUser");
@@ -54,8 +54,9 @@ public class getAnnotazioni extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
     }
-    
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -70,19 +71,25 @@ public class getAnnotazioni extends HttpServlet {
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			DAOLocalita daolocalita = new DAOLocalita(connection);
 			Campagna campagna = new Campagna();
-			campagna = daocampagna.getCampagna(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso"));
+			campagna = daocampagna.getCampagnaAvviata(idcampagna);
 			Localita localita = new Localita();
 			localita = daolocalita.getLocalita(idcampagna, idlocalita);
-			if(campagna != null && localita != null) {
+			if(campagna != null && localita != null && daocampagna.esisteCampagnaWorker(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso"))) {
 				DAOAnnotazione daoannotazione = new DAOAnnotazione(connection);
 				List<Annotazione> listaannotazione = new ArrayList<Annotazione>();
 				listaannotazione = daoannotazione.getAnnotazioni(idimmagine,idcampagna,idlocalita);
-				String res = new Gson().toJson(listaannotazione);
+				String res1 = new Gson().toJson(listaannotazione);
+				String res2 = new Gson().toJson(daoannotazione.checkAnnotazione((String)request.getSession().getAttribute("UtenteConnesso"),idimmagine));
+				String res = "[" + res1 + "," + res2 +"]";
 				PrintWriter out = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
 				out.print(res);
 				out.flush();
+			}
+			else {
+				request.setAttribute("errore", true);
+				getServletContext().getRequestDispatcher("/WEB-INF/HomePageWorker.jsp").forward(request, response);
 			}
 		}
 	}
@@ -91,7 +98,8 @@ public class getAnnotazioni extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

@@ -6,6 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Dettaglio Campagna Worker</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="docs/images/favicon.ico">
+<link rel="stylesheet"
+	href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+	integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+	crossorigin="anonymous">
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js"
+	integrity="sha512-IkGU/uDhB9u9F8k+2OsA6XXoowIhOuQL1NTgNZHY1nkURnqEGlDZq3GsfmdJdKFe1k1zOc6YU2K7qY+hF9AodA=="
+	crossorigin="anonymous"></script>
+
 </head>
 <body>
 	<div class="topnav">
@@ -24,7 +34,7 @@
 		</div>
 
 		<c:if test="${iscritto == true}">
-			
+			<script src="JavaScript/dettagliWorker.js" type="text/javascript" defer></script>
 			<div id="mapareacontainer">
 				<div id="mapid"></div>
 			</div>
@@ -43,6 +53,7 @@
 		</c:if>
 		<c:if test="${iscritto == false}">
 			<form action="IscrizioneCampagna" method="post">
+				<input type="text" value="${idcampagna}" style="display:none;" name="idcampagna">
 				<input type="submit" value="Iscriviti">
 			</form>
 		</c:if>

@@ -33,7 +33,7 @@ window.onload = function(){
 
 	
 	document.getElementById("nomenonoptata").addEventListener("click",function(){
-		if(listacreate.length == 0){return}
+		if(listanonoptate.length == 0){return}
 		
 		document.getElementById("id").value = (listanonoptate[c2]).ID_campagna;
 		document.getElementById("dett").submit()
@@ -41,7 +41,7 @@ window.onload = function(){
 	},false)
 	
 	document.getElementById("nomeoptata").addEventListener("click",function(){
-		if(listacreate.length == 0){return}
+		if(listaoptate.length == 0){return}
 		
 		document.getElementById("id").value = (listaoptate[c1]).ID_campagna;
 		document.getElementById("dett").submit();

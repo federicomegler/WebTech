@@ -32,7 +32,7 @@
 	</div>
 
 	<form id="dett" action="GetDettagliWorker" method="post" style="display: none">
-		<input type="text" id="id" name="id">
+		<input type="text" id="id" name="idcampagna">
 	</form>
 </body>
 </html>
