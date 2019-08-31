@@ -60,6 +60,8 @@
 			</table>
 		</form>
 	</div>
-
+	<c:if test="${errore == true}">
+		<label style="color:red;">Errore nella richiesta</label>
+	</c:if>
 </body>
 </html>

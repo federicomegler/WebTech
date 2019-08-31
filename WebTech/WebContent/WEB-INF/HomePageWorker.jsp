@@ -31,12 +31,8 @@
 		<button id="dOp" class="right">&#10095;</button>
 	</div>
 
-	<form id="dett" action="GetDettagli" method="post"
-		style="display: none">
-		<input type="text" id="id" name="id"> <input type="text"
-			id="nome" name="nome"> <input type="text" id="committente"
-			name="committente"> <input type="text" id="stato"
-			name="stato">
+	<form id="dett" action="GetDettagliWorker" method="post" style="display: none">
+		<input type="text" id="id" name="id">
 	</form>
 </body>
 </html>

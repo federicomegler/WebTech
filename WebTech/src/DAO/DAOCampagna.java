@@ -73,6 +73,60 @@ public class DAOCampagna {
 		}
 		
 	}
+	
+	public Campagna getCampagnaAvviata(int idcampagna) {
+		String query = "select * from campagna where id = ? and stato = 'avviata'";
+		Campagna campagna = null;
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setInt(1, idcampagna);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				campagna = new Campagna();
+				campagna.setID_campagna(ris.getInt("id"));
+				campagna.setCommittente(ris.getString("committente"));
+				campagna.setNome(ris.getString("nome"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			try {
+				pstate.close();
+				ris.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return campagna;
+		
+	}
+	
+	public boolean esisteCampagnaWorker(int idcampagna, String idworker) {
+		String query = "select * from webtech.campagna as c join webtech.iscrizione as i on c.id = i.idcampagna where user = ? and c.idcampagna = ? and c.stato = 'avviata'";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, idworker);
+			pstate.setInt(2, idcampagna);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			try {
+				pstate.close();
+				ris.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
 
     public int addCampagna(String nome, String committente,String creatore) {
 		int id=0;

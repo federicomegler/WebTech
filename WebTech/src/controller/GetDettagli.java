@@ -68,11 +68,18 @@ public class GetDettagli extends HttpServlet {
 			Campagna campagna = new Campagna();
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			campagna = daocampagna.getCampagna(Integer.parseInt(id), (String)request.getSession().getAttribute("UtenteConnesso"));
-			request.setAttribute("nomecampagna", campagna.getNome());
-			request.setAttribute("committente", campagna.getCommittente());
-			request.setAttribute("stato",campagna.getStato());
-			request.setAttribute("idcampagna",campagna.getID_campagna());
-			request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
+			if(campagna != null) {
+				request.setAttribute("nomecampagna", campagna.getNome());
+				request.setAttribute("committente", campagna.getCommittente());
+				request.setAttribute("stato",campagna.getStato());
+				request.setAttribute("idcampagna",campagna.getID_campagna());
+				request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
+			}
+			else {
+				request.setAttribute("errore",true);
+				request.getRequestDispatcher("/WEB-INF/HomePage.jsp").forward(request, response);
+			}
+			
 		}
 	}
 }
