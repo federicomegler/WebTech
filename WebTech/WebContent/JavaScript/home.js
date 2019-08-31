@@ -155,6 +155,7 @@ function getChiuse (){
 }
 
 function showCreate(n) {
+	if(listacreate){
 	if(listacreate.length > 0){	
 	  if (c1+n > listacreate.length-1) {c1 = 0} 
 	  else if (c1+n < 0) {c1 = listacreate.length-1} 
@@ -164,30 +165,36 @@ function showCreate(n) {
 	  document.getElementById("nomecreata").innerHTML = (listacreate[c1]).nome;
 	  	  
 	}
+	}
 	
 	}
 
 function showAvviate(n) {
-	if(listaavviate.length > 0){
-		
-		  if (c2+n > listaavviate.length-1) {c2 = 0} 
-		  else if (c2+n < 0) {c2 = listaavviate.length-1} 
-		  else {
-			  c2 = c2+n;
-			  }	  
-		document.getElementById("nomeavviata").innerHTML = (listaavviate[c2]).nome;
-		
+	if(listaavviate){
+		if(listaavviate.length > 0){
+
+			if (c2+n > listaavviate.length-1) {c2 = 0} 
+			else if (c2+n < 0) {c2 = listaavviate.length-1} 
+			else {
+				c2 = c2+n;
+			}	  
+			document.getElementById("nomeavviata").innerHTML = (listaavviate[c2]).nome;
+
 		}
 	}
+}
 
 function showChiuse(n) {
-	if(listachiuse.length > 0){
-		
-		  if (c3+n > listachiuse.length-1) {c3 = 0} 
-		  else if (c3+n < 0) {c3 = listachiuse.length-1} 
-		  else {
-			  c3 = c3+n;
-			  } 
-		  document.getElementById("nomechiusa").innerHTML = (listachiuse[c3]).nome;
-			
-		}}
+	if(listachiuse){
+		if(listachiuse.length > 0){
+
+			if (c3+n > listachiuse.length-1) {c3 = 0} 
+			else if (c3+n < 0) {c3 = listachiuse.length-1} 
+			else {
+				c3 = c3+n;
+			} 
+			document.getElementById("nomechiusa").innerHTML = (listachiuse[c3]).nome;
+
+		}
+	}
+}

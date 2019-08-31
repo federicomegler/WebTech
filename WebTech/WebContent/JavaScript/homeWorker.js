@@ -101,25 +101,30 @@ function getNonOptate (){
 
 
 function showOptate(n) {
-	if(listaoptate.length > 0){	
-		if (c1+n > listaoptate.length-1) {c1 = 0} 
-		else if (c1+n < 0) {c1 = listaoptate.length-1} 
-		else {
-			c1 = c1+n;
-		} 
-		document.getElementById("nomeoptata").innerHTML = (listaoptate[c1]).nome;
+	if(listaoptate){
+		if(listaoptate.length > 0){	
+			if (c1+n > listaoptate.length-1) {c1 = 0} 
+			else if (c1+n < 0) {c1 = listaoptate.length-1} 
+			else {
+				c1 = c1+n;
+			} 
+			document.getElementById("nomeoptata").innerHTML = (listaoptate[c1]).nome;
 
+		}
 	}
 }
 
 function showNonOptate(n) {
-	if(listanonoptate.length > 0){	
-		if (c2+n > listanonoptate.length-1) {c2 = 0} 
-		else if (c2+n < 0) {c2 = listanonoptate.length-1} 
-		else {
-			c2 = c2+n;
-		} 
-		document.getElementById("nomenonoptata").innerHTML = (listanonoptate[c2]).nome;
+	if(listanonoptate){
+		if(listanonoptate.length > 0){	
+			if (c2+n > listanonoptate.length-1) {c2 = 0} 
+			else if (c2+n < 0) {c2 = listanonoptate.length-1} 
+			else {
+				c2 = c2+n;
+			} 
+			document.getElementById("nomenonoptata").innerHTML = (listanonoptate[c2]).nome;
+
+		}
 
 	}
 }
