@@ -1,17 +1,21 @@
 window.onload = function(){
-	
+
 	init(); //prova marker
+
+	document.getElementById("invia").addEventListener("click", (e) => {
+		nuovaAnnotazione();
+	},true);
 	
 	document.getElementById("left").addEventListener("click",(e)=>{
 		showImm(-1);
 		getAnn();
 	}, false);
-	
+
 	document.getElementById("right").addEventListener("click",(e)=>{
 		showImm(1);
 		getAnn();
 	}, false);
-	
+
 	// event listener src immagine get annotazioni
 }
 var idlocalita;
@@ -29,27 +33,27 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 }).addTo(mymap);
 
 function init(){
-	  
-		var x = new XMLHttpRequest();
-		x.onreadystatechange= function (){
-			
-			if(x.readyState==4 && x.status==200){
-				var ris = JSON.parse(x.responseText);
-				  addMarkers(ris);
-			}
+
+	var x = new XMLHttpRequest();
+	x.onreadystatechange= function (){
+
+		if(x.readyState==4 && x.status==200){
+			var ris = JSON.parse(x.responseText);
+			addMarkers(ris);
 		}
-		x.open("GET", "\GetLocalitaWorker?idcampagna=" + document.getElementById("idcampagna").innerHTML,true)    
-		x.send();
-		
+	}
+	x.open("GET", "\GetLocalitaWorker?idcampagna=" + document.getElementById("idcampagna").innerHTML,true)    
+	x.send();
+
 }
 
 function reverseGeocode(c) {
 	fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + c.lng+ '&lat=' + c.lat)
-.then(function(response) {
-    return response.json();
-}).then(function(json) {
-    setInfoLocalita(json)			
-});
+	.then(function(response) {
+		return response.json();
+	}).then(function(json) {
+		setInfoLocalita(json)			
+	});
 
 }
 
@@ -92,8 +96,8 @@ function setInfoLocalita(daticitta){
 function showAnn(listaann){
 	var container = document.getElementById("annotazioni");
 	while (container.firstChild) {
-	    container.removeChild(container.firstChild);
-	  }
+		container.removeChild(container.firstChild);
+	}
 	for(var i=0; i<listaann.length; ++i){
 		var c_utente = document.createElement("div"); // container utente
 		c_utente.innerHTML = listaann[i].proprietario + " Exp: " + listaann[i].fiducia;
@@ -126,7 +130,11 @@ function onMapout(e){
 }
 
 function nuovaAnnotazione(){
-	
+	var param = "falso";
+	var validita = document.getElementsByName("validita");
+	if(validita[0].checked){
+		param = "vero";
+	}
 	var x = new XMLHttpRequest();
 	x.onreadystatechange= function (){
 
@@ -138,8 +146,9 @@ function nuovaAnnotazione(){
 			getAnn();
 		}
 	}
-	x.open("GET", "\CreaCommento?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idimmagine="+listaImm[c].id + "&nota=" + document.getElementById("nota").value + "&validita=" + document.getElementById("validita") + "&idlocalita=" + idlocalita,true); 
-	x.send();
+	x.open("POST", "\CreaCommento",true); 
+	x.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	x.send("idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idimmagine="+listaImm[c].id + "&nota=" + document.getElementById("nota").value + "&validita=" + param + "&idlocalita=" + idlocalita);
 }
 
 function showImm(n) {
@@ -154,62 +163,51 @@ function showImm(n) {
 		document.getElementById("datiimmagine").innerHTML ="provenienza: " + listaImm[c].provenienza + ", " + listaImm[c].data_recupero + ", risoluzione: " + listaImm[c].risoluzione;
 	}}
 
-	function getAnn(){
-		var x = new XMLHttpRequest();
-		x.onreadystatechange= function (){
-			
-			if(x.readyState==4 && x.status==200){
-				var ris = JSON.parse(x.responseText);
-				if(ris[1]){
-					document.getElementById("formAnnotazione").style.display = "none";
-				}
-				else{
-					document.getElementById("formAnnotazione").style.display = "block";
-				}
-				  showAnn(ris[0]);
+function getAnn(){
+	var x = new XMLHttpRequest();
+	x.onreadystatechange= function (){
+
+		if(x.readyState==4 && x.status==200){
+			var ris = JSON.parse(x.responseText);
+			if(ris[1]){
+				document.getElementById("formAnnotazione").style.display = "none";
 			}
-		}
-		x.open("GET", "\getAnnotazioniWorker?idimmagine=" + listaImm[c].id + "&idlocalita=" + idlocalita + "&idcampagna=" + document.getElementById("idcampagna").innerHTML,true);   
-		x.send();
-	}
-
-
-	function onClick_Marker(e) {
-		var marker = e.target;
-		coordinate = marker.getLatLng();
-		idlocalita = marker.id;
-		reverseGeocode(coordinate);
-		var x = new XMLHttpRequest();
-		x.onreadystatechange= function (){
-
-			if(x.readyState==4 && x.status==200){
-				listaImm = JSON.parse(x.responseText);
-				c=0;
-				showImm(0);
-				getAnn();
+			else{
+				document.getElementById("formAnnotazione").style.display = "block";
 			}
+			showAnn(ris[0]);
 		}
-		x.open("GET", "\GetDatiImmagineWorker?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idlocalita="+idlocalita ,true); 
-		x.send();
 	}
+	x.open("GET", "\GetAnnotazioniWorker?idimmagine=" + listaImm[c].id + "&idlocalita=" + idlocalita + "&idcampagna=" + document.getElementById("idcampagna").innerHTML,true);   
+	x.send();
+}
+
+
+function onClick_Marker(e) {
+	var marker = e.target;
+	coordinate = marker.getLatLng();
+	idlocalita = marker.id;
+	reverseGeocode(coordinate);
+	var x = new XMLHttpRequest();
+	x.onreadystatechange= function (){
+
+		if(x.readyState==4 && x.status==200){
+			listaImm = JSON.parse(x.responseText);
+			c=0;
+			showImm(0);
+			getAnn();
+		}
+	}
+	x.open("GET", "\GetDatiImmaginiWorker?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idlocalita="+idlocalita ,true); 
+	x.send();
+}
 
 function addMarkers (loc){
 	for(let i=0; i<loc.length; ++i){
 		var marker;
-		switch (loc[i].colore) {
-		case "yellow":
-			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: yellowIcon}).addTo(mymap)
-			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
-			break;
-		case "green":
-			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: greenIcon}).addTo(mymap)
-			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup();
-			break;
-		case "red":
-			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: redIcon}).addTo(mymap)
-			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup();
-			break;
-		}
+		marker = L.marker([loc[i].latitudine,loc[i].longitudine]).addTo(mymap)
+		.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
+
 		marker.id=loc[i].ID_localita;
 		marker.nome=loc[i].nome;
 		marker.on('click', onClick_Marker)

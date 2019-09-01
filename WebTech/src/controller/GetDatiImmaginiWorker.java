@@ -63,6 +63,7 @@ public class GetDatiImmaginiWorker extends HttpServlet {
     		response.sendRedirect("Login");
     	}
     	else {
+    		System.out.println("sono nella get dati immagine");
     		int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
     		int idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
     		DAOCampagna daocampagna = new DAOCampagna(connection);
@@ -72,11 +73,13 @@ public class GetDatiImmaginiWorker extends HttpServlet {
     		campagna = daocampagna.getCampagnaAvviata(idcampagna);
     		Localita localita = new Localita();
     		localita = daolocalita.getLocalita(idcampagna, idlocalita);
+    		System.out.println(campagna.getNome() + localita.getNome() + daocampagna.esisteCampagnaWorker(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso")));
     		if(campagna != null && localita != null && daocampagna.esisteCampagnaWorker(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso"))) {
+    			System.out.println("prelevo immagini");
     			List<Immagine> listaimmagine = new ArrayList<Immagine>();
     			listaimmagine = daoimmagine.getImmaginiLocalita(idcampagna, idlocalita);
     			String res = new Gson().toJson(listaimmagine);
-    			
+    			System.out.println(listaimmagine.size());
     			
     			PrintWriter out = response.getWriter();
     			response.setContentType("application/json");

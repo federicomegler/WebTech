@@ -37,7 +37,6 @@ public class Signup extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
     }
 	
     /**
@@ -51,7 +50,6 @@ public class Signup extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.getRequestDispatcher("/WEB-INF/SignupPage.jsp").forward(request, response);
 	}
@@ -60,17 +58,23 @@ public class Signup extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
 		String mail = request.getParameter("mail");
-		String password = request.getParameter("password");
+		String password1 = request.getParameter("password1");
+		String password2 = request.getParameter("password2");
+
 		String tipo = request.getParameter("tipo_account");
 		
+		
+		if(password1==null || !password1.equals(password2)) {
+			request.setAttribute("errorepassword", true);
+			
+		}
 		if(tipo.equals("manager")) {
 			Utente utente = new Utente();
 			utente.setNome(username);
 			utente.setMail(mail);
-			utente.setPassword(password);
+			utente.setPassword(password1);
 			utente.setManager(true);
 			DAOUtente daoutente = new DAOUtente(connection);
 			if(daoutente.esisteUtente(utente) == 0) {
@@ -78,20 +82,18 @@ public class Signup extends HttpServlet {
 					response.sendRedirect(request.getContextPath()+"/Login");
 				}
 				else {
-					request.setAttribute("errore", 1);
-					doGet(request, response);
+					request.setAttribute("errore", true);
 				}
 			}
 			else {
-				request.setAttribute("errore", 1);
-				doGet(request, response);
+				request.setAttribute("erroreesisteutente", true);
 			}
 		}
-		else {
+		else if(tipo.equals("lavoratore")){
 			Utente utente = new Utente();
 			utente.setNome(username);
 			utente.setMail(mail);
-			utente.setPassword(password);
+			utente.setPassword(password1);
 			utente.setManager(false);
 			utente.setEsperienza("bassa");
 			DAOUtente daoutente = new DAOUtente(connection);
@@ -100,14 +102,17 @@ public class Signup extends HttpServlet {
 					response.sendRedirect(request.getContextPath()+"/Login");
 				}
 				else {
-					request.setAttribute("errore", 1);
-					doGet(request, response);
+					request.setAttribute("errore", true);
 				}
 			}
 			else {
-				request.setAttribute("errore", 1);
-				doGet(request, response);
+				request.setAttribute("erroreesisteutente", true);
 			}
 		}
+		else {
+			request.setAttribute("errore", true);
+		}
+		getServletContext().getRequestDispatcher("/WEB-INF/SignupPage.jsp").forward(request, response);
+
 	}
 }

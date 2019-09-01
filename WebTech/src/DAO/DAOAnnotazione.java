@@ -75,7 +75,7 @@ public class DAOAnnotazione {
 
 	public boolean addAnnotazione (int idimmagine,String username, boolean validita, String fiducia, String note) {
 		
-		String query = "INSERT INTO annotazione (idimmagine,user,datacreazione,validita,fiduica,note) "
+		String query = "INSERT INTO webtech.annotazione (idimmagine,user,datacreazione,validita,fiducia,note) "
 				+ "VALUES (?,?,SYSDATE(),?,?,?)";
 		try {
 			pstate = connection.prepareStatement(query);

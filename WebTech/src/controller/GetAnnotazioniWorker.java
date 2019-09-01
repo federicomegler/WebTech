@@ -65,6 +65,7 @@ public class GetAnnotazioniWorker extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else{
+			System.out.println("sono nella servlet get annotazioni");
 			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
 			int idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
 			int idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
@@ -74,6 +75,7 @@ public class GetAnnotazioniWorker extends HttpServlet {
 			campagna = daocampagna.getCampagnaAvviata(idcampagna);
 			Localita localita = new Localita();
 			localita = daolocalita.getLocalita(idcampagna, idlocalita);
+			System.out.println(campagna.getNome()+localita.getNome()+daocampagna.esisteCampagnaWorker(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso")));
 			if(campagna != null && localita != null && daocampagna.esisteCampagnaWorker(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso"))) {
 				DAOAnnotazione daoannotazione = new DAOAnnotazione(connection);
 				List<Annotazione> listaannotazione = new ArrayList<Annotazione>();
@@ -81,6 +83,7 @@ public class GetAnnotazioniWorker extends HttpServlet {
 				String res1 = new Gson().toJson(listaannotazione);
 				String res2 = new Gson().toJson(daoannotazione.checkAnnotazione((String)request.getSession().getAttribute("UtenteConnesso"),idimmagine));
 				String res = "[" + res1 + "," + res2 +"]";
+				System.out.println(res);
 				PrintWriter out = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");

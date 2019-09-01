@@ -12,6 +12,7 @@
 	href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
 	integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
 	crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="CSS/DettagliCampagnaWorkerStyle.css">
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js"
 	integrity="sha512-IkGU/uDhB9u9F8k+2OsA6XXoowIhOuQL1NTgNZHY1nkURnqEGlDZq3GsfmdJdKFe1k1zOc6YU2K7qY+hF9AodA=="
 	crossorigin="anonymous"></script>
@@ -32,7 +33,7 @@
 			committente
 			<p id="committente">${committente}</p>
 		</div>
-
+	</div>
 		<c:if test="${iscritto == true}">
 			<script src="JavaScript/dettagliWorker.js" type="text/javascript" defer></script>
 			<div id="mapareacontainer">
@@ -49,6 +50,13 @@
 			</div>
 
 			<div id="annotazioni"></div>
+			
+			<div id="formAnnotazione">				
+				<input type="radio" name="validita" id="validita" checked> Vero
+				<input type="radio" name="validita" id="validita" > Falso <br>
+				<input type="text" id="nota" placeholder= "inserisci un commento">
+				<button id="invia">Invia</button>
+			</div>
 
 		</c:if>
 		<c:if test="${iscritto == false}">

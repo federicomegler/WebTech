@@ -19,6 +19,87 @@ public class DAOUtente {
 		this.connection = connessione;
 	}
 	
+	public void incrementaEsperienza(String user) {
+		String query = "select count(*) as numeroiscrizioni from webtech.iscrizioni where user=?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, user);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				if(ris.getInt("numeroiscrizioni") > 100) {
+					String query2 = "update webtech.utente set esperienza = 'alta' where username = ?";
+					pstate = connection.prepareStatement(query2);
+					pstate.setString(1, user);
+					pstate.executeUpdate();
+				}
+				else if(ris.getInt("numeroiscrizioni") > 50) {
+					String query2 = "update webtech.utente set esperienza = 'media' where username = ?";
+					pstate = connection.prepareStatement(query2);
+					pstate.setString(1, user);
+					pstate.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public boolean esisteEmail(String email) {
+		String query = "select * from webtech.utente where mail = ?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, email);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return true;
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	public boolean esisteUtente(String username) {
+		String query = "select * from webtech.utente where username = ?";
+		try {
+			pstate = connection.prepareStatement(query);
+			pstate.setString(1, username);
+			ris = pstate.executeQuery();
+			if(ris.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return true;
+		}
+		finally {
+			try {
+				ris.close();
+				pstate.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
 	public Utente checkLogin(String username, String password) {
 		String query = "select * from webtech.utente where (username = ? or mail = ?) and password = ?";
 		Utente utente = new Utente();

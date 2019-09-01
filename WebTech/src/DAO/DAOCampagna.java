@@ -100,7 +100,7 @@ public class DAOCampagna {
 	}
 	
 	public boolean esisteCampagnaWorker(int idcampagna, String idworker) {
-		String query = "select * from webtech.campagna as c join webtech.iscrizione as i on c.id = i.idcampagna where user = ? and c.idcampagna = ? and c.stato = 'avviata'";
+		String query = "select * from webtech.campagna as c join webtech.iscrizione as i on c.id = i.idcampagna where user = ? and c.id = ? and c.stato = 'avviata'";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, idworker);
@@ -228,7 +228,7 @@ public class DAOCampagna {
 	
 	public List<Campagna> getWorkerCampagnaNonSvolta (String username) {
 		List <Campagna> campagnenonsvolte=new ArrayList<Campagna>();
-		String query = "select * from webtech.campagna where stato='avviata' and id not in ( select id from webtech.iscrizione where user = ?)";
+		String query = "select * from webtech.campagna where stato='avviata' and id not in ( select idcampagna from webtech.iscrizione where user = ?)";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, username);
