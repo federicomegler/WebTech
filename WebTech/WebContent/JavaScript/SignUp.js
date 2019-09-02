@@ -36,14 +36,12 @@ function esisteUsername(username){
 			var esito = JSON.parse(x.responseText);
 			if(esito){
 				document.getElementById("esisteutente").style.diplay = "block";
-				document.getElementById("esisteutente").style.color = "red";
-				document.getElementById("esisteutente").innerHTML = "Utente gia' esistente";
+				document.getElementById("esisteutente").src = "/icone/cancel.png";
 			}
 			else{
 				document.getElementById("esisteutente").style.diplay = "block";
-				document.getElementById("esisteutente").style.color = "green";
-				document.getElementById("esisteutente").innerHTML = "Nome utente disponibile";
-			}
+				document.getElementById("esisteutente").src = "/icone/checked.png";
+				}
 		}
 	}
 	x.open("GET","\GetUtente?username=" + username, true);
@@ -58,13 +56,11 @@ function esisteMail(email){
 			var esito = JSON.parse(x.responseText);
 			if(esito){
 				document.getElementById("esistemail").style.diplay = "block";
-				document.getElementById("esistemail").style.color = "red";
-				document.getElementById("esistemail").innerHTML = "Utente gia' esistente";
+				document.getElementById("esistemail").src = "/icone/cancel.png";
 			}
 			else{
 				document.getElementById("esistemail").style.diplay = "block";
-				document.getElementById("esistemail").style.color = "green";
-				document.getElementById("esistemail").innerHTML = "Nome utente disponibile";
+				document.getElementById("esistemail").src = "/icone/checked.png";
 			}
 		}
 	}
@@ -78,14 +74,14 @@ function checkPassword(){
 		var password2 = document.getElementById("password2") ;
 
 		if(password1.value === password2.value){
-			document.getElementById("errorePassword").innerHTML = "Coincidono";
-			document.getElementById("errorePassword").style.color = "green";
+			document.getElementById("errorePassword").style.diplay = "block";
+			document.getElementById("errorePassword").src = "/icone/checked.png";
 
 			return true;
 		}
 		else{
-			document.getElementById("errorePassword").innerHTML = "Le password non coincidono";
-			document.getElementById("errorePassword").style.color = "red";
+			document.getElementById("errorePassword").style.diplay = "block";
+			document.getElementById("errorePassword").src = "/icone/cancel.png";
 
 			return false;
 		}

@@ -7,28 +7,25 @@
 <meta charset="ISO-8859-1">
 <title>Login</title>
 <link rel="stylesheet" type="text/css" href="CSS/LoginStyle.css">
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 </head>
-<body>
-	<div class="box">
+<body background="/icone/sfondo.jpg">
+	<div class="container">
+	<h1>Login</h1>
 		<div class="form">
 			<form action="CheckLogin" method="post">
 				<div class="input">
-				<br>
+				<i class="fa fa-user" aria-hidden="true"></i>
 					<input type="text" name="username" class="text" required>
-					<span class="floating-label">Email o Username:</span>
+					<span class="floating-label">Email o Username</span>
 				</div>
-				<br>
 				<div class="input">
-				<br>
+					<i class="fa fa-lock"  aria-hidden="true"></i>
 					<input type="password" name="password" class="text" required>
-					<span class="floating-label">Password:</span>
+					<span class="floating-label">Password</span>
 				</div>
-				<br>
-				<div class="submit">
 				<input type="submit" value="Login" id="button">
-				</div>
 			</form>
-			<br>
 		</div>
 		<div class="link">
 		Non hai un account? <a href="Signup"> registrati qui. </a>

@@ -1,71 +1,119 @@
-@charset "ISO-8859-1";
-.box{
-	background-color:#f0f0f0;
-	width: 300px;
-    height: 300px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -150px;
-    margin-left: -150px;
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+body{
+   margin: 0;
+   padding: 0;
+   background-size: cover;
+   font-family: 'Lobster', cursive;
 }
+
+
+.container{
+    top:50%;
+    left:50%;
+   width: 300px;
+   background: rgba(255,255,255,0.9);
+   padding: 40px;
+   text-align: center;
+   margin: auto;
+   margin-top:10%;
+   margin-bottom:5%;
+}
+
+.container h1{
+   text-align: center;
+   font-size: 40px;
+   border-bottom: 3px solid #58aa46;
+   margin-bottom: 50 px;
+   padding: 15px 0;
+   
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.input{
+position: relative;
+width: 100%;
+height: 20px;
+   overflow: hidden;
+   font-size: 20px;
+   padding: 15px 0;
+   margin : 10px 0;
+   border-bottom: 1px solid #58aa46;
+}
+
+.input i{
+   margin-top:2px;
+   width: 26px;
+   float:left;
+   text-align: center;
+}
+
+
+
+.input input{
+   border: none;
+   outline: none;
+   background: none;
+}
+
 
 .form{
-	position:relative;
-	left: 72;
-	top: 40;
-	}
-	
-.input {
-	position: relative;
-	width: 50%;
+position:relative;
 }
 
+
 .input .text{
-	width: 100%;
-	outline: none;
-	border:none;
-	border-bottom: 1px solid #777;
- 	box-shadow: none !important;
+width: 90%;
+height:100%;
+outline: none;
+border:none;
+box-shadow: none !important;
+font-family: 'Lobster', cursive;
+font-size: 20px;
+}
+
+#button{
+	display: inline-block;  
+	 cursor: pointer; 
+	 top: 50%; 
+	 left: 50%;  
+	 padding: 10px; 
+	 border: 1px solid #204d23;  
+	 border-radius: 5px;  
+	 color: rgba(255,255,255,1); 
+	 text-align: center; 
+	 font-family: 'Lobster', cursive;
+	 font-size: larger;
+	 background: #669e43;
+	 width:100px; 
+	 -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;   
+	 -webkit-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 -moz-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 -o-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
 }
 
 .input .text:focus{
-	background-color:#eff5fd;
-	border-color: blue;
-	border-width: medium medium 2px;
+background-color:none;
 }
 
 .input .floating-label {
-	position: absolute;
-	pointer-events: none;
-	top: 18px;
-	left: 10px;
-	transition: 0.2s ease-in-out all;
+position: absolute;
+pointer-events: none;
+top: 15px;
+left: 30px;
+transition: 0.2s ease-in-out all;
 }
 
 .input input:focus ~ .floating-label,
 .input input:not(:focus):valid ~ .floating-label{
-	top: 0px;
-	left: 10px;
-	font-size: 13px;
-	opacity: 1;
-}
-
-.submit{
-	width: fit-content;
-	position: relative;
-	left:50;
-	top:15;
-}
-
-.link{
-	width: fit-content;
-	position: relative;
-	left:40;
-	top:50;
-}
-
-#button{
-	border-radius:10px;
-	border-color: grey;	
+top: -4px;
+left: 28px;
+font-size: 15px;
+opacity: 1;
 }

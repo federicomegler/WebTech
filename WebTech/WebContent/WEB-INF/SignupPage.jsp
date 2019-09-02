@@ -15,32 +15,22 @@
 			<input id="username" placeholder="Nome Utente" type="text" name="username"
 				required="required">
 				
-				<c:choose> 
-					<c:when test="${erroreesiteutente == true}"> <label id="esisteutente" style="color:red;">Utente già esistente</label> </c:when>
-					<c:otherwise> <label id="esisteutente""></label> </c:otherwise>
-				</c:choose>
-				
-				
+				<img id="esisteutente" src="">
 				
 				  <br>
 			<br> <input placeholder="Mail" id="mail" type="text" name="mail"
 				required="required"> 
 				
-				<c:choose> 
-					<c:when test="${erroremail == true}"> <label id="esistemail" style="color:red;">Utente già esistente</label> </c:when>
-					<c:otherwise> <label id="esistemail"></label> </c:otherwise>
-				</c:choose>
+				<img id="esistemail" src="">
+				
 				
 				<br>
 			<br> <input id="password1" placeholder="Password"
 				type="password" name="password1" required="required"><br>
 			<br> <input id="password2" name="password2"placeholder="Reinserisci password"
 				type="password" required="required">
-				<c:choose> 
-					<c:when test="${errorepassword == true}"> <label id="errorePassword" style="color:red;">Le password non coincidono</label> </c:when>
-					<c:otherwise> <label id="errorePassword"></label> </c:otherwise>
-				</c:choose>
-								<br>
+				
+				<img id="errorePassword" src=""> <br>
 			<br> <input type="checkbox" onclick="mostraPassword()"
 				id="mostra" value="mostra password"><label
 				id="mostraPassword">Mostra password</label> <br>
