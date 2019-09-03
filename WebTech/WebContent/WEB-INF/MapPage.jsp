@@ -13,34 +13,36 @@
 	href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
 	integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
 	crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js"
 	integrity="sha512-IkGU/uDhB9u9F8k+2OsA6XXoowIhOuQL1NTgNZHY1nkURnqEGlDZq3GsfmdJdKFe1k1zOc6YU2K7qY+hF9AodA=="
 	crossorigin="anonymous"></script>
 <script src="JavaScript/mappage.js" type="text/javascript" defer></script>
 </head>
-<body>
+<body background="/icone/sfondo.jpg">
 	<div class="topnav">
-		<a style="float: left;" href="Home">HOME</a>
-		<a style="float: right;" href="Profilo">PROFILO</a> 
-		<a style="float: right;" href="Logout">LOGOUT</a>
+		<a style="float: left;" href="Home">HOME</a> <a style="float: left;"
+			href="Profilo">PROFILO</a> <a style="float: right;" href="Logout">LOGOUT</a>
 	</div>
-	
-	ID Campagna -->  <p id="idcampagna">${idcampagna}</p>
-	
-	<div id="mapareacontainer">
-		<div id="mapid"></div>
+	<div class="mappaimmagine">
+		<div class="infobox">
+			ID Campagna --> <label id="idcampagna">${idcampagna}</label>
+		</div>
+		<div id="mapareacontainer">
+			<div id="mapid"></div>
+		</div>
+
+		Localita: <label id="datilocalita"></label>
+		<div id="immagini">
+			<img alt="immagine" id="immagine" src="">
+			<p id="datiimmagine"></p>
+		</div>
+					<button id="left">&#10094</button>
+				
+					<button id="right">&#10095</button>
 	</div>
-	
-	<p id="datilocalita"></p>
-	
-	<div id="immagini" >
-		<img alt="immagine" id="immagine" src="">
-		<p id="datiimmagine"></p>
-		<button id="left">&#10094</button>
-		<button id="right">&#10095</button>
-	</div>
-	
+
 	<div id="annotazioni"></div>
-	
+
 </body>
 </html>

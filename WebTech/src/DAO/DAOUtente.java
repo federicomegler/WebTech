@@ -20,7 +20,7 @@ public class DAOUtente {
 	}
 	
 	public void incrementaEsperienza(String user) {
-		String query = "select count(*) as numeroiscrizioni from webtech.iscrizioni where user=?";
+		String query = "select count(*) as numeroiscrizioni from webtech.iscrizione where user=?";
 		try {
 			pstate = connection.prepareStatement(query);
 			pstate.setString(1, user);

@@ -20,7 +20,7 @@
 	integrity="sha512-IkGU/uDhB9u9F8k+2OsA6XXoowIhOuQL1NTgNZHY1nkURnqEGlDZq3GsfmdJdKFe1k1zOc6YU2K7qY+hF9AodA=="
 	crossorigin="anonymous"></script>
 </head>
-<body>
+<body background="/icone/sfondo.jpg">
 
 	<div class="topnav">
 		<a style="float: left;" href="Home">HOME</a> <a style="float: left;"
@@ -29,13 +29,13 @@
 
 	<div class="container">
 		<div class="details">
-			id campagna
+			<h2>ID Campagna</h2>
 			<p id="idcampagna">${idcampagna}</p>
-			nome
+			<h2>Nome</h2>
 			<p id="nomecampagna">${nomecampagna}</p>
-			committente
+			<h2>Committente</h2>
 			<p id="committente">${committente}</p>
-			stato
+			<h2>Stato</h2>
 			<p id="stato">${stato}</p>
 		</div>
 		<c:if test="${stato=='avviata' || stato == 'chiusa'}">
@@ -43,7 +43,7 @@
 
 				<input type="text" value="${idcampagna}" name="idcampagna"
 					style="display: none"> <input type="submit"
-					value="Visualizza Mappa">
+					value="Visualizza Mappa" class="button">
 			</form>
 			
 			<form action="GetStatistiche" method="post" id="VisualizzaStatistiche">
@@ -51,7 +51,7 @@
 				<input type="text" value="${idcampagna}" name="idcampagna"
 					style="display: none">
 					 <input type="submit"
-					value="Visualizza Statistiche">
+					value="Visualizza Statistiche" class="button">
 			</form>
 		</c:if>
 

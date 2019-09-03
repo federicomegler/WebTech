@@ -1,14 +1,177 @@
-@charset "ISO-8859-1";
-.modulocreazione {
-	border-style: solid;
-	border-width: 1px;
-	width: fit-content;
-	height:fit-content;
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+body{
+   margin: 0;
+   padding: 0;
+   background-color: #f6f0ce;
+   background-size: cover;
+   font-family: 'Lobster', cursive;
+   
 }
+
+
+.container{
+    top:50%;
+    left:50%;
+   width: 80%;
+   height: 85%;
+   background: rgba(255,255,255,0.9);
+   padding:10px;
+   text-align: center;
+   margin: auto;
+   margin-top:10px;
+   overflow-y: scroll;
+}
+
+
+::-webkit-scrollbar {
+display: none;
+}
+
+.container h1{
+   text-align: center;
+   font-size: 40px;
+   border-bottom: 3px solid #58aa46;
+   margin-bottom: 50 px;
+   padding: 15px 0;
+   
+}
+
+.container h2{
+   text-align: center;
+   font-size: 25px;
+   border-bottom: 3px solid #58aa46;
+   margin-top:20px;
+   margin-bottom: 20px;
+   padding: 15px 0;
+   
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.input{
+position: relative;
+width: 100%;
+height: 20px;
+   overflow: hidden;
+   font-size: 20px;
+   padding: 15px 0;
+   margin : 10px 0;
+   border-bottom: 1px solid #58aa46;
+}
+
+.input i{
+   margin-top:2px;
+   width: 26px;
+   float:left;
+   text-align: center;
+}
+
+
+
+.input input{
+   border: none;
+   outline: none;
+   background: none;
+}
+
+
+.form{
+margin-top:0.5%;
+margin-left:25%;	
+position:relative;
+width:50%;
+}
+
+
+.input .text{
+width: 90%;
+height:100%;
+outline: none;
+border:none;
+box-shadow: none !important;
+font-family: 'Lobster', cursive;
+font-size: 20px;
+}
+
+button,.btn{
+	margin-top:5%;
+	display: inline-block;  
+	 cursor: pointer; 
+	 padding: 10px; 
+	 border: 1px solid #204d23;  
+	 border-radius: 5px;  
+	 color: rgba(255,255,255,1); 
+	 text-align: center; 
+	 font-family: 'Lobster', cursive;
+	 background: #669e43;
+	 -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;   
+	 -webkit-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 -moz-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 -o-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
+	 font-size: 20px;
+}
+
+.left{
+	margin-top:5%;
+	margin-left:5%;
+    padding:0px;
+	text-align:center;
+	font-size:10px;
+    height:30px;
+    width:30px;
+    float: left;
+    
+}
+.elementlist{
+    background: none;
+    box-shadow: 0 4px 8px 0 #669e43, 0 6px 20px 0 #669e43;
+    border: none;
+    width:50%;
+    height:10%;
+    color:#669e43;
+}
+.right{
+	margin-top:5%;
+	margin-right:5%;
+	padding:0px;
+	text-align:center;
+	font-size:10px;
+    height:30px;
+    width:30px;
+    float: right;
+    
+}
+
+.input .text:focus{
+background-color:none;
+}
+
+.input .floating-label {
+position: absolute;
+pointer-events: none;
+top: 15px;
+left: 30px;
+transition: 0.2s ease-in-out all;
+}
+
+.input input:focus ~ .floating-label,
+.input input:not(:focus):valid ~ .floating-label{
+top: -4px;
+left: 28px;
+font-size: 15px;
+opacity: 1;
+}
+
 
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background: #669e43;
 }
 
 /* Style the topnav links */
@@ -23,10 +186,6 @@
 
 /* Change color on hover */
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-* {
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #b9cc33;
+  color: whitesmoke;
 }
