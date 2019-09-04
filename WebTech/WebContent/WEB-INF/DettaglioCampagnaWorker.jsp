@@ -12,58 +12,67 @@
 	href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
 	integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
 	crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="CSS/DettagliCampagnaWorkerStyle.css">
+<link rel="stylesheet" type="text/css"
+	href="CSS/DettagliCampagnaWorkerStyle.css">
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet-src.js"
 	integrity="sha512-IkGU/uDhB9u9F8k+2OsA6XXoowIhOuQL1NTgNZHY1nkURnqEGlDZq3GsfmdJdKFe1k1zOc6YU2K7qY+hF9AodA=="
 	crossorigin="anonymous"></script>
 
 </head>
-<body>
+<body background="/icone/sfondo.jpg">
 	<div class="topnav">
 		<a style="float: left;" href="Home">HOME</a> <a style="float: left;"
 			href="Profilo">PROFILO</a> <a style="float: right;" href="Logout">LOGOUT</a>
 	</div>
-
-	<div class="container">
-		<div class="details">
-			id campagna
-			<p id="idcampagna">${idcampagna}</p>
-			nome
-			<p id="nomecampagna">${nomecampagna}</p>
-			committente
-			<p id="committente">${committente}</p>
+	<div class="containerprincipale">
+		<div class="container">
+			<div class="details">
+				<h2>ID Campagna</h2>
+				<p id="idcampagna">${idcampagna}</p>
+				<h2>Nome</h2>
+				<p id="nomecampagna">${nomecampagna}</p>
+				<h2>Committente</h2>
+				<p id="committente">${committente}</p>
+			</div>
 		</div>
-	</div>
 		<c:if test="${iscritto == true}">
 			<script src="JavaScript/dettagliWorker.js" type="text/javascript" defer></script>
-			<div id="mapareacontainer">
-				<div id="mapid"></div>
+			<h2>Mappa:</h2>
+			<div class="mappaimmagine">
+				<div id="mapareacontainer">
+					<div id="mapid"></div>
+				</div>
+
+				<p id="datilocalita"></p>
+				<h2>Immagine:</h2>
+				<div id="immagini">
+					<img alt="immagine" id="immagine" src="">
+					<p id="datiimmagine"></p>
+					<button id="left">&#10094</button>
+					<button id="right">&#10095</button>
+				</div>
+
+				<div id="annotazioni"></div>
+
+				<div id="formAnnotazione">
+					
+					<h4>Scrivi un commento:</h4>
+					<input type="radio" name="validita" id="validita" checked>
+					Vero <input type="radio" name="validita" id="validita">
+					Falso <br> 
+					
+					<textarea maxlength="256" id="nota" draggable="false" placeholder="inserisci un commento"></textarea>
+					<br><button id="invia" class="button">Invia</button>
+				</div>
 			</div>
-
-			<p id="datilocalita"></p>
-
-			<div id="immagini">
-				<img alt="immagine" id="immagine" src="">
-				<p id="datiimmagine"></p>
-				<button id="left">&#10094</button>
-				<button id="right">&#10095</button>
-			</div>
-
-			<div id="annotazioni"></div>
-			
-			<div id="formAnnotazione">				
-				<input type="radio" name="validita" id="validita" checked> Vero
-				<input type="radio" name="validita" id="validita" > Falso <br>
-				<input type="text" id="nota" placeholder= "inserisci un commento">
-				<button id="invia">Invia</button>
-			</div>
-
 		</c:if>
 		<c:if test="${iscritto == false}">
 			<form action="IscrizioneCampagna" method="post">
-				<input type="text" value="${idcampagna}" style="display:none;" name="idcampagna">
-				<input type="submit" value="Iscriviti">
+				<input type="text" value="${idcampagna}" style="display: none;"
+					name="idcampagna"> 
+					<input class="button" type="submit" value="Iscriviti">
 			</form>
 		</c:if>
+	</div>
 </body>
 </html>

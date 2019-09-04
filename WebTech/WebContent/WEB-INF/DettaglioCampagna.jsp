@@ -71,6 +71,9 @@
 			<br>
 
 			<br>
+			
+			<h1>Inserisci una nuova località:</h1>
+			<br>
 			<script src="JavaScript/dettaglicreata.js" type="text/javascript" defer></script>
 			<div id="wizard">
 
@@ -87,30 +90,30 @@
 								<div id="mapid"></div>
 							</div>
 							<div id="formareacontainer">
-								<p>
+								<div class="input">
 									<input type="text" id="locazione" placeholder="Località"
 										name="localita">
-								</p>
-								<p>
+								</div>
+								<div class="input">
 									<input type="text" id="C" placeholder="Comune" name="comune"
 										readonly>
-								</p>
-								<p>
+								</div>
+								<div class="input">
 									<input type="text" id="R" placeholder="Regione" name="regione"
 										readonly>
-								</p>
-								<p>
+								</div>
+								<div class="input">
 									<input type="text" id="S" placeholder="Stato" name="Stato"
 										readonly>
-								</p>
-								<p>
+								</div>
+								<div class="input">
 									<input type="text" id="lat" placeholder="Latitudine" name="lat"
 										readonly>
-								</p>
-								<p>
+								</div>
+								<div class="input">
 									<input type="text" id="lon" placeholder="Longitudine"
 										name="lon" readonly>
-								</p>
+								</div>
 							</div>
 						</div>
 					</div>

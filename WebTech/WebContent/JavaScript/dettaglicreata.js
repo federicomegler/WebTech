@@ -310,13 +310,4 @@ window.onload = function (){
 		  x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		  x.send(param);
 	  },false);
-	  
-	  if(document.getElementById("stato").innerHTML != "creata"){
-		  document.getElementById("VisualizzaMappa").style.display = "none";
-		  document.getElementById("btnAvviaCampagna").style.display = "none";
-	  }
-	  else{
-		  document.getElementById("VisualizzaMappa").style.display = "block";
-		  document.getElementById("btnAvviaCampagna").style.display = "block";
-	  }
 	}

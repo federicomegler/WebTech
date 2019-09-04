@@ -1,5 +1,5 @@
 @charset "ISO-8859-1";
-body{
+body, html{
   height: 100%;
   margin: 0px;
   padding: 0px;
@@ -9,12 +9,13 @@ body{
 
 .step{
 display: none;
+width: 100%;
 }
 input.invalid {
   background-color: #ffdddd;
 }
 #mapid{
-    width: 600px;
+    width: 800px;
     height: 400px;
 }
 
@@ -24,18 +25,34 @@ input.invalid {
   float: left;
 }
 
-#formareacontainer{
-  width:fit-content;
-  height:fit-content;
-  float: right;
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
 }
+
+input{
+	margin-left: 100px;
+	margin-bottom: 20px;
+outline: none;
+border:none;
+box-shadow: none !important;
+font-family: 'Lobster', cursive;
+font-size: 20px;
+}
+
 #formmappa{
   width: 790px;
   height:400px;
 }
-.buttons{
-  float: right;
+
+.input{
+	width: 30%;
+	float: right;
 }
+
 button{
 	border-radius: 10px;
 }
@@ -51,6 +68,7 @@ button{
    margin: auto;
    margin-top:10px;
    overflow-y: scroll;
+   overflow-x: scroll;
 }
 
 button, .button{
@@ -77,6 +95,20 @@ button, .button{
   background: #669e43;
 }
 
+#mapareacontainer{
+	width: 60%;
+	border: 2px solid #669d43;
+}
+
+#mapid{
+	width: 100%;
+}
+
+.step{
+	width: 100%;
+	text-align: initial;
+}
+
 /* Style the topnav links */
 .topnav a {
   float: left;
@@ -92,3 +124,9 @@ button, .button{
   background-color: #b9cc33;
   color: whitesmoke;
 }
+
+input{
+	border: 2px solid #669d43
+}
+
+

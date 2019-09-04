@@ -70,7 +70,7 @@ public class CheckLogin extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("UtenteConnesso", utente.getNome());
 				session.setAttribute("tipo", utente.isManager());
-				getServletContext().getRequestDispatcher("/Home").forward(request, response);
+				response.sendRedirect("Home");
 			}
 			else {
 				request.setAttribute("errore", 1);
