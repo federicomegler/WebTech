@@ -1,88 +1,130 @@
-@charset "ISO-8859-1";
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
-.principaleOff{
-	pointer-events: none;
-	opacity: 0.3;
+body,html{
+
+margin:0;
+padding:0;
+height:100%;
+width:100%;
 }
 
-.confermaCambioOff{
-	display: none;
-}
 
-.confermaCambioOn{
-	padding: 10px 10px;
-	position: absolute;
-	top:50%;
-	left:50%;
-	margin-top: -50px;
-	margin-left: -100px;
-	color: #4CAF60;
-	background-color: #d0ffd3
+body{
+   background-size: cover;
+   font-family: 'Lobster', cursive;
+    background-color:#f6f0ce;
 }
-
-.ok{
-	background-color: #4CAF60;
-	color: white;
-	padding: 10px 20px;
-	margin: 3px;
-	text-align: center;
-	cursor: pointer;
-}
-
-.alertOff{
-	display: none;
-}
-
-.alert{
-	padding: 10px 10px;
-	position: absolute;
-	top:50%;
-	left:50%;
-	margin-top: -50px;
-	margin-left: -100px;
-	color: #4CAF60;
-	background-color: #d0ffd3
-}
-
-.conferma{
-	background-color: #4CAF60;
-	color: white;
-	padding: 10px 20px;
-	margin: 3px;
-	text-align: center;
-	cursor: pointer;
-}
-
-.annulla{
-	margin:3px;
-	background-color: #4CAF60;
-	color: white;
-	padding: 10px 20px;
-	text-align: center;
-	cursor: pointer;
-}
-
 
 
 .container{
-	position: relative;
-  	width: 200px;
+   width: 50%;
+   height:85%;
+   background: rgba(255,255,255,0.9);
+   padding:15px;
+   margin: auto;
+   margin-top:10px;
+   text-align:center;
+   overflow-y: scroll;
 }
 
-.immagine{
-height: 200px;
-width: 200px;
-overflow: hidden;
-border-radius: 50%;
-}
-img{
-	whidth:auto;
-	height: 100%;
+.container h1{
+	
+   text-align: center;
+   font-size: 40px;
+   border-bottom: 3px solid #58aa46;
+   margin-bottom: 50 px;
+   padding: 15px;
+   
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.input{
+position: relative;
+width: 100%;
+height: fit-content;
+   overflow: hidden;
+   font-size: 20px;
+   padding: 15px 0;
+   margin : 10px 0;
+   border-bottom: 1px solid #58aa46;
+}
+
+.input i{
+   margin-top:2px;
+   width: 26px;
+   float:left;
+   text-align: center;
+}
+
+
+
+.input input{
+   border: none;
+   outline: none;
+   background: none;
+}
+
+
+.input .text{
+float :left;
+width: 90%;
+height:100%;
+outline: none;
+border:none;
+box-shadow: none !important;
+font-family: 'Lobster', cursive;
+font-size: 20px;
+}
+
+#button{
+	display: inline-block;  
+	 cursor: pointer; 
+	 top: 50%; 
+	 left: 50%;  
+	 padding: 10px; 
+	 border: 1px solid #204d23;  
+	 border-radius: 5px;  
+	 color: rgba(255,255,255,1); 
+	 text-align: center; 
+	 font-family: 'Lobster', cursive;
+	 font-size: larger;
+	 background: #669e43;
+	 width:100px; 
+	 -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;   
+	 -webkit-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 -moz-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 -o-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
+}
+
+.input .text:focus{
+background-color:none;
+}
+
+.input .floating-label {
+position: absolute;
+pointer-events: none;
+top: 15px;
+left: 30px;
+transition: 0.2s ease-in-out all;
+}
+
+.input input:focus ~ .floating-label,
+.input input:not(:focus):valid ~ .floating-label{
+top: 0px;
+left: 28px;
+font-size: 15px;
+opacity: 1;
+}
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background: #669e43;
 }
 
 /* Style the topnav links */
@@ -97,29 +139,86 @@ img{
 
 /* Change color on hover */
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-* {
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-td{
-	border-bottom: 1px solid #ddd;
-	border-left: 1px solid #ddd;
-}
-#mail{
-	width:300px;
+  background-color: #b9cc33;
+  color: whitesmoke;
 }
 
+.err{
+  color: red;
+  float: right;
+  display: none;
+}
+
+button{
+	margin-left:5px;
+	display: inline-block;  
+	 cursor: pointer;    
+	 border: 1px solid #204d23;  
+	 border-radius: 5px;  
+	 color: rgba(255,255,255,1); 
+	 text-align: center; 
+	 font-family: 'Lobster', cursive;
+	 font-size: larger;
+	 background: #669e43; 
+	 -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;   
+	 -webkit-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 -moz-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 -o-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+	 transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
+}
+
+
+.c_cont{
+  padding:3%;  
+  height:fit-content;
+  width:90%;
+    
+}
+
+.over {
+	z-index:999;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	text-align: center;
+}
+
+.c_alert {
+	margin-top: 20%;
+	width: 50%;
+	display: inline-block;
+    background-color: #204d24;
+	text-align: center;
+	color:whitesmoke;
+}
+
+.immagine{
+display: inline-block;
+height:200px;
+width:200px;
+overflow:hidden;
+text-align:center;
+}
+
+img{
+    height:200px;
+    width:200px; 
+	border-radius: 50%;
+	whidth:auto;
+	
+}
+
+
 .middle {
+  display:inline-block;
   transition: .5s ease;
   opacity: 0;
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+  transform: translate(-88%,-138%);
+  -ms-transform: translate(-65%,-150%);
 
 }
 
@@ -131,22 +230,22 @@ td{
   opacity: 1;
 }
 
-.cambia {
-  margin: 20px;
+.div_btn {	
   background-color: #4CAF60;
-  color: white;
-  font-size: 16px;
-  padding: 16px 32px;
+  padding: 5%;
+  margin:2%;
   cursor: pointer;
-}
-.elimina{
-	margin: 20px;
-	background-color: #4CAF60;
-  color: white;
+  width: 90%;
+  color: rgba(255,255,255,1); 
+  border-radius: 5px;  
+  border: 1px solid #204d23;
+  text-align: center;
+  font-family: 'Lobster', cursive;
   font-size: 16px;
-  padding: 16px 32px;
-  cursor: pointer;
-}
-button{
-	border-radius: 5px;
+  background: #669e43;
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;   
+  -webkit-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+  -moz-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+  -o-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
+  transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
 }

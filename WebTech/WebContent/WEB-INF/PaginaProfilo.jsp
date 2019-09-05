@@ -7,22 +7,28 @@
 <meta charset="ISO-8859-1">
 <meta http-equiv="Cache-Control" content="no-store" />
 <title>Profilo - ${nickname}</title>
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <link href="CSS/ProfiloStyle.css" rel="stylesheet" type="text/css">
 <script src="JavaScript/modificaProfilo.js" type="text/javascript" defer></script>
 </head>
 <body>
+<body background="/icone/sfondo.jpg">
 	
-	<div class="confermaCambioOff" id="confermaCambio">
+	<div class="over" style="display:none;" id="confermaCambio">
+		<div class="c_alert">
 		<p>Verrà cambiata l'immagine di profilo!</p>
 		<br>
-		<div class="ok" id="ok">OK</div>
+		<div class="div_btn" style="width: auto;" id="ok">OK</div>
+		</div>
 	</div>
 	
-	<div class="alertOff" id="alert">
-		<p>Sei sicuro di voler eliminare l'immagine?</p>
-		<br>
-		<div class="conferma" id="conferma">CONFERMA</div>
-		<div class="annulla" id="annulla">ANNULLA</div>
+	<div class="over" style="display:none;" id="alert">
+	    <div class="c_alert">
+		  <p>Sei sicuro di voler eliminare l'immagine?</p>
+		  <br>
+		  <div class="div_btn" style="width: auto;" id="conferma">CONFERMA</div>
+		  <div class="div_btn" style="width: auto;" id="annulla">ANNULLA</div>
+	    </div>
 	</div>
 	
 	<div class="topnav">
@@ -30,73 +36,87 @@
 				href="Logout">LOGOUT</a>
 	</div>
 		
-	<div class="" id="principale">
+	<div class="container" id="principale">
+       <h1>Profilo</h1>
 		
-		<br>
-		<div class="container">
-			<div class="immagine">
+		<div class="immagine">
 				<img id ="immprofilo" alt="Immagine profilo" src="/ImmaginiUtente/${immagine}"
 					class="image">
 				<div class="middle">
-					<div class="cambia" id="cambia">Cambia Immagine</div>
-					<div class="elimina" id="elimina">Elimina Immagine</div>
+					<div class="div_btn" id="cambia">Cambia Immagine</div>
+					<div class="div_btn" id="elimina">Elimina Immagine</div>
 				</div>
 				<form action="CambiaImmagineProfilo" method="post"
 					enctype="multipart/form-data" id="formimmagine">
 					<input id="selezionaimmagine" type="file" name="nuovaimmagine"
 						style="display: none">
 					<input id="infoelimina" type="text" name="elminafoto" style=" display: none ">
-				</form>
-			</div>
+				</form>	
 		</div>
 
-		<br>
+		<div class="c_cont">
+		
+		 <h4>Nickname: <c:out value="${nickname}"></c:out></h4>
 
-		<table>
-			<tr>
-				<td>Nickname:</td>
-				<td><c:out value="${nickname}"></c:out></td>
-			</tr>
-			<tr>
-				<td>Mail:</td>
-				<td><input type="text" value="${mail}" id="mail" disabled></td>
-				<td><button id="modificaemail">Modifica Email</button>
-					<button id="confermaemail" style="display: none;">Conferma</button>
-					<button id="annullaemail" style="display: none;">Annulla</button></td>
-				<td id="errore mail" style="color: red; display: none;">Email
-					non valida</td>
-			</tr>
-		<c:if test="${tipo != 'Manager' }">
-			<tr>
-				<td>Esperienza:</td>
-				<td><c:out value="${esperienza}"></c:out></td>
-			</tr>
-			
+         <c:if test="${tipo != 'Manager' }">
+          <h4>Esperienza: <c:out value="${esperienza}"></c:out></h4>	
 		</c:if>	
-			<tr>
-				<td>Tipo Utente:</td>
-				<td><c:out value="${tipo}"></c:out></td>
-			</tr>
-		</table>
-		<br>
-		<button id="BottoneNuovaPassword">Modifica password</button>
-		<div style="display: none;" id="FormPassword">
+
+        <h4>Tipo Utente: <c:out value="${tipo}"></c:out></h4>
+
+		<h4 id="descrmail">Mail: "${mail}"</h4>
+		 
+		<div id="modmail" style="display:none;">
+             <div class="input">
+			    <i class="fa fa-user" aria-hidden="true"></i>
+			    <input type="text" id="mail" name="username" class="text" value="${mail}" disabled>
+			 </div>				
+		     <h5 id="errore mail" class="err">Email non valida</h5>	
+		</div>		
+		<div class="c_cont">
+				    
+					<button id="confermaemail" style="display: none; float:right;">Conferma</button>
+					<button id="annullaemail" style="display: none; float:right;">Annulla</button>
+					<button id="modificaemail" style="float:right;">Modifica Email</button><br><br>
+				    <button id="BottoneNuovaPassword" style="float:right;">Modifica password</button>
+					
+		</div>			
+      </div>
+            
+		
+		
+		<div class="c_cont" style="display:none;" id="FormPassword">
 			<form id="formpassword" novalidate>
-				<input id="vecchia" type="password" placeholder="Vecchia Password"
-					name="vecchiapassword" required><br> <br> <input
-					id="nuova1" type="password" placeholder="Nuova Password"
-					name="nuovapassword1" required><br> <br> <input
-					id="nuova2" type="password" placeholder="Conferma Password"
-					name="nuovapassword2" required><br> <br> <label
-					id="errore1" style="display: none; color: red;">Password
-					errata</label><br> <br> <label
-					id="errore2" style="display: none; color: red;">Le password
-					non corrispondono</label><br> <br>
+				                <div class="input">
+					<i class="fa fa-lock"  aria-hidden="true"></i>
+					<input id="vecchia" class="text" type="password" name="vecchiapassword" required>
+					<span class="floating-label">Vecchia Password</span>
+      
+				</div>
+                <label	id="errore1" class="err">Password errata</label>
+                
+                
+				<div class="input">
+					<i class="fa fa-lock"  aria-hidden="true"></i>
+					<input id="nuova1"  class="text" type="password" name="nuovapassword1" required>
+					<span class="floating-label">Nuova Password</span>
+				</div>
+                
+                <div class="input">
+					<i class="fa fa-lock"  aria-hidden="true"></i>
+					<input id="nuova2" class="text" type="password" name="nuovapassword2" required>
+					<span class="floating-label">Conferma Password</span>
+				</div>
+               <label id="errore2" class="err">Le password non corrispondono</label>
+
+					
 			</form>
-			<button id="cambiaPassword">Cambia Password</button>
-			<br>
-			<button id="annullaCambioPassword">Annulla</button>
-		</div>
+		   
+		   <button id="annullaCambioPassword"style="float:right">Annulla</button>
+		   <button style="float:right" id="cambiaPassword">Cambia Password</button>
+		
+		</div>	
+		
 	</div>
 </body>
 </html>
