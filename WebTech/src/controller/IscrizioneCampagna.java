@@ -50,11 +50,8 @@ public class IscrizioneCampagna extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< HEAD
+
 		response.sendRedirect("Home?errore=1");
-=======
-		response.sendRedirect("Home");
->>>>>>> branch 'master' of https://gitlab.com/FedeMeg/web-tech.git
 	}
 
 	/**
