@@ -119,15 +119,18 @@
 					</div>
 					<!-- step2 inserimento dell'immagine-->
 					<div class="step">
+					
+					<div class="c_input">
 						<input id="i" type="file" oninput="this.className = ''"
 							name="file">
+					</div>
 						<div class="imagecontainer">
-							<img src="" style="display: none" height="200" height="300"
-								id="image">
+							<img src="" style="display: none; height:200px; width:300px;" id="image">
 						</div>
 					</div>
 					<!-- step3-->
 					<div class="step">
+					<div class="c_input">
 						<p>
 							<input type="text" id="provenienza" placeholder="Provenienza"
 								name="provenienza">
@@ -140,6 +143,7 @@
 							<input type="text" id="risoluzione" placeholder="Risoluzione"
 								name="risoluzione">
 						</p>
+					</div>	
 					</div>
 					<br>
 					<br>

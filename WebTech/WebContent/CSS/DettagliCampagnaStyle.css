@@ -53,10 +53,6 @@ font-size: 20px;
 	float: right;
 }
 
-button{
-	border-radius: 10px;
-}
-
 .container{
    top:50%;
     left:50%;
@@ -71,7 +67,7 @@ button{
    overflow-x: scroll;
 }
 
-button, .button{
+#i::-webkit-file-upload-button,button, .button{
   display: inline-block;  
 	 cursor: pointer;   
 	 padding: 10px;
@@ -88,6 +84,12 @@ button, .button{
 	 -moz-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
 	 -o-transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75); 
 	 transition: color 300ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
+}
+
+#i::-webkit-file-upload-button{
+	
+	margin:2px;
+	
 }
 
 .topnav {
@@ -131,7 +133,25 @@ h2{
 }
 
 input{
-	border: 2px solid #669d43
+
+	border-bottom: 2px solid #669d43;
+	margin:auto;
+	margin-top:5px;
+	width:100%;
 }
 
 
+.imagecontainer{
+    margin:auto;
+    margin-top:10px;
+	height:200px; 
+	width:300px;
+}
+
+
+.c_input{
+    margin:auto;
+    margin-top:10px; 
+	width:50%;
+    height:fit-content;
+}
