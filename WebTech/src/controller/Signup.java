@@ -65,6 +65,10 @@ public class Signup extends HttpServlet {
 		String password1 = request.getParameter("password1");
 		String password2 = request.getParameter("password2");
 		String tipo = request.getParameter("tipo_account");
+		if(username == null || mail == null || tipo == null) {
+			response.sendRedirect("Login");
+			return;
+		}
 		DAOUtente daoutente = new DAOUtente(connection);
 
 		if(password1==null || !password1.equals(password2)) {
@@ -128,7 +132,6 @@ public class Signup extends HttpServlet {
 		Pattern regex = Pattern.compile(
 				"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
 				);
-
 		if (!regex.matcher(email).matches()) {
 			return false;
 		}

@@ -56,7 +56,7 @@ public class ModificaProfiloMail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	response.sendRedirect("Home");	
+		response.sendRedirect("Home?errore=1");	
 	}
 
 	/**
@@ -70,11 +70,15 @@ public class ModificaProfiloMail extends HttpServlet {
 		else {	
 			HttpSession s = request.getSession(true);
 			String mail =(String)request.getParameter("nuovaemail");
+			if(mail == null) {
+				response.sendRedirect("Profilo");
+				return;
+			}
 			String nome_utente = (String)s.getAttribute("UtenteConnesso");
 			DAOUtente utente = new DAOUtente(connection);
 			Utente user = new Utente();
 			user.setMail(mail); 
-			if(utente.esisteUtente(user)==0) {
+			if(utente.esisteUtente(user) == 0) {
 				user.setNome(nome_utente);
 				utente.modificaMail(user);
 				String res=new Gson().toJson(mail);
@@ -83,11 +87,7 @@ public class ModificaProfiloMail extends HttpServlet {
 				response.setCharacterEncoding("UTF-8");
 				out.print(res);
 				out.flush();
-				
 			}
-			
 		}
-		
 	}
-	
 }

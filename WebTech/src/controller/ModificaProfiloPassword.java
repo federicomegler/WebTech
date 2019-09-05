@@ -72,6 +72,10 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			String np1 =(String)request.getParameter("np1");
 			String np2 =(String)request.getParameter("np2");
 			String p =(String)request.getParameter("p");
+			if(np1 == null || np2 == null || p == null) {
+				response.sendRedirect("Profilo");
+				return;
+			}
 			String nome_utente = (String)s.getAttribute("UtenteConnesso");
 			DAOUtente utente = new DAOUtente(connection);
 			Utente user = new Utente();
@@ -96,7 +100,5 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				out.flush();
 			
 		}
-		
 	}
-
 }
