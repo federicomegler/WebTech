@@ -13,11 +13,18 @@ window.onload = function(){
 
 					if(x.readyState==4 && x.status==200){
 						obj = JSON.parse(x.responseText);
-						var listaAnn = obj[0];
-						var loc = obj[1];
-						document.getElementById("localitaimmagine").innerHTML = loc.nome + ", " + loc.comune + ", " + loc.regione + ", " + loc.stato;
-						document.getElementById("immagineZoom").src = e.target.src;
-						showAnn(listaAnn);
+						var errore = obj[2];
+						if(errore){
+							document.getElementById("errore").style.display = "block";
+						}
+						else{
+							document.getElementById("errore").style.display = "none";
+							var listaAnn = obj[0];
+							var loc = obj[1];
+							document.getElementById("localitaimmagine").innerHTML = loc.nome + ", " + loc.comune + ", " + loc.regione + ", " + loc.stato;
+							document.getElementById("immagineZoom").src = e.target.src;
+							showAnn(listaAnn);
+						}
 					}
 				}
 				x.open("GET", "\GetInfoStatistiche?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idimmagine="+e.target.id ,true); 

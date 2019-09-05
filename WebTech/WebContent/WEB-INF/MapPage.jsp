@@ -33,6 +33,7 @@
 		</div>
 
 		Localita: <label id="datilocalita"></label>
+		<label id="errore" style="color:red;display:none;">Errore caricamento immagini. Riprova!</label>
 		<div id="immagini">
 			<img alt="immagine" id="immagine" src="">
 			<p id="datiimmagine"></p>

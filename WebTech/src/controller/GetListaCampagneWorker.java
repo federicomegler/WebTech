@@ -33,7 +33,6 @@ public class GetListaCampagneWorker extends HttpServlet {
      */
     public GetListaCampagneWorker() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     public void init(){
@@ -59,9 +58,12 @@ public class GetListaCampagneWorker extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == true) {
+			response.sendRedirect("Home?errore=1");
+		}
 		else {
-			System.out.println("ciao sono nella servlet worker");
 			String tipo_richiesta = request.getParameter("richiesta"); //la campagna può essere optata oppure non optata
+			//se è null restituisco errore
 			if(tipo_richiesta.equals("optata")) {
 				HttpSession session = request.getSession(true);
 				String nome_utente = (String)session.getAttribute("UtenteConnesso");
@@ -72,7 +74,6 @@ public class GetListaCampagneWorker extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
-				System.out.println("optata" + arr.size());
 				out.print(res);
 				out.flush();
 			}
@@ -86,7 +87,6 @@ public class GetListaCampagneWorker extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
-				System.out.println("nonoptata" + arr.size());
 				out.print(res);
 				out.flush();
 			}
@@ -102,7 +102,6 @@ public class GetListaCampagneWorker extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

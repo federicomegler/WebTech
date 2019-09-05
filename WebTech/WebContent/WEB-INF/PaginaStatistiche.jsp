@@ -40,6 +40,7 @@
 		</div>
 
 		<div id="containerdettagli">
+			<label id="errore" style="color:red;display:none;">Errore nel caricamento dati. Riprova!</label>
 			<div id="IMG">
 				<p id="localitaimmagine"></p>
 				<img id="immagineZoom" alt="" src="">

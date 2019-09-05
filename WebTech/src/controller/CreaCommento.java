@@ -78,10 +78,27 @@ public class CreaCommento extends HttpServlet {
 			String nota = request.getParameter("nota");
 			String validita = request.getParameter("validita");
 			String user = (String)request.getSession().getAttribute("UtenteConnesso");
-
-			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
-			int idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
-			int idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
+			
+			if(nota == null || validita == null) {
+				response.sendRedirect("Home");
+				return;
+			}
+			
+			int idcampagna = 0, idimmagine = 0, idlocalita = 0;
+			try {
+				idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+				idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
+				idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("Home");
+				return;
+			}
+			
+			
+			
+			
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			DAOImmagine daoimmagine = new DAOImmagine(connection);
 			DAOLocalita daolocalita = new DAOLocalita(connection);

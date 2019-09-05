@@ -66,8 +66,10 @@ public class CambiaImmagineProfilo extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {
+			boolean elimina = false;
 			Part part = null;
 			try {
+				elimina = ((String)request.getParameter("eliminafoto")).equals("true");
 				part = request.getPart("nuovaimmagine");
 			}
 			catch (Exception e) {
@@ -94,9 +96,6 @@ public class CambiaImmagineProfilo extends HttpServlet {
 				utente.aggiornaImmagine(nome_utente, null);
 			}
 			else {
-
-				Part part = request.getPart("nuovaimmagine");
-				
 				File immagine = new File(tomcatBase  + path + user.getImmagine());
 				if(immagine.exists()) {
 					immagine.delete();
@@ -107,7 +106,6 @@ public class CambiaImmagineProfilo extends HttpServlet {
 				
 			}
 			utente.aggiornaImmagine(nome_utente, nome_utente + estensione);} 
-			
 			getServletContext().getRequestDispatcher("/Profilo").forward(request, response);
 		}
 		

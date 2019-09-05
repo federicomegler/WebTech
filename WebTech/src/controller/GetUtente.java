@@ -52,6 +52,10 @@ public class GetUtente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DAOUtente daoutente = new DAOUtente(connection);
+		if(request.getParameter("username") == null) {
+			response.sendRedirect("Login");
+			return;
+		}
 		boolean esito = daoutente.esisteUtente(request.getParameter("username"));
 		String res = new Gson().toJson(esito);		
 		PrintWriter out = response.getWriter();

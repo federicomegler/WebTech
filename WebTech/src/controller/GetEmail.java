@@ -52,8 +52,11 @@ public class GetEmail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DAOUtente daoutente = new DAOUtente(connection);
+		if(request.getParameter("email") == null) {
+			response.sendRedirect("Login");
+			return;
+		}
 		boolean esito = daoutente.esisteEmail(request.getParameter("email"));
-		System.out.println(esito + request.getParameter("email"));
 		String res = new Gson().toJson(esito);		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");

@@ -63,20 +63,34 @@ public class GetDatiImmagine extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == false) {
+			response.sendRedirect("Home");
+		}
 		else {
-			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
-			int idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
+			int idcampagna = 0, idlocalita = 0;
+			try {
+				idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+				idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("Home");
+				return;
+			}
+			
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			DAOImmagine daoimmagine = new DAOImmagine(connection);
 			DAOLocalita daolocalita = new DAOLocalita(connection);
-			Campagna campagna = new Campagna();
+			Campagna campagna = null;
 			campagna = daocampagna.getCampagna(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso"));
-			Localita localita = new Localita();
+			Localita localita = null;
 			localita = daolocalita.getLocalita(idcampagna, idlocalita);
 			if(campagna != null && localita != null) {
 				List<Immagine> listaimmagine = new ArrayList<Immagine>();
 				listaimmagine = daoimmagine.getImmaginiLocalita(idcampagna, idlocalita);
-				String res = new Gson().toJson(listaimmagine);
+				String res1 = new Gson().toJson(listaimmagine);
+				String errore = new Gson().toJson(false);
+				String res = "[" + res1 + "," + errore + "]";
 				PrintWriter out = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
@@ -84,9 +98,16 @@ public class GetDatiImmagine extends HttpServlet {
 				out.flush();
 			}
 			else {
+				String res1 = "";
+				String errore = new Gson().toJson(false);
+				String res = "[" + res1 + "," + errore + "]";
+				PrintWriter out = response.getWriter();
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				out.print(res);
+				out.flush();
 			}
 		}
-	
 	}
 
 	/**

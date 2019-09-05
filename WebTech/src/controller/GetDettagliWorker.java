@@ -49,7 +49,7 @@ public class GetDettagliWorker extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.getWriter().append("Served at: ").append(request.getContextPath());
+    	response.sendRedirect("Home");
     }
 
     /**
@@ -59,8 +59,15 @@ public class GetDettagliWorker extends HttpServlet {
     	if(request.getSession().getAttribute("UtenteConnesso") == null) {
     		response.sendRedirect("Login");
     	}
+    	else if((boolean)request.getSession().getAttribute("tipo") == true) {
+    		response.sendRedirect("Home?errore=1");
+    	}
     	else {
     		String id = (String)request.getParameter("idcampagna");
+    		if(id == null) {
+    			response.sendRedirect("Home?errore=1");
+    			return;
+    		}
     		request.setAttribute("errore",false);
     		Campagna campagna = null;
     		DAOCampagna daocampagna = new DAOCampagna(connection);

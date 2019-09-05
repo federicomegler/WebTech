@@ -208,10 +208,18 @@ function onClick_Marker(e) {
 	x.onreadystatechange= function (){
 
 		if(x.readyState==4 && x.status==200){
-			listaImm = JSON.parse(x.responseText);
-			c=0;
-			showImm(0);
-			getAnn();
+			var obj = JSON.parse(x.responseText);
+			var errore = obj[1];
+			if(errore){
+				document.getElementById("errore").style.display = "block";
+			}
+			else{
+				document.getElementById("errore").style.display = "none";
+				listaImm = obj[0];
+				c=0;
+				showImm(0);
+				getAnn();
+			}
 		}
 	}
 	x.open("GET", "\GetDatiImmagine?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idlocalita="+idlocalita ,true); 

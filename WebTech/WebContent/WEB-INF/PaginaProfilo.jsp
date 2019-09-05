@@ -50,7 +50,7 @@
 					enctype="multipart/form-data" id="formimmagine">
 					<input id="selezionaimmagine" type="file" name="nuovaimmagine"
 						style="display: none">
-					<input id="infoelimina" type="text" name="elminafoto" style=" display: none ">
+					<input id="infoelimina" type="text" name="eliminafoto" style=" display: none ">
 				</form>	
 		</div>
 

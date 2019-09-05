@@ -63,10 +63,22 @@ public class getAnnotazioni extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == false) {
+			response.sendRedirect("Home");
+		}
 		else{
-			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
-			int idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
-			int idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
+			int idcampagna = 0, idlocalita = 0, idimmagine = 0;
+			try {
+				idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+				idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
+				idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("Home?errore=1");
+				return;
+			}
+			
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			DAOLocalita daolocalita = new DAOLocalita(connection);
 			Campagna campagna = new Campagna();
@@ -91,7 +103,7 @@ public class getAnnotazioni extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 
 }

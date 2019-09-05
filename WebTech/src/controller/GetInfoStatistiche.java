@@ -62,9 +62,20 @@ public class GetInfoStatistiche extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == false) {
+			response.sendRedirect("Home");
+		}
 		else {
-			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
-			int idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
+			int idcampagna = 0, idimmagine = 0;
+			try {
+				idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+				idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("Home?errore=1");
+				return;
+			}
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			DAOImmagine daoimmagine = new DAOImmagine(connection);
 			DAOLocalita daolocalita = new DAOLocalita(connection);
@@ -76,8 +87,20 @@ public class GetInfoStatistiche extends HttpServlet {
 				Localita localita = daolocalita.getLocalita(idimmagine);
 				listaannotazione = daoannotazione.getAnnotazioni(idimmagine,idcampagna,localita.getID_localita());
 				String res1 = new Gson().toJson(listaannotazione);
-				String res2 = new Gson().toJson(localita);  
-				String res1_2 = "["+res1+","+res2+"]";
+				String res2 = new Gson().toJson(localita);
+				String errore = new Gson().toJson(false);
+				String res1_2 = "[" + res1 + "," + res2 + "," + errore + "]";
+				PrintWriter out = response.getWriter();
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				out.print(res1_2);
+				out.flush();
+			}
+			else {
+				String res1 = new Gson().toJson("");
+				String res2 = new Gson().toJson(""); 
+				String errore = new Gson().toJson(true);
+				String res1_2 = "["+res1+","+res2+ "," + errore + "]";
 				PrintWriter out = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");

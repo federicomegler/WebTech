@@ -35,7 +35,6 @@ public class GetListeCampagneManager extends HttpServlet {
      */
     public GetListeCampagneManager() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public void init(){
@@ -62,10 +61,17 @@ public class GetListeCampagneManager extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == false) {
+			response.sendRedirect("Home?errore=1");
+		}
 		else {
 			
 			HttpSession session = request.getSession(true);
 			String stato =(String)request.getParameter("stato");
+			if(stato == null) {
+				response.sendRedirect("Home?errore=1");
+				return;
+			}
 			String nome_utente = (String)session.getAttribute("UtenteConnesso");
 			DAOCampagna camp = new DAOCampagna(connection);
 			List<Campagna> arr = new ArrayList<Campagna>();		
@@ -76,18 +82,14 @@ public class GetListeCampagneManager extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			out.print(res);
 			out.flush();
-			
 		}
-		
-		
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 
 }

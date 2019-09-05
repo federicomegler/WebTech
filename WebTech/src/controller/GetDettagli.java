@@ -28,7 +28,6 @@ public class GetDettagli extends HttpServlet {
      */
     public GetDettagli() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     public void init() {
@@ -51,7 +50,7 @@ public class GetDettagli extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		response.sendRedirect("Home");
 	}
 
 	/**
@@ -61,9 +60,15 @@ public class GetDettagli extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == false) {
+			response.sendRedirect("Home");
+		}
 		else {
-			//va controllato che i dati siano reali e non modificati a lato client
 			String id = (String)request.getParameter("idcampagna");
+			if(id == null) {
+				response.sendRedirect("Home?errore=1");
+				return;
+			}
 			request.setAttribute("errore",false);
 			Campagna campagna = new Campagna();
 			DAOCampagna daocampagna = new DAOCampagna(connection);

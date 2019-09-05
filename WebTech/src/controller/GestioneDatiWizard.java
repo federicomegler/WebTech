@@ -38,7 +38,6 @@ public class GestioneDatiWizard extends HttpServlet {
 	 */
 	public GestioneDatiWizard() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void init() {
@@ -61,43 +60,64 @@ public class GestioneDatiWizard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.sendRedirect("Home");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 
 		}
-		else {
-
-			System.out.println("processo");
-			
+		else if((boolean)request.getSession().getAttribute("tipo") == false) {
+			response.sendRedirect("Home");
+		}
+		else {			
 			DAOCampagna dcampagna = new DAOCampagna(connection);
 			DAOImmagine dimm = new DAOImmagine(connection);
 			DAOLocalita dloc = new DAOLocalita(connection);
 
-			int idloc,idimm,idcamp;
+			int idloc = 0,idimm = 0,idcamp = 0;
 			String estensione =null;
 			String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
-			idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
+			try {
+				idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("Home");
+				return;
+			}
 
-			//controllo
 			Campagna c = new Campagna();
 			c = dcampagna.getCampagna(idcamp, nome_utente);
 
-			if(c!=null && c.getStato().equals("creata")) {
+			if(c != null && c.getStato().equals("creata")) {
 				String localita = (String)request.getParameter("localita");
 				String comune = (String)request.getParameter("comune");
 				String stato = (String)request.getParameter("Stato");
 				String regione = (String)request.getParameter("regione");
-				double lat = Double.parseDouble((String)request.getParameter("lat"));
-				double lon = Double.parseDouble((String)request.getParameter("lon"));
-
 				String provenienza = (String)request.getParameter("provenienza");
 				String data =((String)request.getParameter("datarecupero"));
+				if(localita == null || comune == null || stato == null || regione == null || provenienza == null || data == null) {
+					response.sendRedirect("Home?errore=1");
+					return;
+				}
+				double lat = 0, lon = 0;
+				try {
+					lat = Double.parseDouble((String)request.getParameter("lat"));
+					lon = Double.parseDouble((String)request.getParameter("lon"));
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+					response.sendRedirect("Home?errore=1");
+					return;
+				}
+
+
 				Date date = Date.valueOf(data);
 				String risoluzione = (String)request.getParameter("risoluzione");
 
@@ -106,7 +126,17 @@ public class GestioneDatiWizard extends HttpServlet {
 				String tomcatBase = System.getProperty("catalina.base");
 				String path = "/webapps/ImmaginiCampagna/";
 				File saveDir = new File(tomcatBase);
-				Part part = request.getPart("file");
+				Part part = null;
+
+				try {
+					part = request.getPart("file");
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+					response.sendRedirect("Home?errore=1");
+					return;
+				}
+
 				estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
 
 				idimm = dimm.addImmagine(date, provenienza, risoluzione, estensione);
@@ -130,27 +160,5 @@ public class GestioneDatiWizard extends HttpServlet {
 				request.setAttribute("errore",true);
 				getServletContext().getRequestDispatcher("/GetDettagli").forward(request, response);}  	 
 		}
-
+	}
 }
-
-}
-
-
-
-
-/*fare controlli sulla campagna
- * sistemare do post 
- * prelevare id campagna e inviare i parametri della stessa alla servlet dei dettagli
- * valutare se introdurre il daomappacampagna per le funzioni di set e get e cehck situati nei dao
- * controllare il salvataggio delle immagini riguardo al nome assegnato idcamp + idloc + idimm
- */
-
-
-
-
-
-
-
-
-
-

@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 window.onload = function(){
     document.getElementById("cambia").addEventListener("click", function(){
         CambiaImmagine();
@@ -37,7 +33,7 @@ window.onload = function(){
     
     document.getElementById("conferma").addEventListener("click",function(){
         document.getElementById("alert").style.display = "none";
-        document.getElementById("infoelimina").value=true;
+        document.getElementById("infoelimina").value="true";
         document.getElementById("formimmagine").submit();
         
     },false);
@@ -48,7 +44,7 @@ window.onload = function(){
     
     document.getElementById("ok").addEventListener("click", function(){
     	document.getElementById("confermaCambio").style.display = "none";
-    	document.getElementById("infoelimina").value=false;
+    	document.getElementById("infoelimina").value="false";
     	document.getElementById("formimmagine").submit();
     },false);
     

@@ -58,30 +58,38 @@ public class GetLocalitaWorker extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAOLocalita l = new DAOLocalita (connection);
-		DAOCampagna dcampagna = new DAOCampagna(connection);
-		String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
-		int idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
-		Campagna c= new Campagna();
-		c = dcampagna.getCampagnaAvviata(idcamp);
-		if(c!=null){
-			if(dcampagna.esisteCampagnaWorker(idcamp, nome_utente)) {
-				List<Localita> loc= new ArrayList<Localita>();
-				loc=l.getPlaces(c.getID_campagna());
-				String res = new Gson().toJson(loc);
-				PrintWriter out= response.getWriter();
-				response.setContentType("application/json");
-				response.setCharacterEncoding("UTF-8");
-				out.print(res);
-				out.flush();
-			}
-			else {
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
+		}
+		else if((boolean)request.getSession().getAttribute("tipo") == true) {
+			response.sendRedirect("Home?errore=1");
+		}
+		else {
+			DAOLocalita l = new DAOLocalita (connection);
+			DAOCampagna dcampagna = new DAOCampagna(connection);
+			String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
+			int idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
+			Campagna c= new Campagna();
+			c = dcampagna.getCampagnaAvviata(idcamp);
+			if(c!=null){
+				if(dcampagna.esisteCampagnaWorker(idcamp, nome_utente)) {
+					List<Localita> loc= new ArrayList<Localita>();
+					loc=l.getPlaces(c.getID_campagna());
+					String res = new Gson().toJson(loc);
+					PrintWriter out= response.getWriter();
+					response.setContentType("application/json");
+					response.setCharacterEncoding("UTF-8");
+					out.print(res);
+					out.flush();
+				}
+				else {
+					request.setAttribute("errore",true);
+					getServletContext().getRequestDispatcher("/WEB-INF/DettaglioCampagnaWorker.jsp").forward(request, response);
+				}
+			}else {
 				request.setAttribute("errore",true);
 				getServletContext().getRequestDispatcher("/WEB-INF/DettaglioCampagnaWorker.jsp").forward(request, response);
 			}
-		}else {
-			request.setAttribute("errore",true);
-			getServletContext().getRequestDispatcher("/WEB-INF/DettaglioCampagnaWorker.jsp").forward(request, response);
 		}
 	}
 
@@ -89,7 +97,6 @@ public class GetLocalitaWorker extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

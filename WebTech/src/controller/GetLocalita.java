@@ -28,10 +28,10 @@ import bean.Localita;
 @WebServlet("/GetLocalita")
 public class GetLocalita extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private Connection connection;
-    
-    public void init() {
-    	ServletContext context = getServletContext();
+	private Connection connection;
+
+	public void init() {
+		ServletContext context = getServletContext();
 		String driver = context.getInitParameter("dbDriver");
 		String url = context.getInitParameter("dbUrl") + "?useLegacyDatetimeCode=false&serverTimezone=Europe/Rome";
 		String user = context.getInitParameter("dbUser");
@@ -44,39 +44,54 @@ public class GetLocalita extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    }
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GetLocalita() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	}
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public GetLocalita() {
+		super();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAOLocalita l = new DAOLocalita (connection);
-		DAOCampagna dcampagna = new DAOCampagna(connection);
-		String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
-		int idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
-		Campagna c= new Campagna();
-		c = dcampagna.getCampagna(idcamp, nome_utente);
-		if(c!=null){
-			
-		List<Localita> loc= new ArrayList<Localita>();
-		loc=l.getPlaces(c.getID_campagna());
-		String res = new Gson().toJson(loc);
-		PrintWriter out= response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		out.print(res);
-		out.flush();
-		
-		}else {
-			request.setAttribute("errore",true);
-			getServletContext().getRequestDispatcher("/GetDettagli").forward(request, response);
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			response.sendRedirect("Login");
+		}
+		else if((boolean)request.getSession().getAttribute("tipo") == false) {
+			response.sendRedirect("Home?errore=1");
+		}
+		else {
+			DAOLocalita l = new DAOLocalita (connection);
+			DAOCampagna dcampagna = new DAOCampagna(connection);
+			String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
+			int idcamp = 0;
+			try {
+				idcamp = Integer.parseInt((String)request.getParameter("idcampagna"));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("Home?errore=1");
+				return;
+			}
+			Campagna c= new Campagna();
+			c = dcampagna.getCampagna(idcamp, nome_utente);
+			if(c!=null){
+
+				List<Localita> loc= new ArrayList<Localita>();
+				loc=l.getPlaces(c.getID_campagna());
+				String res = new Gson().toJson(loc);
+				PrintWriter out= response.getWriter();
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				out.print(res);
+				out.flush();
+
+			}else {
+				request.setAttribute("errore",true);
+				getServletContext().getRequestDispatcher("/GetDettagli").forward(request, response);
+			}
 		}
 	}
 
@@ -84,6 +99,6 @@ public class GetLocalita extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 }

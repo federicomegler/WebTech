@@ -69,8 +69,19 @@ public class GetStatistiche extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == false) {
+			response.sendRedirect("Home?errore=1");
+		}
 		else {
-			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+			int idcampagna = 0;
+			try {
+				idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+			}
+			catch(Exception e){
+				e.printStackTrace();
+				response.sendRedirect("Home?errore=1");
+				return;
+			}
 			String creatore = (String)request.getSession().getAttribute("UtenteConnesso");
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			DAOImmagine daoimmagine = new DAOImmagine(connection);

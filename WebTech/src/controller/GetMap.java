@@ -55,8 +55,15 @@ public class GetMap extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {
-			response.getWriter().append("Served at: ").append(request.getContextPath());
-			int id = Integer.parseInt(request.getParameter("idcampagna"));
+			int id = 0;
+			try {
+				id = Integer.parseInt(request.getParameter("idcampagna"));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("Home?errore=1");
+				return;
+			}
 			Campagna campagna = new Campagna();
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			campagna = daocampagna.getCampagna(id,(String)request.getSession().getAttribute("UtenteConnesso"));
@@ -75,7 +82,6 @@ public class GetMap extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

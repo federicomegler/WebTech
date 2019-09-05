@@ -37,7 +37,6 @@ public class GetAnnotazioniWorker extends HttpServlet {
      */
     public GetAnnotazioniWorker() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     public void init() {
@@ -64,18 +63,28 @@ public class GetAnnotazioniWorker extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == true) {
+			response.sendRedirect("Home");
+		}
 		else{
-			System.out.println("sono nella servlet get annotazioni");
-			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
-			int idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
-			int idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
+			int idcampagna = 0, idlocalita = 0, idimmagine = 0;
+			try {
+				idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+				idlocalita = Integer.parseInt(request.getParameter("idlocalita"));
+				idimmagine = Integer.parseInt(request.getParameter("idimmagine"));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("Home?errore=1");
+				return;
+			}
+			
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			DAOLocalita daolocalita = new DAOLocalita(connection);
 			Campagna campagna = new Campagna();
 			campagna = daocampagna.getCampagnaAvviata(idcampagna);
 			Localita localita = new Localita();
 			localita = daolocalita.getLocalita(idcampagna, idlocalita);
-			System.out.println(campagna.getNome()+localita.getNome()+daocampagna.esisteCampagnaWorker(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso")));
 			if(campagna != null && localita != null && daocampagna.esisteCampagnaWorker(idcampagna, (String)request.getSession().getAttribute("UtenteConnesso"))) {
 				DAOAnnotazione daoannotazione = new DAOAnnotazione(connection);
 				List<Annotazione> listaannotazione = new ArrayList<Annotazione>();
@@ -83,7 +92,6 @@ public class GetAnnotazioniWorker extends HttpServlet {
 				String res1 = new Gson().toJson(listaannotazione);
 				String res2 = new Gson().toJson(daoannotazione.checkAnnotazione((String)request.getSession().getAttribute("UtenteConnesso"),idimmagine));
 				String res = "[" + res1 + "," + res2 +"]";
-				System.out.println(res);
 				PrintWriter out = response.getWriter();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
@@ -101,7 +109,6 @@ public class GetAnnotazioniWorker extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
