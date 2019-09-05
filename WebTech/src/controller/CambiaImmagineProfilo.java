@@ -66,15 +66,25 @@ public class CambiaImmagineProfilo extends HttpServlet {
 		else {
 			String estensione =null;
 			String nome_utente = (String)request.getSession(true).getAttribute("UtenteConnesso");
+			boolean elimina=((String)request.getParameter("elminafoto")).equals("true");
 			DAOUtente utente = new DAOUtente(connection);
 			String tomcatBase = System.getProperty("catalina.base");
 			String path = "/webapps/ImmaginiUtente/";
 			Utente user = utente.getInfo(nome_utente);
+			File saveDir = new File(tomcatBase);
+			if(!saveDir.exists()) {
+				saveDir.mkdirs();
+			}
 			
-				File saveDir = new File(tomcatBase);
-				if(!saveDir.exists()) {
-					saveDir.mkdirs();
+			if(elimina) {
+				File immagine = new File(tomcatBase  + path + user.getImmagine());
+				if(immagine.exists()) {
+					immagine.delete();
 				}
+				utente.aggiornaImmagine(nome_utente, null);
+			}
+			else {
+
 				Part part = request.getPart("nuovaimmagine");
 				
 				File immagine = new File(tomcatBase  + path + user.getImmagine());
@@ -84,9 +94,13 @@ public class CambiaImmagineProfilo extends HttpServlet {
 				if(part != null) {
 				estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
 				part.write(tomcatBase  + path + nome_utente + estensione);
-				getServletContext().getRequestDispatcher("/Profilo").forward(request, response);
+				
 				}
-			utente.aggiornaImmagine(nome_utente, nome_utente + estensione);
-		}	
+			utente.aggiornaImmagine(nome_utente, nome_utente + estensione);} 
+			
+			getServletContext().getRequestDispatcher("/Profilo").forward(request, response);
+		}
+		
+		
 		}
 }

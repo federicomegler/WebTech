@@ -8,8 +8,7 @@ window.onload = function(){
     },false);
 
     document.getElementById("elimina").addEventListener("click",function(){
-        document.getElementById("principale").className = "principaleOff";
-        document.getElementById("alert").className = "alert";
+        document.getElementById("alert").style.display = "block";
     },false);
 
     document.getElementById("modificaemail").addEventListener("click",function(){
@@ -37,23 +36,24 @@ window.onload = function(){
     },false);
     
     document.getElementById("conferma").addEventListener("click",function(){
-    	document.getElementById("principale").className = "";
-        document.getElementById("alert").className = "alertOff";
-        eliminaImmagine();
+        document.getElementById("alert").style.display = "none";
+        document.getElementById("infoelimina").value=true;
+        document.getElementById("formimmagine").submit();
+        
     },false);
     
     document.getElementById("annulla").addEventListener("click",function(){
-    	document.getElementById("principale").className = "";
-        document.getElementById("alert").className = "alertOff";
+        document.getElementById("alert").style.display = "none";
     },false);
     
     document.getElementById("ok").addEventListener("click", function(){
-    	confermaCambioImmagine();
-    	document.getElementById("confermaCambio").className = "confermaCambioOff";
+    	document.getElementById("confermaCambio").style.display = "none";
+    	document.getElementById("infoelimina").value=false;
+    	document.getElementById("formimmagine").submit();
     },false);
     
     document.getElementById("selezionaimmagine").addEventListener("change", function(){
-    	document.getElementById("confermaCambio").className = "confermaCambioOn";
+    	document.getElementById("confermaCambio").style.display = "block";
     },false);
 }
 
@@ -144,15 +144,14 @@ function CambiaImmagine(){
 	document.getElementById("selezionaimmagine").click();
 }
 
-function confermaCambioImmagine(){
-		document.getElementById("formimmagine").submit();
-}
 
 function abilitaModificaEmail(){
 	email = document.getElementById("mail").value;
 	document.getElementById("modificaemail").style.display = "none";
 	document.getElementById("confermaemail").style.display = "block";
 	document.getElementById("annullaemail").style.display = "block";
+	document.getElementById("modmail").style.display = "block";
+	document.getElementById("descrmail").style.display = "none";
 	document.getElementById("mail").disabled = false;
 	email = document.getElementById("mail").value;
 }
@@ -164,6 +163,9 @@ function annullaModificaEmail(){
 	document.getElementById("errore mail").style.display = "none";
 	document.getElementById("mail").disabled = true;
 	document.getElementById("mail").value = email;
+	document.getElementById("descrmail").innerHTML = "Mail: "+email;
+	document.getElementById("modmail").style.display = "none";
+	document.getElementById("descrmail").style.display = "block";
 }
 
 function confermaModificaEmail(){
@@ -206,17 +208,4 @@ function checkEmail(nuovaemail) {
     else{
 		return false;
     }
-}
-
-function eliminaImmagine(){	
-	var x = new XMLHttpRequest();
-	x.onreadystatechange= function (){
-		
-		if(x.readyState==4 && x.status==200){
-			document.getElementById("immprofilo").src="/ImmaginiUtente/default.png";
-			}
-	}
-	x.open("GET", "\CambiaImmagineProfilo",true)    
-	x.send();
-	
 }
