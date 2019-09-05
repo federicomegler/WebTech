@@ -183,6 +183,7 @@ function getAnn(){
 			}
 			else{
 				document.getElementById("formAnnotazione").style.display = "block";
+				document.getElementById("nota").value="";
 			}
 			showAnn(ris[0]);
 		}
