@@ -9,33 +9,32 @@
 <link rel="stylesheet" type="text/css" href="CSS/StatisticheStyle.css">
 <script src="JavaScript/statistiche.js" type="text/javascript" defer></script>
 </head>
-<body>
+<body background="/icone/sfondo.jpg">
 	<div class="topnav">
 		<a style="float: left;" href="Home">HOME</a> <a style="float: left;"
 			href="Profilo">PROFILO</a> <a style="float: right;" href="Logout">LOGOUT</a>
 	</div>
+	<div class="container">
+	<h2>ID Campagna:</h2> <p id="idcampagna">${idcampagna}</p>
 	
-	ID Campagna: <p id="idcampagna">${idcampagna}</p>
-	<p id="nomecampagna">Nome campagna: ${nome}</p>
-	<p id="numerolocalita">Numero totale Località: ${totLocalita}</p>
-	<p id="numeroimmagini">Numero totale Immagini: ${totImmagini}</p>
-	<p id="numeroannotazioni">Numero totale Annotazioni:
-		${totAnnotazioni}</p>
+	<h2>Nome Campagna:</h2><p id="nomecampagna">${nome}</p>
+	<h2>Numero totale Località:</h2><p id="numerolocalita">${totLocalita}</p>
+	<h2>Numero totale Immagine:</h2><p id="numeroimmagini">${totImmagini}</p>
+	<h2>Numero totale Annotazioni:</h2><p id="numeroannotazioni">${totAnnotazioni}</p>
 
-	<p id="mediaImmaginiLoc">Media Immagini per Località:
-		${totImmagini/totLocalita}</p>
-	<p id="mediaAnnotazioniImm">Media Annotazioni per Immagini:
-		${totAnnotazioni/totImmagini}</p>
+	<h2>Media Immagini per Località</h2><p id="mediaImmaginiLoc">${totImmagini/totLocalita}</p>
+	<h2>Media Annotazioni per Immagini</h2><p id="mediaAnnotazioniImm">${totAnnotazioni/totImmagini}</p>
 
 
-	<p id="numeroconflitti">Numero conflitti: ${listaImmagini.size()}</p>
+	<h2>Numero conflitti:</h2><p id="numeroconflitti">${listaImmagini.size()}</p>
 
 	<c:if test="${listaImmagini.size() > 0}">
+	<h3>Immagini con Conflitti:</h3>
 		<div id="elencoImmagini">
 			<c:forEach var="imm" items="${listaImmagini}">
-				<div>
+				<div class="immagini">
 					<img id="${imm.id}" alt="Cliccare per info"
-						src="/ImmaginiCampagna/${imm.id}${imm.formato}">
+						src="/ImmaginiCampagna/${imm.id}${imm.formato}" class="img">
 				</div>
 			</c:forEach>
 		</div>
@@ -48,5 +47,6 @@
 			<div id="annotazioni"></div>
 		</div>
 	</c:if>
+	</div>
 </body>
 </html>

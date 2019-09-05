@@ -51,15 +51,17 @@ public class AvviaCampagna extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
+		}
+		else if((boolean)request.getSession().getAttribute("tipo") == false){
+			response.sendRedirect("Home");
 		}
 		else {
 			int id =Integer.parseInt(request.getParameter("id"));

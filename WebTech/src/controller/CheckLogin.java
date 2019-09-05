@@ -53,7 +53,7 @@ public class CheckLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		response.sendRedirect("Home");
 	}
 
 	/**
@@ -61,6 +61,7 @@ public class CheckLogin extends HttpServlet {
 	 */
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getSession().getAttribute("UtenteConnesso") == null){
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			DAOUtente daologin = new DAOUtente(connection);
@@ -76,5 +77,9 @@ public class CheckLogin extends HttpServlet {
 				request.setAttribute("errore", 1);
 				getServletContext().getRequestDispatcher("/Login").forward(request, response);
 			}
+		}
+		else {
+			response.sendRedirect("Home");
+		}
 	}
 }

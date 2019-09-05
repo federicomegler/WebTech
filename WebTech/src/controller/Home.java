@@ -55,7 +55,12 @@ public class Home extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {
+			boolean errore = false;
+			if(request.getAttribute("errore") != null) {
+				errore = (boolean)request.getAttribute("errore");
+			}
 			request.setAttribute("nomeutente", (String)request.getSession(true).getAttribute("UtenteConnesso"));
+			request.setAttribute("errore", errore);
 			DAOUtente daoutente = new DAOUtente(connection);
 			if(daoutente.isManager((String)request.getSession(true).getAttribute("UtenteConnesso")) == 1 ) {
 				request.getRequestDispatcher("/WEB-INF/HomePage.jsp").forward(request, response);

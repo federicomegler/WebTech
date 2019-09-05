@@ -29,7 +29,6 @@ public class CreaCampagna extends HttpServlet {
      */
     public CreaCampagna() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     public void init() {
@@ -53,8 +52,7 @@ public class CreaCampagna extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request, response);
+		response.sendRedirect("Home");
 	}
 
 	/**
@@ -64,22 +62,29 @@ public class CreaCampagna extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == false) {
+			response.sendRedirect("Home");
+		}
 		else {
 			int id = 0;
 			HttpSession session = request.getSession();
 			String username =(String)session.getAttribute("UtenteConnesso");
 			String nomecampagna = request.getParameter("nome");
 			String committente = request.getParameter("committente");
-			DAOCampagna daocampagna= new DAOCampagna(connection);
-			id = daocampagna.addCampagna(nomecampagna, committente,username);
-			request.setAttribute("idcampagna", id);
-			request.setAttribute("nomecampagna", nomecampagna);
-			request.setAttribute("committente", committente);
-			request.setAttribute("stato","creata");
-			request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
+			if(nomecampagna == null || committente == null) {
+				request.setAttribute("errore", true);
+				response.sendRedirect("Home?errore=1");
+			}
+			else {
+				DAOCampagna daocampagna= new DAOCampagna(connection);
+				id = daocampagna.addCampagna(nomecampagna, committente,username);
+				request.setAttribute("idcampagna", id);
+				request.setAttribute("nomecampagna", nomecampagna);
+				request.setAttribute("committente", committente);
+				request.setAttribute("stato","creata");
+				request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
+			}
+			
 		}
-		
-		
 	}
-
 }

@@ -39,7 +39,6 @@ public class CreaCommento extends HttpServlet {
 	 */
 	public CreaCommento() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void init() {
@@ -62,7 +61,7 @@ public class CreaCommento extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		response.sendRedirect("Home");
 	}
 
 	/**
@@ -71,7 +70,9 @@ public class CreaCommento extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
-
+		}
+		else if((boolean)request.getSession().getAttribute("tipo") == true) {
+			response.sendRedirect("Home");
 		}
 		else {
 			String nota = request.getParameter("nota");

@@ -109,6 +109,11 @@ button, .button{
 	text-align: initial;
 }
 
+h2{
+	color: #669e43;
+	margin-bottom: 0px;
+}
+
 /* Style the topnav links */
 .topnav a {
   float: left;

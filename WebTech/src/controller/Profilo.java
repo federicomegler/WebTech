@@ -53,7 +53,6 @@ public class Profilo extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {
-			response.getWriter().append("Served at: ").append(request.getContextPath());
 			String utente = (String)request.getSession().getAttribute("UtenteConnesso");
 			DAOUtente dati_utente = new DAOUtente(connection);
 			Utente info = dati_utente.getInfo(utente);
