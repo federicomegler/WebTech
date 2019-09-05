@@ -55,9 +55,9 @@ public class Home extends HttpServlet {
 			response.sendRedirect("Login");
 		}
 		else {
-			boolean errore = false;
+			int errore = 0;
 			if(request.getAttribute("errore") != null) {
-				errore = (boolean)request.getAttribute("errore");
+				errore = (int)request.getAttribute("errore");
 			}
 			request.setAttribute("nomeutente", (String)request.getSession(true).getAttribute("UtenteConnesso"));
 			request.setAttribute("errore", errore);

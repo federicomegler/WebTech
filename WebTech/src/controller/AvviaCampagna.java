@@ -68,7 +68,6 @@ public class AvviaCampagna extends HttpServlet {
 			String creatore = (String)request.getSession().getAttribute("UtenteConnesso");
 			DAOCampagna campagna = new DAOCampagna(connection);
 			if(campagna.esisteCampagna(id, creatore)) {
-				System.out.println("sono nella servlet avvia campagna");
 				if(campagna.cambioStato(id, "avviata")) {
 					String res=new Gson().toJson(true);
 					PrintWriter out= response.getWriter();

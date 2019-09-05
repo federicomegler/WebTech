@@ -37,7 +37,7 @@
 	<form id="dett" action="GetDettagliWorker" method="post" style="display: none">
 		<input type="text" id="id" name="idcampagna">
 	</form>
-	<c:if test="${errore == true}">
+	<c:if test="${errore == 1}">
 			<label style="color: red;">Errore nella richiesta</label>
 	</c:if>
 </div>

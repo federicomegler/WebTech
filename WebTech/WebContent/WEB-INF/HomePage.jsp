@@ -67,7 +67,7 @@
 			</form>
 			
 		</div>
-		<c:if test="${errore == true}">
+		<c:if test="${errore == 1}">
 			<label style="color: red;">Errore nella richiesta</label>
 		</c:if>
 	</div>

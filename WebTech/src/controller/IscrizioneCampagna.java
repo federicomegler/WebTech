@@ -50,7 +50,7 @@ public class IscrizioneCampagna extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		response.sendRedirect("Home?errore=1");
 	}
 
 	/**
@@ -60,8 +60,20 @@ public class IscrizioneCampagna extends HttpServlet {
 		if(request.getSession().getAttribute("UtenteConnesso") == null) {
 			response.sendRedirect("Login");
 		}
+		else if((boolean)request.getSession().getAttribute("tipo") == true) {
+			response.sendRedirect("Home?errore=1");
+		}
 		else {
-			int idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+			int idcampagna = 0;
+			try {
+				idcampagna = Integer.parseInt(request.getParameter("idcampagna"));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("Home?errore=1");
+				return;
+			}
+			
 			String user = (String)request.getSession().getAttribute("UtenteConnesso");
 			DAOCampagna daocampagna = new DAOCampagna(connection);
 			Campagna campagna = daocampagna.getCampagnaAvviata(idcampagna);
@@ -71,6 +83,9 @@ public class IscrizioneCampagna extends HttpServlet {
 				daoutente.incrementaEsperienza(user);
 				request.setAttribute("idcampagna", idcampagna);
 				getServletContext().getRequestDispatcher("/GetDettagliWorker").forward(request, response);
+			}
+			else {
+				response.sendRedirect("Home?errore=1");
 			}
 		}
 	}
