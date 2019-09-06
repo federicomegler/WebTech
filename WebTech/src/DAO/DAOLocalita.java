@@ -102,7 +102,7 @@ public class DAOLocalita {
 				"\r\n" + 
 				"            select idcampagna, idlocalita, max(priorita) as pr\r\n" + 
 				"			from webtech.mappacampagna \r\n" + 
-				"            where idcampagna=20 \r\n" + 
+				"            where idcampagna=? \r\n" + 
 				"            group by idcampagna,idlocalita)\r\n" + 
 				"            \r\n" + 
 				"	 as temp\r\n" + 

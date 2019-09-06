@@ -74,7 +74,7 @@ public class DAOAnnotazione {
 	
 	public boolean setColore(int idimmagine,boolean validita) {
 		
-		String query1 = "select * from webtech.annotazioni where idimmagine=? and validita <> ?";
+		String query1 = "select * from webtech.annotazione where idimmagine=? and validita <> ?";
 		String query2 = "update webtech.mappacampagna set colore=?, priorita=? where idimmagine=?";
 		String colore = "green";
 		int priorita = 1;
