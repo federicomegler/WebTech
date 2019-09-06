@@ -99,9 +99,10 @@ public class CambiaImmagineProfilo extends HttpServlet {
 			}
 			else {
 				File immagine = new File(tomcatBase  + path + user.getImmagine());
+				if(!user.getImmagine().equals("default.png")) {
 				if(immagine.exists()) {
 					immagine.delete();
-				}
+				}}
 				if(part != null) {
 				estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
 				part.write(tomcatBase  + path + nome_utente + estensione);
