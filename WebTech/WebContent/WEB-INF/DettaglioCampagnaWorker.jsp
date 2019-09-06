@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Dettaglio Campagna Worker</title>
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon"
 	href="docs/images/favicon.ico">
 <link rel="stylesheet"
@@ -48,8 +49,8 @@
 				<div id="immagini">
 					<img alt="immagine" id="immagine" src="">
 					<p id="datiimmagine"></p>
-					<button id="left">&#10094</button>
-					<button id="right">&#10095</button>
+					<button id="left" class="left">&#10094</button>
+					<button id="right" class="right">&#10095</button>
 				</div>
 
 				<div id="annotazioni"></div>

@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Home Page</title>
 <link rel="stylesheet" type="text/css" href="CSS/HomePageStyle.css">
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <script src="JavaScript/home.js" type="text/javascript" defer></script>
 </head>
 <body background="/icone/sfondo.jpg">

@@ -34,7 +34,10 @@ function Spostapos(pos){
    if(stepcorrente==steps.length){
    document.getElementById("addelement").submit();
    }
-   mostrastep(stepcorrente)
+   else{
+	   mostrastep(stepcorrente)
+	   }
+   
   }
   
 function validateForm() {

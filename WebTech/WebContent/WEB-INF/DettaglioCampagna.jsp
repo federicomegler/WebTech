@@ -7,6 +7,7 @@
 <title>Dettagli Campagna</title>
 <meta charset="ISO-8859-1">
 <meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css"
 	href="CSS/DettagliCampagnaStyle.css">

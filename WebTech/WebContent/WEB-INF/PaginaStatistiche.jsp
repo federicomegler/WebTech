@@ -8,6 +8,8 @@
 <title>Statistiche</title>
 <link rel="stylesheet" type="text/css" href="CSS/StatisticheStyle.css">
 <script src="JavaScript/statistiche.js" type="text/javascript" defer></script>
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+
 </head>
 <body background="/icone/sfondo.jpg">
 	<div class="topnav">

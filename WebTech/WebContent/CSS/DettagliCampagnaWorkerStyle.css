@@ -30,7 +30,7 @@ p{
 	margin-top: 5px;
 }
 
-.button{
+button{
   display: inline-block;  
 	 cursor: pointer; 
 	 top: 50%; 
@@ -150,4 +150,28 @@ h1{
 
 h2{
 	color: green;
+}
+
+
+.left{
+	margin-top:5%;
+	margin-left:43%;
+    padding:0px;
+	text-align:center;
+	font-size:10px;
+    height:30px;
+    width:30px;
+    float: left;   
+}
+
+.right{
+	margin-top:5%;
+	margin-right:43%;
+	padding:0px;
+	text-align:center;
+	font-size:10px;
+    height:30px;
+    width:30px;
+    float: right;
+    
 }

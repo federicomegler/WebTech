@@ -26,13 +26,13 @@ public class DAOUtente {
 			pstate.setString(1, user);
 			ris = pstate.executeQuery();
 			if(ris.next()) {
-				if(ris.getInt("numeroiscrizioni") > 100) {
+				if(ris.getInt("numeroiscrizioni") > 3) {
 					String query2 = "update webtech.utente set esperienza = 'alta' where username = ?";
 					pstate = connection.prepareStatement(query2);
 					pstate.setString(1, user);
 					pstate.executeUpdate();
 				}
-				else if(ris.getInt("numeroiscrizioni") > 50) {
+				else if(ris.getInt("numeroiscrizioni") > 1) {
 					String query2 = "update webtech.utente set esperienza = 'media' where username = ?";
 					pstate = connection.prepareStatement(query2);
 					pstate.setString(1, user);

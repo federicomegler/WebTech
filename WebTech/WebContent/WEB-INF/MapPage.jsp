@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="CSS/MapStyle.css">
 <link rel="shortcut icon" type="image/x-icon"
 	href="docs/images/favicon.ico">
