@@ -89,11 +89,13 @@ public class CambiaImmagineProfilo extends HttpServlet {
 			}
 			
 			if(elimina) {
-				File immagine = new File(tomcatBase  + path + user.getImmagine());
-				if(immagine.exists()) {
-					immagine.delete();
+				if(!user.getImmagine().equals("default.png")) {
+					File immagine = new File(tomcatBase  + path + user.getImmagine());
+					if(immagine.exists()) {
+						immagine.delete();
+					}
+					utente.aggiornaImmagine(nome_utente, "default.png");
 				}
-				utente.aggiornaImmagine(nome_utente, null);
 			}
 			else {
 				File immagine = new File(tomcatBase  + path + user.getImmagine());
@@ -108,7 +110,5 @@ public class CambiaImmagineProfilo extends HttpServlet {
 			utente.aggiornaImmagine(nome_utente, nome_utente + estensione);} 
 			getServletContext().getRequestDispatcher("/Profilo").forward(request, response);
 		}
-		
-		
-		}
+	}
 }

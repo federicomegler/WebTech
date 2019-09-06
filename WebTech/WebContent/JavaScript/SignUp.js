@@ -54,7 +54,7 @@ function esisteMail(email){
 	x.onreadystatechange = function(){
 		if(x.readyState == 4 && x.status == 200){
 			var esito = JSON.parse(x.responseText);
-			if(esito){
+			if(esito || !checkEmail()){
 				document.getElementById("esistemail").style.diplay = "block";
 				document.getElementById("esistemail").src = "/icone/cancel.png";
 			}
