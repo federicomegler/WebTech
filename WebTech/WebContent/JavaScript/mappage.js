@@ -246,7 +246,7 @@ function addMarkers (loc){
 		marker.id=loc[i].ID_localita;
 		marker.nome=loc[i].nome;
 		marker.on('click', onClick_Marker)
-		if(i == 0){
+		if(i == loc.length-1){
 			marker.fire("click");
 		}
 	}
