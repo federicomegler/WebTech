@@ -97,8 +97,18 @@ public class DAOLocalita {
     public List<Localita> getPlaces(int idcampagna){
     	List<Localita> places= new ArrayList<Localita>();
 		String query = "select * from webtech.localita as loc join (\r\n" + 
-				"select idcampagna,idlocalita,colore,max(priorita) from webtech.mappacampagna where idcampagna = ? group by idlocalita\r\n" + 
-				") as mc on loc.id = mc.idlocalita ";
+				"\r\n" + 
+				"     select tempmc.idcampagna, tempmc.idlocalita, tempmc.colore from (\r\n" + 
+				"\r\n" + 
+				"            select idcampagna, idlocalita, max(priorita) as pr\r\n" + 
+				"			from webtech.mappacampagna \r\n" + 
+				"            where idcampagna=20 \r\n" + 
+				"            group by idcampagna,idlocalita)\r\n" + 
+				"            \r\n" + 
+				"	 as temp\r\n" + 
+				"     inner join  webtech.mappacampagna as tempmc\r\n" + 
+				"     on temp.idcampagna = tempmc.idcampagna and temp.idlocalita = tempmc.idlocalita and temp.pr = tempmc.priorita\r\n" + 
+				")  as mc on loc.id = mc.idlocalita ";
 		
 		try {
 			pstate = connection.prepareStatement(query);
