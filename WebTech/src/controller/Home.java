@@ -56,16 +56,16 @@ public class Home extends HttpServlet {
 		}
 		else {
 			int errore = 0;
-			if(request.getAttribute("errore") != null) {
-				errore = (int)request.getAttribute("errore");
+			if(request.getParameter("errore") != null) {
+				errore = Integer.parseInt((String)request.getParameter("errore"));
 			}
-			request.setAttribute("nomeutente", (String)request.getSession(true).getAttribute("UtenteConnesso"));
-			request.setAttribute("errore", errore);
 			DAOUtente daoutente = new DAOUtente(connection);
 			if(daoutente.isManager((String)request.getSession(true).getAttribute("UtenteConnesso")) == 1 ) {
+				request.setAttribute("errore", errore);
 				request.getRequestDispatcher("/WEB-INF/HomePage.jsp").forward(request, response);
 			}
 			else if(daoutente.isManager((String)request.getSession(true).getAttribute("UtenteConnesso")) == 0) {
+				request.setAttribute("errore", errore);
 				request.getRequestDispatcher("/WEB-INF/HomePageWorker.jsp").forward(request, response);
 			}
 			else {

@@ -57,15 +57,20 @@ public class GetDettagli extends HttpServlet {
 			response.sendRedirect("Home");
 		}
 		else {
-			String id = (String)request.getParameter("idcampagna");
-			if(id == null) {
+			int id=0;
+			try {
+				id= Integer.parseInt((String)request.getParameter("idcampagna"));
+				
+			}catch(Exception e){
+				e.printStackTrace();
 				response.sendRedirect("Home?errore=1");
 				return;
 			}
+			
 			request.setAttribute("errore",false);
 			Campagna campagna = new Campagna();
 			DAOCampagna daocampagna = new DAOCampagna(connection);
-			campagna = daocampagna.getCampagna(Integer.parseInt(id), (String)request.getSession().getAttribute("UtenteConnesso"));
+			campagna = daocampagna.getCampagna(id, (String)request.getSession().getAttribute("UtenteConnesso"));
 			if(campagna != null) {
 				request.setAttribute("nomecampagna", campagna.getNome());
 				request.setAttribute("committente", campagna.getCommittente());
