@@ -106,6 +106,7 @@ var bounds = new L.LatLngBounds();
 
 function addMarkers (loc){
 	var maxlat=-360;
+	var ref;
 	for(let i=0; i<loc.length; ++i){
 		var marker;
 		marker = L.marker([loc[i].latitudine,loc[i].longitudine]).addTo(mymap)
@@ -113,13 +114,16 @@ function addMarkers (loc){
 		marker.id=loc[i].ID_localita;
 		marker.nome=loc[i].nome;
 		marker.on('click', onClick_Marker);
-		var coord=marker.getLatLng();
 		if(maxlat<loc[i].latitudine){
-			coord.lat=coord.lat+0.001;
-			maxlat=coord.lat;
+			maxlat=marker.getLatLng().lat;
+			ref=marker.getLatLng().lng
 		}
-		bounds.extend(coord);
+		bounds.extend(marker.getLatLng());
 	}
+	var latlng = new L.latLng();
+	latlng.lat=maxlat+0.01;
+	latlng.lng=ref;
+	bounds.extend(latlng);
 	 mymap.fitBounds(bounds);
 }
 

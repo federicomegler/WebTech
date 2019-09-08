@@ -216,6 +216,7 @@ function onClick_Marker(e) {
 
 function addMarkers (loc){
 	var maxlat=-360;
+	var ref;
 	for(let i=0; i<loc.length; ++i){
 		var marker;
 		marker = L.marker([loc[i].latitudine,loc[i].longitudine]).addTo(mymap)
@@ -224,13 +225,16 @@ function addMarkers (loc){
 		marker.id=loc[i].ID_localita;
 		marker.nome=loc[i].nome;
 		marker.on('click', onClick_Marker)
-		var coord=marker.getLatLng();
 		if(maxlat<loc[i].latitudine){
-			coord.lat=coord.lat+0.001;
-			maxlat=coord.lat;
+			maxlat=marker.getLatLng().lat;
+			ref=marker.getLatLng().lng;
 		}
-		bounds.extend(coord);
-		if(i == loc.length - 1){
+		bounds.extend(marker.getLatLng());
+		if(i == loc.length-1){
+			var latlng = new L.latLng();
+			latlng.lat=maxlat+0.02;
+			latlng.lng=ref;
+			bounds.extend(latlng);
 			marker.fire("click");
 			marker.openPopup();
 		}
