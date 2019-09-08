@@ -146,19 +146,18 @@ public class GestioneDatiWizard extends HttpServlet {
 				File immagine = new File(tomcatBase  + path + Integer.toString(idimm));
 				if(!saveDir.exists()) {
 					saveDir.mkdirs();
-					System.out.println("la directory non esiste");
 				}
 				estensione = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf("."));
 				part.write(tomcatBase + path + idimm + estensione);
-				System.out.println("dispatcher");
 				request.setAttribute("idcampagna",idcamp);
 				request.setAttribute("errore",false);
-				getServletContext().getRequestDispatcher("/GetDettagli").forward(request, response);
+				response.sendRedirect("GetDettagli?idcampagna=" + idcamp);
 
 			}
 			else { 
 				request.setAttribute("errore",true);
-				getServletContext().getRequestDispatcher("/GetDettagli").forward(request, response);}  	 
+				response.sendRedirect("GetDettagli?idcampagna=" + idcamp);
+				}  	 
 		}
 	}
 }

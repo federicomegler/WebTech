@@ -78,11 +78,7 @@ public class CreaCampagna extends HttpServlet {
 			else {
 				DAOCampagna daocampagna= new DAOCampagna(connection);
 				id = daocampagna.addCampagna(nomecampagna, committente,username);
-				request.setAttribute("idcampagna", id);
-				request.setAttribute("nomecampagna", nomecampagna);
-				request.setAttribute("committente", committente);
-				request.setAttribute("stato","creata");
-				request.getRequestDispatcher("/WEB-INF/DettaglioCampagna.jsp").forward(request, response);
+				response.sendRedirect("GetDettagli?idcampagna=" + id);
 			}
 			
 		}

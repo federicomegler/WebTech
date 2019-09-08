@@ -91,7 +91,7 @@ public class Signup extends HttpServlet {
 				utente.setPassword(password1);
 				utente.setManager(true);
 				if(daoutente.aggiungiManager(utente)) {
-					response.sendRedirect(request.getContextPath()+"/Login");
+					response.sendRedirect("Login");
 				}
 				else {
 					request.setAttribute("errore", true);
@@ -106,7 +106,7 @@ public class Signup extends HttpServlet {
 				utente.setManager(false);
 				utente.setEsperienza("bassa");
 				if(daoutente.aggiungiLavoratore(utente)) {
-					response.sendRedirect(request.getContextPath()+"/Login");
+					response.sendRedirect("Login");
 				}
 				else {
 					request.setAttribute("errore", true);
