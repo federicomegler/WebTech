@@ -100,10 +100,12 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 		id: 'mapbox.streets'
 	}).addTo(mymap);
 
+var bounds = new L.LatLngBounds();
 
 
 
 function addMarkers (loc){
+	var maxlat=-360;
 	for(let i=0; i<loc.length; ++i){
 		var marker;
 		marker = L.marker([loc[i].latitudine,loc[i].longitudine]).addTo(mymap)
@@ -111,7 +113,14 @@ function addMarkers (loc){
 		marker.id=loc[i].ID_localita;
 		marker.nome=loc[i].nome;
 		marker.on('click', onClick_Marker);
+		var coord=marker.getLatLng();
+		if(maxlat<loc[i].latitudine){
+			coord.lat=coord.lat+0.001;
+			maxlat=coord.lat;
+		}
+		bounds.extend(coord);
 	}
+	 mymap.fitBounds(bounds);
 }
 
 

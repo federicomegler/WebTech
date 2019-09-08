@@ -53,7 +53,7 @@ var redIcon = L.icon({
 
 
 
-var mymap = L.map('mapid').setView([45.7802507654344,9.199769496808585], 13);
+var mymap = L.map('mapid');
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 	maxZoom: 18,
@@ -162,7 +162,7 @@ function showAnn(listaann){
 	}
 }
 
-
+var bounds = new L.LatLngBounds();
 var popup = L.popup();
 var x
 function onMapout(e){
@@ -227,6 +227,7 @@ function onClick_Marker(e) {
 }
 
 function addMarkers (loc){
+	var maxlat=-360;
 	for(let i=0; i<loc.length; ++i){
 		var marker;
 		switch (loc[i].colore) {
@@ -246,9 +247,16 @@ function addMarkers (loc){
 		marker.id=loc[i].ID_localita;
 		marker.nome=loc[i].nome;
 		marker.on('click', onClick_Marker)
+		var coord=marker.getLatLng();
+		if(maxlat<loc[i].latitudine){
+			coord.lat=coord.lat+0.001;
+			maxlat=coord.lat;
+		}
+		bounds.extend(coord);
 		if(i == loc.length-1){
 			marker.fire("click");
 			marker.openPopup();
 		}
 	}
+	 mymap.fitBounds(bounds);
 }
