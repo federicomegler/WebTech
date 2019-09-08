@@ -82,8 +82,7 @@ public class IscrizioneCampagna extends HttpServlet {
 				daocampagna.addsubscription(idcampagna, user);
 				DAOUtente daoutente = new DAOUtente(connection);
 				daoutente.incrementaEsperienza(user);
-				request.setAttribute("idcampagna", idcampagna);
-				getServletContext().getRequestDispatcher("/GetDettagliWorker").forward(request, response);
+				response.sendRedirect("GetDettagliWorker?idcampagna=" + idcampagna);
 			}
 			else {
 				response.sendRedirect("Home?errore=1");

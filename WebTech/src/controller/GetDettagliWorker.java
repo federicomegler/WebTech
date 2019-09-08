@@ -49,13 +49,6 @@ public class GetDettagliWorker extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.sendRedirect("Home");
-    }
-
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	if(request.getSession().getAttribute("UtenteConnesso") == null) {
     		response.sendRedirect("Login");
     	}
@@ -68,7 +61,7 @@ public class GetDettagliWorker extends HttpServlet {
     			response.sendRedirect("Home?errore=1");
     			return;
     		}
-    		request.setAttribute("errore",false);
+    		request.setAttribute("errore",0);
     		Campagna campagna = null;
     		DAOCampagna daocampagna = new DAOCampagna(connection);
     		campagna = daocampagna.getCampagnaAvviata(Integer.parseInt(id));
@@ -87,9 +80,16 @@ public class GetDettagliWorker extends HttpServlet {
 
     		}
     		else {
-    			request.setAttribute("errore",true);
+    			request.setAttribute("errore",1);
     			request.getRequestDispatcher("/WEB-INF/HomePageWorker.jsp").forward(request, response);
     		}
     	}
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	doGet(request, response);
 	}
 }

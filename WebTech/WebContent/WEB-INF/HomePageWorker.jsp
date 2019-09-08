@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="CSS/HomePageStyle.css">
 <script src="JavaScript/homeWorker.js" type="text/javascript" defer></script>
 </head>
-<body>
+<body background="/icone/sfondo.jpg">
 
   
   
