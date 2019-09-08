@@ -232,15 +232,15 @@ function addMarkers (loc){
 		switch (loc[i].colore) {
 		case "yellow":
 			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: yellowIcon}).addTo(mymap)
-			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
+			.bindPopup("<b>"+loc[i].nome+"</b>"); 
 			break;
 		case "green":
 			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: greenIcon}).addTo(mymap)
-			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup();
+			.bindPopup("<b>"+loc[i].nome+"</b>");
 			break;
 		case "red":
 			marker = L.marker([loc[i].latitudine,loc[i].longitudine], {icon: redIcon}).addTo(mymap)
-			.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
+			.bindPopup("<b>"+loc[i].nome+"</b>"); 
 			break;
 		}
 		marker.id=loc[i].ID_localita;
@@ -248,6 +248,7 @@ function addMarkers (loc){
 		marker.on('click', onClick_Marker)
 		if(i == loc.length-1){
 			marker.fire("click");
+			marker.openPopup();
 		}
 	}
 }

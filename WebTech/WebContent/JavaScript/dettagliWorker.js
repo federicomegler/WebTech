@@ -216,13 +216,14 @@ function addMarkers (loc){
 	for(let i=0; i<loc.length; ++i){
 		var marker;
 		marker = L.marker([loc[i].latitudine,loc[i].longitudine]).addTo(mymap)
-		.bindPopup("<b>"+loc[i].nome+"</b>").openPopup(); 
+		.bindPopup("<b>"+loc[i].nome+"</b>"); 
 
 		marker.id=loc[i].ID_localita;
 		marker.nome=loc[i].nome;
 		marker.on('click', onClick_Marker)
 		if(i == loc.length - 1){
 			marker.fire("click");
+			marker.openPopup();
 		}
 	}
 }
