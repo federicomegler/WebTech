@@ -23,8 +23,9 @@
 <body background="/icone/sfondo.jpg">
 	<div class="topnav">
 			<a style="float: left;" href="GetDettagli?idcampagna=${idcampagna}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-		<a style="float: left;" href="Home">HOME</a> <a style="float: left;"
-			href="Profilo">PROFILO</a> <a style="float: right;" href="Logout">LOGOUT</a>
+		<a style="float: left;" href="Home"><i class="fa fa-home" aria-hidden="true"></i> HOME</a> <a style="float: left;"
+			href="Profilo"><i class="fa fa-user" aria-hidden="true"></i> PROFILO</a> 
+			<a style="float: right;" href="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a>
 			
 	</div>
 	<div class="mappaimmagine">

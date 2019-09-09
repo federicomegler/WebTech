@@ -12,8 +12,8 @@
 <body background="/icone/sfondo.jpg">
 
 	<div class="topnav">
-		<a style="float: left;" href="Profilo">PROFILO</a> <a
-			style="float: right;" href="Logout">LOGOUT</a>
+		<a style="float: left;" href="Profilo"><i class="fa fa-user" aria-hidden="true"></i> PROFILO</a> <a
+			style="float: right;" href="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a>
 	</div>
 	<div class="container">
 		<h1>Home</h1>

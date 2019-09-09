@@ -34,8 +34,8 @@
 	</div>
 
 	<div class="topnav">
-		<a style="float: left;" href="Home">HOME</a> <a style="float: right;"
-			href="Logout">LOGOUT</a>
+		<a style="float: left;" href="Home"><i class="fa fa-home" aria-hidden="true"></i> HOME</a> <a style="float: right;"
+			href="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a>
 	</div>
 
 	<div class="container" id="principale">
