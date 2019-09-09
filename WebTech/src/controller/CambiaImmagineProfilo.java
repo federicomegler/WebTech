@@ -109,7 +109,7 @@ public class CambiaImmagineProfilo extends HttpServlet {
 				
 			}
 			utente.aggiornaImmagine(nome_utente, nome_utente + estensione);} 
-			getServletContext().getRequestDispatcher("/Profilo").forward(request, response);
+			response.sendRedirect("Profilo");
 		}
 	}
 }
