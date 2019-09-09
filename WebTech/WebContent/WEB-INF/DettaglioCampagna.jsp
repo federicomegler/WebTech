@@ -122,7 +122,7 @@
 					<div class="step">
 					
 					<div class="c_input">
-						<input id="i" type="file" oninput="this.className = ''"
+						<input id="i" type="file" accept="image/*" oninput="this.className = ''"
 							name="file">
 					</div>
 						<div class="imagecontainer">

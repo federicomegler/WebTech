@@ -50,7 +50,7 @@
 			</div>
 			<form action="CambiaImmagineProfilo" method="post"
 				enctype="multipart/form-data" id="formimmagine">
-				<input id="selezionaimmagine" type="file" name="nuovaimmagine"
+				<input id="selezionaimmagine" type="file" accept="image/*" name="nuovaimmagine"
 					style="display: none"> <input id="infoelimina" type="text"
 					name="eliminafoto" style="display: none">
 			</form>
