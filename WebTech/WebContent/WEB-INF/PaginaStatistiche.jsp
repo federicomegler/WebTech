@@ -13,7 +13,7 @@
 </head>
 <body background="/icone/sfondo.jpg">
 	<div class="topnav">
-			<a style="float: left;" href="GetDettagli?idcampagna=${idcampagna}">&#8592</a>
+			<a style="float: left;" href="GetDettagli?idcampagna=${idcampagna}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 		<a style="float: left;" href="Home">HOME</a> <a style="float: left;"
 			href="Profilo">PROFILO</a> <a style="float: right;" href="Logout">LOGOUT</a>
 	</div>

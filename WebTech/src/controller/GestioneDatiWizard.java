@@ -102,7 +102,8 @@ public class GestioneDatiWizard extends HttpServlet {
 				String regione = (String)request.getParameter("regione");
 				String provenienza = (String)request.getParameter("provenienza");
 				String data =((String)request.getParameter("datarecupero"));
-				if(localita == null || comune == null || stato == null || regione == null || provenienza == null || data == null) {
+				String risoluzione = (String)request.getParameter("risoluzione");
+				if(localita == null || comune == null || stato == null || regione == null || provenienza == null || data == null || risoluzione == null) {
 					response.sendRedirect("Home?errore=1");
 					return;
 				}
@@ -119,7 +120,6 @@ public class GestioneDatiWizard extends HttpServlet {
 
 
 				Date date = Date.valueOf(data);
-				String risoluzione = (String)request.getParameter("risoluzione");
 
 				idloc= dloc.addLocalita( lat, lon, localita, comune, regione, stato);
 
