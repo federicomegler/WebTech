@@ -46,6 +46,7 @@ function showImm(n) {
 	if(listaImm){
 	if(listaImm.length > 0){
 
+		document.getElementById("immagine").style.display= "block";
 		if (currentimm+n > listaImm.length-1) {currentimm = 0} 
 		else if (currentimm+n < 0) {currentimm = listaImm.length-1} 
 		else {

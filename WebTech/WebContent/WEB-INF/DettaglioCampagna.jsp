@@ -51,7 +51,7 @@
 		</div>
 				<label id="errore" style="color:red;display:none;">Errore caricamento immagini. Riprova!</label>
 		<div id="immagini">
-			<img alt="immagine" id="immagine" src="">
+			<img alt="immagine" id="immagine" style="display: none;" src="">
 			<p id="datiimmagine"></p>
 		</div>
 					<button id="left">&#10094</button>
