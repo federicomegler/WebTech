@@ -22,7 +22,6 @@
 	crossorigin="anonymous"></script>
 </head>
 <body background="/icone/sfondo.jpg">
-
 	<div class="topnav">
 		<a style="float: left;" href="Home"><i class="fa fa-home" aria-hidden="true"></i> HOME</a> <a style="float: left;"
 			href="Profilo"><i class="fa fa-user" aria-hidden="true"></i> PROFILO</a> 
@@ -30,6 +29,8 @@
 	</div>
 
 	<div class="container">
+	<div class="top">
+	
 		<div class="details">
 			<h2>ID Campagna</h2>
 			<p id="idcampagna">${idcampagna}</p>
@@ -40,6 +41,25 @@
 			<h2>Stato</h2>
 			<p id="stato">${stato}</p>
 		</div>
+		<div class="details">
+		<h2>Località</h2>
+				<div id="containercreate">
+			<button id="nomelocalita" class="elementlist">Lista localita
+				vuota</button>
+			<button id="sL" class="left">&#10094;</button>
+			<button id="dL" class="right">&#10095;</button>
+		</div>
+				<label id="errore" style="color:red;display:none;">Errore caricamento immagini. Riprova!</label>
+		<div id="immagini">
+			<img alt="immagine" id="immagine" src="">
+			<p id="datiimmagine"></p>
+		</div>
+					<button id="left">&#10094</button>
+				
+					<button id="right">&#10095</button>
+		</div>
+	</div>
+		<br>
 		<c:if test="${stato=='avviata' || stato == 'chiusa'}">
 			<form action="GetMap" method="post" id="VisualizzaMappa">
 
@@ -162,5 +182,6 @@
 			</div>
 		</c:if>
 	</div>
+<script src="JavaScript/dettagli.js" type="text/javascript" defer></script>
 </body>
 </html>
