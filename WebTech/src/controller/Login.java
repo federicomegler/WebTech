@@ -25,7 +25,13 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/LoginPage.jsp").forward(request, response);
+		if(request.getSession().getAttribute("UtenteConnesso") == null) {
+			request.getRequestDispatcher("/WEB-INF/LoginPage.jsp").forward(request, response);
+			}
+		else {
+			response.sendRedirect("Home");
+		}
+
 	}
 
 	/**
