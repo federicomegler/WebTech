@@ -152,7 +152,10 @@ function nuovaAnnotazione(){
 		if(x.readyState==4 && x.status==200){
 			esito = JSON.parse(x.responseText);
 			if(!esito){
-				document.getElementById("errore").style.diplay = "block";
+				document.getElementById("errore").style.display = "block";
+			}
+			else{
+				document.getElementById("errore").style.display = "none";
 			}
 			getAnn();
 		}

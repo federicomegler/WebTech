@@ -66,6 +66,7 @@
 					<textarea maxlength="256" id="nota" draggable="false" placeholder="inserisci un commento"></textarea>
 					<br><button id="invia" class="button">Invia</button>
 				</div>
+				<label id="errore" style="display: none; color: red;">Impossibile inviare il commento</label>	
 			</div>
 		</c:if>
 		<c:if test="${iscritto == false}">
