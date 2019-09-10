@@ -7,8 +7,6 @@
 <meta charset="UTF-8">
 <title>Dettaglio Campagna Worker</title>
 <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
-<link rel="shortcut icon" type="image/x-icon"
-	href="docs/images/favicon.ico">
 <link rel="stylesheet"
 	href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
 	integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
