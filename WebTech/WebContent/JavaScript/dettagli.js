@@ -74,6 +74,9 @@ function showLoc(n) {
 }
 
 function getImm (){
+	
+	if(listaloc){
+		if(listaloc.length>0){
 	var x = new XMLHttpRequest();
 	x.onreadystatechange= function (){
 
@@ -93,5 +96,6 @@ function getImm (){
 	}
 	x.open("GET", "\GetDatiImmagine?idcampagna=" + document.getElementById("idcampagna").innerHTML+"&idlocalita="+listaloc[currentloc].ID_localita ,true); 
 	x.send();
-	
+		}
+	}
 }

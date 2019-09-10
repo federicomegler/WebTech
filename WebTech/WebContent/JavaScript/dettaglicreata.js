@@ -115,6 +115,9 @@ var bounds = new L.LatLngBounds();
 
 
 function addMarkers (loc){
+	
+	if(loc){
+		if(loc.lenght>0){
 	var maxlat=-360;
 	var ref;
 	for(let i=0; i<loc.length; ++i){
@@ -135,6 +138,7 @@ function addMarkers (loc){
 	latlng.lng=ref;
 	bounds.extend(latlng);
 	mymap.fitBounds(bounds);
+}}
 }
 
 
