@@ -6,14 +6,10 @@ margin:0;
 padding:0;
 height:100%;
 width:100%;
+font-family: 'Lobster', cursive;
+background-color:#f6f0ce;
 }
 
-
-body{
-   background-size: cover;
-   font-family: 'Lobster', cursive;
-    background-color:#f6f0ce;
-}
 
 
 .container{
