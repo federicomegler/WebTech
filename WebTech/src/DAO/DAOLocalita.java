@@ -56,7 +56,6 @@ public class DAOLocalita {
     	Localita loc = new Localita(); 
         loc=getLocalita (-1 , nome, comune, regione, stato);          
     	if(loc!=null) {
-    		System.out.println("localita gia esistente");
     		return loc.getID_localita();
     		}
     	try {

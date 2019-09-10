@@ -117,7 +117,11 @@ public class GestioneDatiWizard extends HttpServlet {
 					response.sendRedirect("Home?errore=1");
 					return;
 				}
-
+				
+				if(Math.abs(lat)>90 || Math.abs(lon)>180){
+					response.sendRedirect("Home?errore=1");
+					return;
+				}
 
 				Date date = Date.valueOf(data);
 

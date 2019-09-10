@@ -103,7 +103,9 @@ var loadFile= function (){
 var mymap = L.map('mapid').setView([45.7802507654344,9.199769496808585], 15);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+	noWrap: true,
 	maxZoom: 18,
+	minZoom:1,
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
 	'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
 	'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -117,7 +119,7 @@ var bounds = new L.LatLngBounds();
 function addMarkers (loc){
 	
 	if(loc){
-		if(loc.lenght>0){
+		if(loc.length>0){
 	var maxlat=-360;
 	var ref;
 	for(let i=0; i<loc.length; ++i){
