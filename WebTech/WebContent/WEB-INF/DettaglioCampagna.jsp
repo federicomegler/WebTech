@@ -160,8 +160,11 @@
 								name="datarecupero">
 						</p>
 						<p>
-							<input type="text" id="risoluzione" placeholder="Risoluzione"
-								name="risoluzione">
+							<select id="risoluzione" name="risoluzione" form="addelement">
+								<option value="alta" selected>alta</option>
+								<option value="media">media</option>
+								<option value="bassa">bassa</option>
+								</select>
 						</p>
 					</div>	
 					</div>

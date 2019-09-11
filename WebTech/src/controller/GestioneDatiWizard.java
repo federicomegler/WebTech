@@ -122,6 +122,11 @@ public class GestioneDatiWizard extends HttpServlet {
 					response.sendRedirect("Home?errore=1");
 					return;
 				}
+				
+				if(!risoluzione.equals("alta") && !risoluzione.equals("media") && !risoluzione.equals("bassa")) {
+					response.sendRedirect("Home?errore=1");
+					return;
+				}
 
 				Date date = Date.valueOf(data);
 
